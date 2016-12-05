@@ -1,0 +1,19 @@
+//noinspection GrUnresolvedAccess
+apply plugin: 'java'
+
+targetCompatibility= 1.7
+sourceCompatibility= 1.7
+
+version = rootProject.ext.version
+
+//noinspection GroovyAssignabilityCheck
+jar {
+    manifest {
+    }
+}
+
+//noinspection GroovyAssignabilityCheck
+dependencies {
+    testCompile 'junit:junit:4.12'
+    compile 'net.iharder:base64:2.3.8'
+}

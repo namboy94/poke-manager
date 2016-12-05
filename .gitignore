@@ -1,3 +1,7 @@
 .idea/
 pokemon-tracker.iml
 local.properties
+.gradle/
+.gradle
+build/
+build
