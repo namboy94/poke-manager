@@ -1,10 +1,8 @@
 package net.namibsun.pokemontracker.lib.models;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import net.namibsun.pokemontracker.lib.models.pokemonparts.Name;
-
 import java.io.IOException;
+import net.namibsun.pokemontracker.lib.serebii.SerebiiParser;
+import net.namibsun.pokemontracker.lib.models.pokemonparts.Name;
 
 /**
  * Class that models a Generic Pokemon of a specific species
@@ -26,23 +24,19 @@ public class GenericPokemon {
      * @param pokedexNumber: The national Pokedex Number to identify the Pokemon
      */
     public GenericPokemon(int pokedexNumber) {
+
         this.pokedexNumber = pokedexNumber;
 
-        Document serebiiPage;
         try {
-            serebiiPage = Jsoup.connect("http://www.serebii.net/pokedex-sm/" + pokedexNumber + "722.shtml").get();
-            this.getOnlineInfo(serebiiPage);
+            SerebiiParser parser = new SerebiiParser(pokedexNumber);
+            this.getOnlineInfo(parser);
         } catch (IOException e) {
-            serebiiPage = null;
+            System.out.println("Null");
         }
     }
 
-    /**
-     * Fetches the online information for the Pokemon
-     * @param serebiiPage: The serebii page document
-     */
-    private void getOnlineInfo(Document serebiiPage) {
-        this.name = Name.fromSerebiiPage(serebiiPage);
+    private void getOnlineInfo(SerebiiParser parser) {
+        this.name = Name.fromSerebiiPage(parser);
     }
 
 }
