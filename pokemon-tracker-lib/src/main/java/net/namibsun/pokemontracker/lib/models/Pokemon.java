@@ -1,7 +1,7 @@
 package net.namibsun.pokemontracker.lib.models;
 
 public class Pokemon {
-
+/*
     private enum Pokerus {
         HAD_POKERUS, HAS_POKERUS, NO_POKERUS
     }
@@ -50,6 +50,6 @@ public class Pokemon {
     private String Pokeball;
     private String heldItem;
     private String additionalInformation;
-
+*/
 
 }

@@ -51,7 +51,7 @@ public class SerebiiParser {
      */
     private void fetchPage(int pokedexNumber) throws IOException {
 
-        if (pokedexNumber < SerebiiConstants.MAX_POKEMON_NUMBER) {
+        if (pokedexNumber > SerebiiConstants.MAX_POKEMON_NUMBER) {
             throw new IOException("Maximum number of Pokemon exceeded");
         }
 
@@ -72,11 +72,11 @@ public class SerebiiParser {
         HashMap<String, String> names = new HashMap<>();
         String dexEntry = this.serebiiPage.select("table.dextable").get(0).text();
 
-        names.put(SerebiiConstants.ENGLISH_KEY, dexEntry.split("Type")[1].split("Japan:")[0]);
-        names.put(SerebiiConstants.JAPANESE_KEY, dexEntry.split("Japan: ")[1].split("French:")[0]);
-        names.put(SerebiiConstants.GERMAN_KEY, dexEntry.split("German: ")[1].split("Korean:")[0]);
-        names.put(SerebiiConstants.FRENCH_KEY, dexEntry.split("French: ")[1].split("German:")[0]);
-        names.put(SerebiiConstants.KOREAN_KEY, dexEntry.split("Korean: ")[1].split("National:")[0]);
+        names.put(SerebiiConstants.ENGLISH_KEY, dexEntry.split("Type")[1].split("Japan:")[0].trim());
+        names.put(SerebiiConstants.JAPANESE_KEY, dexEntry.split("Japan: ")[1].split("French:")[0].trim());
+        names.put(SerebiiConstants.GERMAN_KEY, dexEntry.split("German: ")[1].split("Korean:")[0].trim());
+        names.put(SerebiiConstants.FRENCH_KEY, dexEntry.split("French: ")[1].split("German:")[0].trim());
+        names.put(SerebiiConstants.KOREAN_KEY, dexEntry.split("Korean: ")[1].split("National:")[0].trim());
 
         return names;
     }
