@@ -20,10 +20,4 @@ public class Main {
         conn.close();
 
     }
-
-
-
-
-
-
 }
