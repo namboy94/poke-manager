@@ -2,10 +2,22 @@ package net.namibsun.pokemontracker.lib.models;
 
 public class Pokemon {
 
-    private int pokedexNumber;
-    private String name;
+    private enum Pokerus {
+        HAD_POKERUS, HAS_POKERUS, NO_POKERUS
+    }
 
-    private String nickName;
+    private int pokedexNumber;
+    private String englishName;
+    private String frenchName;
+    private String germanName;
+    private String japaneseName;
+    private String koreanName;
+
+
+    private float maleRatio;
+    private float femaleRatio;
+
+    private String nickname;
     private String oiginalTrainerName;
     private int originalTrainerId;
     private String originGame;
@@ -18,11 +30,22 @@ public class Pokemon {
     private String gender;
     private String nature;
     private String ability;
-    private boolean hasHiddenAbility;
+    private boolean abilityIsHiddenAbility;
+
+    private Pokerus pokerusStatus;
 
     private IVSpread ivSpread;
     private EVSpread evSpread;
-    private MoveSet moveSet;
+
+    private String moveOne;
+    private String moveTwo;
+    private String moveThree;
+    private String moveFour;
+
+    private String moveOneIsEggMove;
+    private String moveTwoIsEggMove;
+    private boolean moveThreeIsEggMove;
+    private boolean moveFourIsEggMove;
 
     private String Pokeball;
     private String heldItem;
