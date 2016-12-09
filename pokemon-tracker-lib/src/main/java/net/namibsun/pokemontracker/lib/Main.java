@@ -11,10 +11,7 @@ public class Main {
     public static void main(String[] args) throws SQLException, IOException {
 
         long timer = System.currentTimeMillis();
-        System.out.println(System.currentTimeMillis() - timer);
         new GenericPokemon(1);
-        System.out.println(System.currentTimeMillis() - timer);
-        new SerebiiParser("Bulbasaur").parsePokemonName();
         System.out.println(System.currentTimeMillis() - timer);
 
     }

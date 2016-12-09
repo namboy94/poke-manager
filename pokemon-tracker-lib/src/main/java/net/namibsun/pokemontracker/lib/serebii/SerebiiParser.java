@@ -12,7 +12,15 @@ import org.jsoup.select.Elements;
  */
 public class SerebiiParser {
 
+    /**
+     * The JSoup document of the Serebii Page
+     */
     private Document serebiiPage;
+
+    /**
+     * The Pokemon's URL on serebii.net
+     */
+    private String url;
 
     /**
      * Generates a parser from a pokedex number
@@ -37,11 +45,14 @@ public class SerebiiParser {
                 String pokedexNumber = entry.text().split(" ")[0];
                 try {
                     this.fetchPage(Integer.parseInt(pokedexNumber));
-                    break;
+                    return;
                 } catch (NumberFormatException ignored) {
                 }
             }
         }
+
+        throw new IOException("Pokemon not found");
+
     }
 
     /**
@@ -59,8 +70,15 @@ public class SerebiiParser {
         while (formattedPokedexNumber.length() < SerebiiConstants.POKEDEX_NUMBER_LENGTH) {
             formattedPokedexNumber = "0" + formattedPokedexNumber;
         }
-        String url = SerebiiConstants.POKEDEX_ROOT_URL + formattedPokedexNumber + ".shtml";
-        this.serebiiPage = Jsoup.connect(url).get();
+        this.url = SerebiiConstants.POKEDEX_ROOT_URL + formattedPokedexNumber + ".shtml";
+        this.serebiiPage = Jsoup.connect(this.url).get();
+    }
+
+    /**
+     * @return The serebii.net URL used by this parser
+     */
+    public String getUrl() {
+        return this.url;
     }
 
     /**
@@ -79,6 +97,27 @@ public class SerebiiParser {
         names.put(SerebiiConstants.KOREAN_KEY, dexEntry.split("Korean: ")[1].split("National:")[0].trim());
 
         return names;
+    }
+
+    /**
+     * Parses the Gender of the Pokemon.
+     * @return an array of two double values, representing the male and female ratio respectively.
+     *         If the Pokemon is neutrally gendered, null is returned.
+     */
+    public double[] parseGenderRatio() {
+        String dexEntry = this.serebiiPage.select("table.dextable").get(0).text();
+
+        if (dexEntry.contains("is Genderless")) {
+            return null;
+        }
+
+        String maleRatio = dexEntry.split("Male ♂: ")[1].split("%")[0].trim();
+        String femaleRatio = dexEntry.split("Female ♀: ")[1].split("%")[0].trim();
+
+        return new double[] {
+                Double.parseDouble(maleRatio),
+                Double.parseDouble(femaleRatio)
+        };
     }
 
 }
