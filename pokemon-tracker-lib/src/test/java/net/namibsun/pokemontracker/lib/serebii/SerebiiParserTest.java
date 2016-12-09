@@ -18,14 +18,26 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.serebii;
 
 import org.junit.Test;
+import java.util.HashMap;
 import java.io.IOException;
+import org.junit.BeforeClass;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
-import net.namibsun.pokemontracker.lib.serebii.SerebiiParser;
-import net.namibsun.pokemontracker.lib.serebii.SerebiiConstants;
 
 public class SerebiiParserTest {
+    
+    private static SerebiiParser bulbasaurParser;
+    private static SerebiiParser charmanderParser;
+    private static SerebiiParser magnemiteParser;
+    
+    @BeforeClass
+    public static void setupClass() throws IOException {
+        bulbasaurParser = new SerebiiParser("Bulbasaur");
+        charmanderParser = new SerebiiParser("Charmander");
+        magnemiteParser = new SerebiiParser("Magnemite");
+
+    }
+    
 
     @Test
     public void testParserInitialization() throws IOException {
@@ -55,6 +67,43 @@ public class SerebiiParserTest {
         } catch (IOException e) {
             assertEquals("Pokemon not found", e.getMessage());
         }
+    }
+    
+    @Test
+    public void testParsingPokemonName() {
+        HashMap<String, String> names = bulbasaurParser.parsePokemonName();
+        assertEquals("Bulbasaur", names.get(SerebiiConstants.ENGLISH_KEY));
+        assertEquals("Bisasam", names.get(SerebiiConstants.GERMAN_KEY));
+        assertEquals("Bulbizarre", names.get(SerebiiConstants.FRENCH_KEY));
+        assertEquals("Fushigidane フシギダネ", names.get(SerebiiConstants.JAPANESE_KEY));
+        assertEquals("이상해씨", names.get(SerebiiConstants.KOREAN_KEY));
+    }
+
+    @Test
+    public void testParsingPokemonGenderRatioForPokemonWithGender() {
+        double[] bulbasaurRatio = bulbasaurParser.parseGenderRatio();
+        assertEquals(87.5, bulbasaurRatio[0], 0.0);
+        assertEquals(12.5, bulbasaurRatio[1], 0.0);
+    }
+
+    @Test
+    public void testParsingPokemonGenderRatioForPokemonWithNoGender() {
+        assertEquals(null, magnemiteParser.parseGenderRatio());
+    }
+
+    @Test
+    public void testParsingPokemonTypesMonoType() {
+        String[] types = charmanderParser.parseTypes();
+        assertEquals(1, types.length);
+        assertEquals("FIRE", types[0]);
+    }
+
+    @Test
+    public void testParsingPokemonTypesDualType() {
+        String[] types = bulbasaurParser.parseTypes();
+        assertEquals(2, types.length);
+        assertEquals("GRASS", types[0]);
+        assertEquals("POISON", types[1]);
     }
 
 }

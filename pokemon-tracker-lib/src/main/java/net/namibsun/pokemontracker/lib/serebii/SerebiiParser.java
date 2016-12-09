@@ -120,4 +120,25 @@ public class SerebiiParser {
         };
     }
 
+    /**
+     * Parses the types of a Pokemon
+     * @return an array of types for the Pokemon, as capitalized Strings
+     */
+    public String[] parseTypes() {
+        Element typeTab = this.serebiiPage.select("table.tooltab").get(1);
+        Elements types = typeTab.select("a");
+
+        if (types.size() == 1) {
+            return new String[]{
+                    types.get(0).toString().split("/")[2].split(".shtml")[0].toUpperCase()
+            };
+        }
+        else {
+            return new String[]{
+                    types.get(0).toString().split("/")[2].split(".shtml")[0].toUpperCase(),
+                    types.get(1).toString().split("/")[2].split(".shtml")[0].toUpperCase()
+            };
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package net.namibsun.pokemontracker.lib.models;
 import java.io.IOException;
 
 import net.namibsun.pokemontracker.lib.models.pokemonparts.GenderRatio;
+import net.namibsun.pokemontracker.lib.models.pokemonparts.Type;
 import net.namibsun.pokemontracker.lib.serebii.SerebiiParser;
 import net.namibsun.pokemontracker.lib.models.pokemonparts.Name;
 
@@ -27,6 +28,11 @@ public class GenericPokemon {
     private GenderRatio genderRatio;
 
     /**
+     * The typing of this Pokemon
+     */
+    private Type type;
+
+    /**
      * Creates a new Pokemon
      * @param pokedexNumber: The national Pokedex Number to identify the Pokemon
      */
@@ -38,14 +44,14 @@ public class GenericPokemon {
             SerebiiParser parser = new SerebiiParser(pokedexNumber);
             this.getOnlineInfo(parser);
         } catch (IOException e) {
-            System.out.println("Null");
+            System.out.println("Null - TODO");
         }
     }
 
     private void getOnlineInfo(SerebiiParser parser) {
         this.name = Name.fromSerebiiPage(parser);
         this.genderRatio = GenderRatio.fromSerebiiPage(parser);
-        System.out.println(this.genderRatio.getMaleRatio());
+        this.type = Type.fromSerebiiPage(parser);
     }
 
 }

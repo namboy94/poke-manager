@@ -3,6 +3,13 @@ package net.namibsun.pokemontracker.lib.serebii;
 
 public class SerebiiConstants {
 
+    public enum PokemonType {
+        NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE,
+        FIGHTING, POISON, GROUND, FLYING, PSYCHIC, BUG,
+        ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
+    }
+
+
     public static final int MAX_POKEMON_NUMBER = 802;
 
     public static final int POKEDEX_NUMBER_LENGTH = 3;
