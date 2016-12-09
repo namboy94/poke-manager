@@ -23,6 +23,12 @@ public class SerebiiParser {
     private String url;
 
     /**
+     * Elements used by multiple parser methods
+     */
+    private Elements dexTables;
+    private Elements toolTabs;
+
+    /**
      * Generates a parser from a pokedex number
      * @param pokedexNumber: The pokedex number to use
      * @throws IOException   If there was a connection error
@@ -72,6 +78,8 @@ public class SerebiiParser {
         }
         this.url = SerebiiConstants.POKEDEX_ROOT_URL + formattedPokedexNumber + ".shtml";
         this.serebiiPage = Jsoup.connect(this.url).get();
+        this.dexTables = this.serebiiPage.select("table.dextable");
+        this.toolTabs = this.serebiiPage.select("table.tooltab");
     }
 
     /**
@@ -88,7 +96,7 @@ public class SerebiiParser {
     public HashMap<String, String> parsePokemonName(){
 
         HashMap<String, String> names = new HashMap<>();
-        String dexEntry = this.serebiiPage.select("table.dextable").get(0).text();
+        String dexEntry = this.dexTables.get(0).text();
 
         names.put(SerebiiConstants.ENGLISH_KEY, dexEntry.split("Type")[1].split("Japan:")[0].trim());
         names.put(SerebiiConstants.JAPANESE_KEY, dexEntry.split("Japan: ")[1].split("French:")[0].trim());
@@ -105,7 +113,7 @@ public class SerebiiParser {
      *         If the Pokemon is neutrally gendered, null is returned.
      */
     public double[] parseGenderRatio() {
-        String dexEntry = this.serebiiPage.select("table.dextable").get(0).text();
+        String dexEntry = this.dexTables.get(0).text();
 
         if (dexEntry.contains("is Genderless")) {
             return null;
@@ -125,7 +133,7 @@ public class SerebiiParser {
      * @return an array of types for the Pokemon, as capitalized Strings
      */
     public String[] parseTypes() {
-        Element typeTab = this.serebiiPage.select("table.tooltab").get(1);
+        Element typeTab = this.toolTabs.get(1);
         Elements types = typeTab.select("a");
 
         if (types.size() == 1) {
@@ -139,6 +147,47 @@ public class SerebiiParser {
                     types.get(1).toString().split("/")[2].split(".shtml")[0].toUpperCase()
             };
         }
+    }
+
+    /**
+     * Parse the weight of the Pokemon
+     * @return an array of doubles, with the first element being in kg, the second in lbs
+     */
+    public double[] parseWeight() {
+        String info = this.toolTabs.get(3).select("tr").get(1).text();
+        String metricWeight = info.split("kg")[0].split(" ")[3].trim();
+        String imperialWeight = info.split("lbs")[0].split(" ")[2].trim();
+
+        return new double[]{
+                Double.parseDouble(metricWeight),
+                Double.parseDouble(imperialWeight)
+        };
+    }
+
+    /**
+     * Parses the height of the Pokemon
+     * @return an array of doubles, with the first element being in m, the second in feet('), inches(")
+     */
+    public double[] parseHeight() {
+
+        String info = this.toolTabs.get(3).select("tr").get(1).text();
+        String metricHeight = info.split("m")[0].split(" ")[1].trim();
+        String imperialFeet = info.split("\u0092")[0];
+        String imperialInches = info.split("\u0092")[1].split("\u0094")[0];
+        String imperialHeight = imperialFeet + "." + imperialInches;
+
+        return new double[]{
+                Double.parseDouble(metricHeight),
+                Double.parseDouble(imperialHeight)
+        };
+    }
+
+    /**
+     * Parses the species classification of the Pokemon
+     * @return the classification of the pokemon
+     */
+    public String parseClassification() {
+        return this.toolTabs.get(2).select("tr").get(1).text();
     }
 
 }

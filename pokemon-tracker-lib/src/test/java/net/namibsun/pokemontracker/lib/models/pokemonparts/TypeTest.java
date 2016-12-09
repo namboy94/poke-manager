@@ -1,12 +1,12 @@
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
-import net.namibsun.pokemontracker.lib.serebii.SerebiiConstants;
-import net.namibsun.pokemontracker.lib.serebii.SerebiiParser;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import net.namibsun.pokemontracker.lib.serebii.SerebiiParser;
+import net.namibsun.pokemontracker.lib.serebii.SerebiiConstants;
 
 
 public class TypeTest {

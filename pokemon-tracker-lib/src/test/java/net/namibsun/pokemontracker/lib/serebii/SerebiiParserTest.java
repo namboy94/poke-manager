@@ -106,4 +106,24 @@ public class SerebiiParserTest {
         assertEquals("POISON", types[1]);
     }
 
+    @Test
+    public void testParsingWeight() {
+        double[] results = bulbasaurParser.parseWeight();
+        assertEquals(results[0], 6.9, 0.0);
+        assertEquals(results[1], 15.2, 0.0);
+    }
+
+    @Test
+    public void testParsingHeight() {
+        double[] results = bulbasaurParser.parseHeight();
+        assertEquals(results[0], 0.7, 0.0);
+        assertEquals(results[1], 2.04, 0.0);
+    }
+
+    @Test
+    public void testParsingClassification() {
+        String classification = bulbasaurParser.parseClassification();
+        assertEquals("Seed Pokémon", classification);
+    }
+
 }

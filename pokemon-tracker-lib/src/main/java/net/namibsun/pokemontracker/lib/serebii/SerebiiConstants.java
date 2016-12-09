@@ -3,6 +3,10 @@ package net.namibsun.pokemontracker.lib.serebii;
 
 public class SerebiiConstants {
 
+    public enum StatType {
+        HP, ATK, DEF, SATK, SDEF, SPD
+    }
+
     public enum PokemonType {
         NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE,
         FIGHTING, POISON, GROUND, FLYING, PSYCHIC, BUG,
