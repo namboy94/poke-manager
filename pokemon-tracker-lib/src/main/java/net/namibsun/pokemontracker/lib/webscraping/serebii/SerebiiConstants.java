@@ -15,19 +15,15 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib;
+package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
 
-public class Main {
+/**
+ * Constants used by the Serebii Parser which may change in the future
+ */
+public class SerebiiConstants {
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static final int POKEDEX_NUMBER_LENGTH = 3;
+    public static final String POKEDEX_ROOT_URL = "http://www.serebii.net/pokedex-sm/";
 
-        long timer = System.currentTimeMillis();
-        new PokemonSpecies(1);
-        System.out.println(System.currentTimeMillis() - timer);
-
-    }
 }

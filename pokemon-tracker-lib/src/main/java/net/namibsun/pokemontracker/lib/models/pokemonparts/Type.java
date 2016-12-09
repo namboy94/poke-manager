@@ -1,7 +1,24 @@
+/*
+This file is part of pokemon-tracker.
+
+    pokemon-tracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    pokemon-tracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
-import net.namibsun.pokemontracker.lib.serebii.SerebiiConstants;
-import net.namibsun.pokemontracker.lib.serebii.SerebiiParser;
+import net.namibsun.pokemontracker.lib.models.enums.PokemonTypes;
+import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 
 /**
  * Class that models the type of a Pokemon
@@ -11,18 +28,18 @@ public class Type {
     /**
      * The Pokemon's primary type
      */
-    private SerebiiConstants.PokemonType primaryType;
+    private PokemonTypes primaryType;
 
     /**
      * The Pokemon's secondary type
      */
-    private SerebiiConstants.PokemonType secondaryType;
+    private PokemonTypes secondaryType;
 
     /**
      * Single-type Constructor directly from PokemonType enum
      * @param primaryType: The primary Pokemon type, as a PokemonType enum
      */
-    public Type(SerebiiConstants.PokemonType primaryType) {
+    public Type(PokemonTypes primaryType) {
         this(primaryType, null);
     }
 
@@ -31,7 +48,7 @@ public class Type {
      * @param primaryType: The primary Pokemon type, as a String
      */
     public Type(String primaryType) {
-        this(SerebiiConstants.PokemonType.valueOf(primaryType));
+        this(PokemonTypes.valueOf(primaryType));
     }
 
     /**
@@ -39,7 +56,7 @@ public class Type {
      * @param primaryType: The primary Pokemon type, as a PokemonType enum
      * @param secondaryType: The secondary Pokemon Type, as a PokemonType enum
      */
-    public Type(SerebiiConstants.PokemonType primaryType, SerebiiConstants.PokemonType secondaryType) {
+    public Type(PokemonTypes primaryType, PokemonTypes secondaryType) {
         this.primaryType = primaryType;
         this.secondaryType = secondaryType;
     }
@@ -50,7 +67,7 @@ public class Type {
      * @param secondaryType: The secondary Pokemon Type, as a String
      */
     public Type(String primaryType, String secondaryType) {
-        this(SerebiiConstants.PokemonType.valueOf(primaryType), SerebiiConstants.PokemonType.valueOf(secondaryType));
+        this(PokemonTypes.valueOf(primaryType), PokemonTypes.valueOf(secondaryType));
     }
 
     /**
@@ -83,23 +100,23 @@ public class Type {
     /**
      * @return The Primary Pokemon Type, as a PokemonTypes enum value
      */
-    public SerebiiConstants.PokemonType getPrimaryType() {
+    public PokemonTypes getPrimaryType() {
         return this.primaryType;
     }
 
     /**
      * @return The Secondary Pokemon Type, as a PokemonTypes enum value (null if no second type exists)
      */
-    public SerebiiConstants.PokemonType getSecondaryType() {
+    public PokemonTypes getSecondaryType() {
         return this.secondaryType;
     }
 
     /**
-     * Creates a new type for a Pokemon parsed from serebii.net
-     * @param parser: The Serebii Parser to use
+     * Creates a new type for a Pokemon parsed from a Web Page
+     * @param parser: The Web Parser to use
      * @return        The generated Type object
      */
-    public static Type fromSerebiiPage(SerebiiParser parser) {
+    public static Type fromWebParser(PokemonScraper parser) {
         String[] types = parser.parseTypes();
         if (types.length == 1) {
             return new Type(types[0]);

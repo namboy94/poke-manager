@@ -15,19 +15,13 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib;
+package net.namibsun.pokemontracker.lib.models.enums;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
-
-public class Main {
-
-    public static void main(String[] args) throws SQLException, IOException {
-
-        long timer = System.currentTimeMillis();
-        new PokemonSpecies(1);
-        System.out.println(System.currentTimeMillis() - timer);
-
-    }
+/**
+ * An enum that defines all Pokemon Types that exist.
+ */
+public enum PokemonTypes {
+    NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE,
+    FIGHTING, POISON, GROUND, FLYING, PSYCHIC, BUG,
+    ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
 }

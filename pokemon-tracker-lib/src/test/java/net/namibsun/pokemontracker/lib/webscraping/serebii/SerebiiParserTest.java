@@ -13,9 +13,9 @@ This file is part of pokemon-tracker.
 
     You should have received a copy of the GNU General Public License
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
-package net.namibsun.pokemontracker.lib.serebii;
+package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
 import org.junit.Test;
 import java.util.HashMap;
@@ -23,6 +23,7 @@ import java.io.IOException;
 import org.junit.BeforeClass;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
 
 public class SerebiiParserTest {
     
@@ -50,7 +51,7 @@ public class SerebiiParserTest {
     @Test
     public void testParsingInvalidPokedexNumber() {
         try {
-            new SerebiiParser(SerebiiConstants.MAX_POKEMON_NUMBER + 1);
+            new SerebiiParser(PokemonConstants.MAX_POKEMON_NUMBER + 1);
             //noinspection ConstantConditions
             assertTrue(false);
         } catch (IOException e) {
@@ -72,11 +73,11 @@ public class SerebiiParserTest {
     @Test
     public void testParsingPokemonName() {
         HashMap<String, String> names = bulbasaurParser.parsePokemonName();
-        assertEquals("Bulbasaur", names.get(SerebiiConstants.ENGLISH_KEY));
-        assertEquals("Bisasam", names.get(SerebiiConstants.GERMAN_KEY));
-        assertEquals("Bulbizarre", names.get(SerebiiConstants.FRENCH_KEY));
-        assertEquals("Fushigidane フシギダネ", names.get(SerebiiConstants.JAPANESE_KEY));
-        assertEquals("이상해씨", names.get(SerebiiConstants.KOREAN_KEY));
+        assertEquals("Bulbasaur", names.get(PokemonConstants.ENGLISH_KEY));
+        assertEquals("Bisasam", names.get(PokemonConstants.GERMAN_KEY));
+        assertEquals("Bulbizarre", names.get(PokemonConstants.FRENCH_KEY));
+        assertEquals("Fushigidane フシギダネ", names.get(PokemonConstants.JAPANESE_KEY));
+        assertEquals("이상해씨", names.get(PokemonConstants.KOREAN_KEY));
     }
 
     @Test

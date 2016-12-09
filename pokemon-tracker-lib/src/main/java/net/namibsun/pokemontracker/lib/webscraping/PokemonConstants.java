@@ -15,19 +15,18 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib;
+package net.namibsun.pokemontracker.lib.webscraping;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
+/**
+ * Constants that are used by multiple web scrapers or the Pokemon models in General
+ */
+public class PokemonConstants {
 
-public class Main {
+    public static final int MAX_POKEMON_NUMBER = 802;  // This will change once new Pokemon are added
+    public static final String ENGLISH_KEY = "english";
+    public static final String FRENCH_KEY = "french";
+    public static final String GERMAN_KEY = "german";
+    public static final String JAPANESE_KEY = "japanese";
+    public static final String KOREAN_KEY = "korean";
 
-    public static void main(String[] args) throws SQLException, IOException {
-
-        long timer = System.currentTimeMillis();
-        new PokemonSpecies(1);
-        System.out.println(System.currentTimeMillis() - timer);
-
-    }
 }

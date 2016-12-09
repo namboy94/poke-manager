@@ -15,19 +15,11 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib;
+package net.namibsun.pokemontracker.lib.models.enums;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
-
-public class Main {
-
-    public static void main(String[] args) throws SQLException, IOException {
-
-        long timer = System.currentTimeMillis();
-        new PokemonSpecies(1);
-        System.out.println(System.currentTimeMillis() - timer);
-
-    }
+/**
+ * An Enum containing all base stats that a Pokemon has
+ */
+public enum PokemonStatTypes {
+    HP, ATK, DEF, SATK, SDEF, SPD
 }

@@ -13,16 +13,15 @@ This file is part of pokemon-tracker.
 
     You should have received a copy of the GNU General Public License
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.assertEquals;
-import net.namibsun.pokemontracker.lib.serebii.SerebiiParser;
-import net.namibsun.pokemontracker.lib.serebii.SerebiiConstants;
-
+import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
+import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class NameTest{
 
@@ -37,13 +36,13 @@ public class NameTest{
     @Test
     public void testGettingPokemonNamesFromSerebii() throws IOException {
         SerebiiParser parser = new SerebiiParser("Bulbasaur");
-        Name name = Name.fromSerebiiPage(parser);
+        Name name = Name.fromWebParser(parser);
 
-        assertEquals("Bulbasaur", name.getName(SerebiiConstants.ENGLISH_KEY));
-        assertEquals("Bisasam", name.getName(SerebiiConstants.GERMAN_KEY));
-        assertEquals("Bulbizarre", name.getName(SerebiiConstants.FRENCH_KEY));
-        assertEquals("Fushigidane フシギダネ", name.getName(SerebiiConstants.JAPANESE_KEY));
-        assertEquals("이상해씨", name.getName(SerebiiConstants.KOREAN_KEY));
+        assertEquals("Bulbasaur", name.getName(PokemonConstants.ENGLISH_KEY));
+        assertEquals("Bisasam", name.getName(PokemonConstants.GERMAN_KEY));
+        assertEquals("Bulbizarre", name.getName(PokemonConstants.FRENCH_KEY));
+        assertEquals("Fushigidane フシギダネ", name.getName(PokemonConstants.JAPANESE_KEY));
+        assertEquals("이상해씨", name.getName(PokemonConstants.KOREAN_KEY));
 
     }
 
@@ -52,11 +51,11 @@ public class NameTest{
 
         Name name = new Name("A", "B", "C", "D", "E");
 
-        assertEquals("A", name.getName(SerebiiConstants.ENGLISH_KEY));
-        assertEquals("B", name.getName(SerebiiConstants.FRENCH_KEY));
-        assertEquals("C", name.getName(SerebiiConstants.GERMAN_KEY));
-        assertEquals("D", name.getName(SerebiiConstants.JAPANESE_KEY));
-        assertEquals("E", name.getName(SerebiiConstants.KOREAN_KEY));
+        assertEquals("A", name.getName(PokemonConstants.ENGLISH_KEY));
+        assertEquals("B", name.getName(PokemonConstants.FRENCH_KEY));
+        assertEquals("C", name.getName(PokemonConstants.GERMAN_KEY));
+        assertEquals("D", name.getName(PokemonConstants.JAPANESE_KEY));
+        assertEquals("E", name.getName(PokemonConstants.KOREAN_KEY));
 
     }
 
