@@ -18,11 +18,10 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.models;
 
 import java.io.IOException;
-import net.namibsun.pokemontracker.lib.models.pokemonparts.Name;
-import net.namibsun.pokemontracker.lib.models.pokemonparts.Type;
-import net.namibsun.pokemontracker.lib.models.pokemonparts.GenderRatio;
+
+import net.namibsun.pokemontracker.lib.models.pokemonparts.*;
+import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
-import net.namibsun.pokemontracker.lib.models.pokemonparts.SpeciesDescription;
 
 
 /**
@@ -56,6 +55,11 @@ public class PokemonSpecies {
     private SpeciesDescription description;
 
     /**
+     * Various Rates of the Pokemon, like the capture rate
+     */
+    private Rates rates;
+
+    /**
      * Creates a new Pokemon
      * @param pokedexNumber: The national Pokedex Number to identify the Pokemon
      */
@@ -75,11 +79,12 @@ public class PokemonSpecies {
      * Retrieves the Pokemon's information from the internet
      * @param parser: The Online parser to be used
      */
-    private void getOnlineInfo(SerebiiParser parser) {
+    private void getOnlineInfo(PokemonScraper parser) {
         this.name = Name.fromWebParser(parser);
         this.genderRatio = GenderRatio.fromWebParser(parser);
         this.type = Type.fromWebParser(parser);
         this.description = SpeciesDescription.fromWebParser(parser);
+        this.rates = Rates.fromWebParser(parser);
     }
 
 }
