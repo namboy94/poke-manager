@@ -29,15 +29,17 @@ import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
 public class SerebiiParserTest {
     
     private static SerebiiParser bulbasaurParser;
+    private static SerebiiParser venusaurParser;
     private static SerebiiParser charmanderParser;
+
     private static SerebiiParser magnemiteParser;
     
     @BeforeClass
     public static void setupClass() throws IOException {
         bulbasaurParser = new SerebiiParser("Bulbasaur");
+        venusaurParser = new SerebiiParser("Venusaur");
         charmanderParser = new SerebiiParser("Charmander");
         magnemiteParser = new SerebiiParser("Magnemite");
-
     }
     
 
@@ -153,14 +155,26 @@ public class SerebiiParserTest {
         assertEquals("Medium Slow", bulbasaurParser.parseExperienceGrowthDescription());
     }
 
+    @SuppressWarnings("Duplicates")
     @Test
-    public void testParsingEffortValueGainedAmount() {
-        assertEquals(1, bulbasaurParser.parseEffortValueGainedAmount());
+    public void testParsingEffortValueYieldForPokemonWithMultipleEVYields() {
+        assertEquals(0, venusaurParser.parseEffortValueYield(PokemonStatTypes.HP));
+        assertEquals(0, venusaurParser.parseEffortValueYield(PokemonStatTypes.ATK));
+        assertEquals(0, venusaurParser.parseEffortValueYield(PokemonStatTypes.DEF));
+        assertEquals(2, venusaurParser.parseEffortValueYield(PokemonStatTypes.SATK));
+        assertEquals(1, venusaurParser.parseEffortValueYield(PokemonStatTypes.SDEF));
+        assertEquals(0, venusaurParser.parseEffortValueYield(PokemonStatTypes.SPD));
     }
 
+    @SuppressWarnings("Duplicates")
     @Test
-    public void testParsingEffortValueGainedType() {
-        assertEquals(PokemonStatTypes.SATK, bulbasaurParser.parseEffortValueGainedType());
+    public void testParsingEffortValueYieldForPokemonWithSingleEVYields() {
+        assertEquals(0, bulbasaurParser.parseEffortValueYield(PokemonStatTypes.HP));
+        assertEquals(0, bulbasaurParser.parseEffortValueYield(PokemonStatTypes.ATK));
+        assertEquals(0, bulbasaurParser.parseEffortValueYield(PokemonStatTypes.DEF));
+        assertEquals(1, bulbasaurParser.parseEffortValueYield(PokemonStatTypes.SATK));
+        assertEquals(0, bulbasaurParser.parseEffortValueYield(PokemonStatTypes.SDEF));
+        assertEquals(0, bulbasaurParser.parseEffortValueYield(PokemonStatTypes.SPD));
     }
 
 }

@@ -20,6 +20,8 @@ package net.namibsun.pokemontracker.lib.webscraping.serebii;
 import org.jsoup.Jsoup;
 import java.util.HashMap;
 import java.io.IOException;
+import java.util.regex.Pattern;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -275,35 +277,37 @@ public class SerebiiParser implements PokemonScraper {
     }
 
     /**
-     * Parses the amount of effort values gained when defeating the Pokemon
-     * @return The Pokemon's EV gain
+     * Parses the Effort Value yield for a specified Stat type
+     * @param statType: The stat type to search for the EV yield
+     * @return          The EV yield
      */
     @Override
-    public int parseEffortValueGainedAmount() {
-        Elements tableElements = this.dexTables.get(1).select("td");
-        String evGainAmount = tableElements.get(tableElements.size() - 2).text().split(" ")[0];
-        return Integer.parseInt(evGainAmount);
-    }
+    public int parseEffortValueYield(PokemonStatTypes statType) {
 
-    /**
-     * Parses the type of effort value gained when defeating this Pokemon
-     * @return The Pokemon's EV gain type
-     */
-    @Override
-    public PokemonStatTypes parseEffortValueGainedType() {
-        Elements tableElements = this.dexTables.get(1).select("td");
-        String evGainText = tableElements.get(tableElements.size() - 2).text();
-        String statType = evGainText.split("" + parseEffortValueGainedAmount())[1];
-        statType = statType.split("Point")[0].trim();
-
+        String statTypeIdentifier;
         //noinspection IfCanBeSwitch  Because of Java7 compatibility
-        if (statType.equals("HP")) {               return PokemonStatTypes.HP; }
-        else if (statType.equals("Attack")) {      return PokemonStatTypes.ATK; }
-        else if (statType.equals("Defense")) {     return PokemonStatTypes.DEF; }
-        else if (statType.equals("Sp. Attack")) {  return PokemonStatTypes.SATK; }
-        else if (statType.equals("Sp. Defense")) { return PokemonStatTypes.SDEF; }
-        else if (statType.equals("Speed")) {       return PokemonStatTypes.SPD; }
-        else {                                     return null; }
+        if (statType == PokemonStatTypes.HP)        { statTypeIdentifier = "HP"; }
+        else if (statType == PokemonStatTypes.ATK)  { statTypeIdentifier = "Attack"; }
+        else if (statType == PokemonStatTypes.DEF)  { statTypeIdentifier = "Defense"; }
+        else if (statType == PokemonStatTypes.SATK) { statTypeIdentifier = "Sp. Attack"; }
+        else if (statType == PokemonStatTypes.SDEF) { statTypeIdentifier = "Sp. Defense"; }
+        else if (statType == PokemonStatTypes.SPD)  { statTypeIdentifier = "Speed"; }
+        else                                        { return 0; }
+
+        Elements tableElements = this.dexTables.get(1).select("td");
+        String evYieldText = tableElements.get(tableElements.size() - 2).text();
+
+        if (evYieldText.contains(statTypeIdentifier) && !evYieldText.contains("Sp. " + statTypeIdentifier)) {
+
+            String[] evYieldParts = evYieldText.split(Pattern.quote(statTypeIdentifier))[0].trim().split(" ");
+            String evYield = evYieldParts[evYieldParts.length - 1];
+            return Integer.parseInt(evYield);
+
+        }
+        else {
+            return 0;
+        }
+
     }
 
 }

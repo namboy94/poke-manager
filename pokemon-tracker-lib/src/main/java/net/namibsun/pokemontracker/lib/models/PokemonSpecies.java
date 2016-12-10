@@ -18,11 +18,9 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.models;
 
 import java.io.IOException;
-
 import net.namibsun.pokemontracker.lib.models.pokemonparts.*;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
-
 
 /**
  * Class that models a Pokemon of a specific species
@@ -60,6 +58,11 @@ public class PokemonSpecies {
     private Rates rates;
 
     /**
+     * The Effort Value yield when defeating this Pokemon
+     */
+    private EffortValueYield evYield;
+
+    /**
      * Creates a new Pokemon
      * @param pokedexNumber: The national Pokedex Number to identify the Pokemon
      */
@@ -85,6 +88,7 @@ public class PokemonSpecies {
         this.type = Type.fromWebParser(parser);
         this.description = SpeciesDescription.fromWebParser(parser);
         this.rates = Rates.fromWebParser(parser);
+        this.evYield = EffortValueYield.fromWebParser(parser);
     }
 
 }

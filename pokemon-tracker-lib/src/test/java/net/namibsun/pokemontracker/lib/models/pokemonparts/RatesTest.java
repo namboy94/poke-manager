@@ -20,7 +20,6 @@ package net.namibsun.pokemontracker.lib.models.pokemonparts;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.assertEquals;
-import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class RatesTest {
@@ -33,8 +32,6 @@ public class RatesTest {
         assertEquals(70, rates.getBaseHappiness());
         assertEquals(1059860, rates.getExperienceGrowthPoints());
         assertEquals("Medium Slow", rates.getExperienceGrowthDescription());
-        assertEquals(1, rates.getEffortValuesGained());
-        assertEquals(PokemonStatTypes.SATK, rates.getEffortValueType());
     }
 
 }

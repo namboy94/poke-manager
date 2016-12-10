@@ -15,10 +15,8 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
-import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 
 /**
@@ -52,35 +50,20 @@ public class Rates {
     private String experienceGrowthDescription;
 
     /**
-     * The amount of effort values gained when defeating this Pokemon.
-     */
-    private int effortValuesGained;
-
-    /**
-     * The type of effort value stat is gained when defeating this Pokemon species
-     */
-    private PokemonStatTypes effortValueType;
-
-    /**
      * Constructor that creates a new Rates object
      * @param captureRate:                 The Pokemon's capture rate
      * @param baseEggSteps:                The Pokemon's base egg steps
      * @param baseHappiness:               The Pokemon's base happiness
      * @param experienceGrowthPoints:      The Pokemon's total XP at level 100
      * @param experienceGrowthDescription: The Pokemon's growth speed description
-     * @param effortValuesGained:          The Pokemon's EV gain amount
-     * @param effortValueType:             The Pokemon's EV gain type
      */
     public Rates(int captureRate, int baseEggSteps, int baseHappiness,
-                 int experienceGrowthPoints, String experienceGrowthDescription,
-                 int effortValuesGained, PokemonStatTypes effortValueType) {
+                 int experienceGrowthPoints, String experienceGrowthDescription) {
         this.captureRate = captureRate;
         this.baseEggSteps = baseEggSteps;
         this.baseHappiness = baseHappiness;
         this.experienceGrowthPoints = experienceGrowthPoints;
         this.experienceGrowthDescription = experienceGrowthDescription;
-        this.effortValuesGained = effortValuesGained;
-        this.effortValueType = effortValueType;
     }
 
     /**
@@ -119,20 +102,6 @@ public class Rates {
     }
 
     /**
-     * @return The Pokemon's effort value gain amount
-     */
-    public int getEffortValuesGained() {
-        return this.effortValuesGained;
-    }
-
-    /**
-     * @return The Pokemon's effort value gain type
-     */
-    public PokemonStatTypes getEffortValueType() {
-        return this.effortValueType;
-    }
-
-    /**
      * Creates a new Rates object from a Web parser's information
      * @param parser: The parser to use
      * @return        The generates Rates object
@@ -143,9 +112,7 @@ public class Rates {
                 parser.parseBaseEggSteps(),
                 parser.parseBaseHappiness(),
                 parser.parseExperienceGrowthPoints(),
-                parser.parseExperienceGrowthDescription(),
-                parser.parseEffortValueGainedAmount(),
-                parser.parseEffortValueGainedType());
+                parser.parseExperienceGrowthDescription());
     }
 
 }

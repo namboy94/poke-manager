@@ -98,15 +98,10 @@ public interface PokemonScraper {
     String parseExperienceGrowthDescription();
 
     /**
-     * Parses the amount of effort values gained when defeating the Pokemon
-     * @return The Pokemon's EV gain
+     * Parses the Effort Value yield for a specified Stat type
+     * @param statType: The stat type to search for the EV yield
+     * @return          The EV yield
      */
-    int parseEffortValueGainedAmount();
-
-    /**
-     * Parses the type of effort value gained when defeating this Pokemon
-     * @return The Pokemon's EV gain type
-     */
-    PokemonStatTypes parseEffortValueGainedType();
+    int parseEffortValueYield(PokemonStatTypes statType);
 
 }
