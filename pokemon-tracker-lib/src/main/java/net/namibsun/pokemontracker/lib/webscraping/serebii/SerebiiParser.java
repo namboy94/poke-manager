@@ -307,7 +307,63 @@ public class SerebiiParser implements PokemonScraper {
         else {
             return 0;
         }
-
     }
 
+    /**
+     * Parses the regular abilities of a Pokemon
+     * @return an array of the form:
+     *         [Ability 1 name, Ability 1 description, Ability 2 name, Ability 2 description]
+     *         or, if the Pokemon has no second regular abilty, like this:
+     *         [Ability 1 name, Ability 2 description]
+     */
+    public String[] parseRegularAbilities() {
+
+        Elements tableElements = this.dexTables.get(1).select("td");
+
+        String[] abilities = tableElements.get(0).text().split("Abilities: ")[1].split(" - ");
+        String abilityDescriptions = tableElements.get(1).text();
+
+        String primaryAbility = abilities[0].trim();
+        String primaryAbilityDescription = abilityDescriptions.split(primaryAbility + ": ")[1].trim();
+
+        if (abilities.length > 1) {
+            String secondaryAbility = abilities[1].trim();
+
+            if (secondaryAbility.contains("Hidden Ability")) {
+                primaryAbilityDescription = primaryAbilityDescription.split(" Hidden Ability")[0].trim();
+            }
+            else {
+                primaryAbilityDescription = primaryAbilityDescription.split(" " + secondaryAbility)[0].trim();
+                String secondaryAbilityDescription = abilityDescriptions.split(secondaryAbility + ":")[1].trim();
+                if (secondaryAbilityDescription.contains("Hidden Ability")) {
+                    secondaryAbilityDescription = secondaryAbilityDescription.split(" Hidden Ability")[0].trim();
+                }
+                return new String[] {
+                        primaryAbility, primaryAbilityDescription, secondaryAbility, secondaryAbilityDescription
+                };
+            }
+        }
+        return new String[] { primaryAbility, primaryAbilityDescription };
+    }
+
+    /**
+     * Parses the hidden ability of a Pokemon
+     * @return an array of the form [Ability Name, Description] or null if the Pokemon has no hidden ability
+     */
+    public String[] parseHiddenAbility() {
+        Elements tableElements = this.dexTables.get(1).select("td");
+        String abilities = tableElements.get(0).text().split("Abilities: ")[1];
+        String abilityDescriptions = tableElements.get(1).text();
+
+        if (abilities.contains("Hidden Ability")) {
+            String[] abilityNames = abilities.split(" \\(Hidden Ability\\)")[0].split(" - ");
+            String abilityName = abilityNames[abilityNames.length - 1].trim();
+            String abilityDescription = abilityDescriptions.split(abilityName + ": ")[1].trim();
+
+            return new String[]{abilityName, abilityDescription};
+        }
+        else {
+            return null;
+        }
+    }
 }

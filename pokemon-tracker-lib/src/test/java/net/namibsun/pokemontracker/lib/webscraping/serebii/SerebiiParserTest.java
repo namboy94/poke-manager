@@ -22,6 +22,8 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.io.IOException;
 import org.junit.BeforeClass;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
@@ -31,8 +33,9 @@ public class SerebiiParserTest {
     private static SerebiiParser bulbasaurParser;
     private static SerebiiParser venusaurParser;
     private static SerebiiParser charmanderParser;
-
     private static SerebiiParser magnemiteParser;
+    private static SerebiiParser gastlyParser;
+    private static SerebiiParser parasParser;
     
     @BeforeClass
     public static void setupClass() throws IOException {
@@ -40,6 +43,8 @@ public class SerebiiParserTest {
         venusaurParser = new SerebiiParser("Venusaur");
         charmanderParser = new SerebiiParser("Charmander");
         magnemiteParser = new SerebiiParser("Magnemite");
+        gastlyParser = new SerebiiParser("Gastly");
+        parasParser = new SerebiiParser("Paras");
     }
     
 
@@ -177,4 +182,40 @@ public class SerebiiParserTest {
         assertEquals(0, bulbasaurParser.parseEffortValueYield(PokemonStatTypes.SPD));
     }
 
+    @Test
+    public void testParsingSingleAbility() {
+        String[] ability = bulbasaurParser.parseRegularAbilities();
+        assertEquals(2, ability.length);
+        assertArrayEquals(ability, new String[] {"Overgrow", "When HP is below 1/3rd its maximum, " +
+                "power of Grass-type moves is increased by 50%."});
+    }
+
+    @Test
+    public void testParsingMultipleAbilities() {
+        String[] abilities = parasParser.parseRegularAbilities();
+        assertEquals(4, abilities.length);
+        assertArrayEquals(abilities, new String[] {
+                "Effect Spore", "The opponent has a 10% chance of being induced by " +
+                "PARALYZE, POISON, or SLEEP when using an attack, " +
+                "that requires physical contact, against this Pokémon.",
+                "Dry Skin", "HP is restored when hit by Water-type moves " +
+                "or when it is raining but also makes the Pokémon weak to " +
+                "Fire-type moves and reduces HP during strong sunlight."
+        });
+    }
+
+    @Test
+    public void testParsingHiddenAbility() {
+        String[] hiddenAbility = bulbasaurParser.parseHiddenAbility();
+        assertEquals(2, hiddenAbility.length);
+        assertArrayEquals(hiddenAbility, new String[] {
+                "Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
+                "However, Speed will not double on the turn weather becomes Strong Sunlight."
+        });
+    }
+
+    @Test
+    public void testParsingNoHiddenAbility() {
+        assertTrue(gastlyParser.parseHiddenAbility() == null);
+    }
 }

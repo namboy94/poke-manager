@@ -63,6 +63,11 @@ public class PokemonSpecies {
     private EffortValueYield evYield;
 
     /**
+     * The Pokemon's abilities
+     */
+    private Ability ability;
+
+    /**
      * Creates a new Pokemon
      * @param pokedexNumber: The national Pokedex Number to identify the Pokemon
      */
@@ -89,6 +94,7 @@ public class PokemonSpecies {
         this.description = SpeciesDescription.fromWebParser(parser);
         this.rates = Rates.fromWebParser(parser);
         this.evYield = EffortValueYield.fromWebParser(parser);
+        this.ability = Ability.fromWebParser(parser);
     }
 
 }

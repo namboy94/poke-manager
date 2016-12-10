@@ -104,4 +104,19 @@ public interface PokemonScraper {
      */
     int parseEffortValueYield(PokemonStatTypes statType);
 
+    /**
+     * Parses the regular abilities of a Pokemon
+     * @return an array of the form:
+     *         [Ability 1 name, Ability 1 description, Ability 2 name, Ability 2 description]
+     *         or, if the Pokemon has no second regular abilty, like this:
+     *         [Ability 1 name, Ability 2 description]
+     */
+    String[] parseRegularAbilities();
+
+    /**
+     * Parses the hidden ability of a Pokemon
+     * @return an array of the form [Ability Name, Description] or null if the Pokemon has no hidden ability
+     */
+    String[] parseHiddenAbility();
+
 }
