@@ -17,14 +17,15 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
-import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
-import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 import org.jsoup.Jsoup;
 import java.util.HashMap;
 import java.io.IOException;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
+import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
+import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 
 /**
  * A Pokemon Parser for serebii.net
@@ -104,6 +105,7 @@ public class SerebiiParser implements PokemonScraper {
     /**
      * @return The serebii.net URL used by this parser
      */
+    @Override
     public String getUrl() {
         return this.url;
     }
@@ -112,6 +114,7 @@ public class SerebiiParser implements PokemonScraper {
      * Fetches all names for the Pokemon and turns it into a Hashmap
      * @return The Hashmap containing the names with the particular language as the keys
      */
+    @Override
     public HashMap<String, String> parsePokemonName(){
 
         HashMap<String, String> names = new HashMap<>();
@@ -131,6 +134,7 @@ public class SerebiiParser implements PokemonScraper {
      * @return an array of two double values, representing the male and female ratio respectively.
      *         If the Pokemon is neutrally gendered, null is returned.
      */
+    @Override
     public double[] parseGenderRatio() {
         String dexEntry = this.dexTables.get(0).text();
 
@@ -151,6 +155,7 @@ public class SerebiiParser implements PokemonScraper {
      * Parses the types of a Pokemon
      * @return an array of types for the Pokemon, as capitalized Strings
      */
+    @Override
     public String[] parseTypes() {
         Element typeTab = this.toolTabs.get(1);
         Elements types = typeTab.select("a");
@@ -172,6 +177,7 @@ public class SerebiiParser implements PokemonScraper {
      * Parse the weight of the Pokemon
      * @return an array of doubles, with the first element being in kg, the second in lbs
      */
+    @Override
     public double[] parseWeight() {
         String info = this.toolTabs.get(3).select("tr").get(1).text();
         String metricWeight = info.split("kg")[0].split(" ")[3].trim();
@@ -187,6 +193,7 @@ public class SerebiiParser implements PokemonScraper {
      * Parses the height of the Pokemon
      * @return an array of doubles, with the first element being in m, the second in feet('), inches(")
      */
+    @Override
     public double[] parseHeight() {
 
         String info = this.toolTabs.get(3).select("tr").get(1).text();
@@ -205,8 +212,98 @@ public class SerebiiParser implements PokemonScraper {
      * Parses the species classification of the Pokemon
      * @return the classification of the pokemon
      */
+    @Override
     public String parseClassification() {
         return this.toolTabs.get(2).select("tr").get(1).text();
+    }
+
+    /**
+     * Parses the Pokemon's capture rate
+     * @return The Capture Rate
+     */
+    @Override
+    public int parseCaptureRate() {
+        String[] parts = this.dexTables.get(0).text().split(" ");
+        return Integer.parseInt(parts[parts.length - 2]);
+    }
+
+    /**
+     * Parses the Pokemon's required amount of steps to hatch
+     * @return The Pokemon's Base Egg Step amount
+     */
+    @Override
+    public int parseBaseEggSteps() {
+        String[] parts = this.dexTables.get(0).text().split(" ");
+        return Integer.parseInt(parts[parts.length - 1].replace(",", ""));
+    }
+
+    /**
+     * Parses the Pokemon's base happiness value
+     * @return the Pokemon's base happiness
+     */
+    @Override
+    public int parseBaseHappiness() {
+        Elements tableElements = this.dexTables.get(1).select("td");
+        return Integer.parseInt(tableElements.get(tableElements.size() - 3).text());
+    }
+
+    /**
+     * Parses the Pokemon's amount of XP required to reach Level 100
+     * @return the Pokemon's Experience Points at level 100
+     */
+    @Override
+    public int parseExperienceGrowthPoints() {
+        Elements tableElements = this.dexTables.get(1).select("td");
+        String experienceGrowth = tableElements.get(tableElements.size() - 4).text();
+        return Integer.parseInt(experienceGrowth.split(" ")[0].replace(",", ""));
+    }
+
+    /**
+     * Parses the Pokemon's experience growth speed description
+     * @return The experience growth speed description
+     */
+    @Override
+    public String parseExperienceGrowthDescription() {
+        Elements tableElements = this.dexTables.get(1).select("td");
+        String[] experienceParts = tableElements.get(tableElements.size() - 4).text().split(" ");
+
+        String description = "";
+        for (int i = 2; i < experienceParts.length; i++) {
+            description += experienceParts[i] + " ";
+        }
+        return description.trim();
+    }
+
+    /**
+     * Parses the amount of effort values gained when defeating the Pokemon
+     * @return The Pokemon's EV gain
+     */
+    @Override
+    public int parseEffortValueGainedAmount() {
+        Elements tableElements = this.dexTables.get(1).select("td");
+        String evGainAmount = tableElements.get(tableElements.size() - 2).text().split(" ")[0];
+        return Integer.parseInt(evGainAmount);
+    }
+
+    /**
+     * Parses the type of effort value gained when defeating this Pokemon
+     * @return The Pokemon's EV gain type
+     */
+    @Override
+    public PokemonStatTypes parseEffortValueGainedType() {
+        Elements tableElements = this.dexTables.get(1).select("td");
+        String evGainText = tableElements.get(tableElements.size() - 2).text();
+        String statType = evGainText.split("" + parseEffortValueGainedAmount())[1];
+        statType = statType.split("Point")[0].trim();
+
+        //noinspection IfCanBeSwitch  Because of Java7 compatibility
+        if (statType.equals("HP")) {               return PokemonStatTypes.HP; }
+        else if (statType.equals("Attack")) {      return PokemonStatTypes.ATK; }
+        else if (statType.equals("Defense")) {     return PokemonStatTypes.DEF; }
+        else if (statType.equals("Sp. Attack")) {  return PokemonStatTypes.SATK; }
+        else if (statType.equals("Sp. Defense")) { return PokemonStatTypes.SDEF; }
+        else if (statType.equals("Speed")) {       return PokemonStatTypes.SPD; }
+        else {                                     return null; }
     }
 
 }

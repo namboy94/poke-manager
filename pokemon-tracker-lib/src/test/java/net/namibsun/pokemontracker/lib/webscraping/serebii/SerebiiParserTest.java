@@ -17,6 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
+import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 import org.junit.Test;
 import java.util.HashMap;
 import java.io.IOException;
@@ -125,6 +126,41 @@ public class SerebiiParserTest {
     public void testParsingClassification() {
         String classification = bulbasaurParser.parseClassification();
         assertEquals("Seed Pokémon", classification);
+    }
+
+    @Test
+    public void testParsingCaptureRate() {
+        assertEquals(45, bulbasaurParser.parseCaptureRate());
+    }
+
+    @Test
+    public void testParsingBaseEggSteps() {
+        assertEquals(5120, bulbasaurParser.parseBaseEggSteps());
+    }
+
+    @Test
+    public void testParsingBaseHappiness() {
+        assertEquals(70, bulbasaurParser.parseBaseHappiness());
+    }
+
+    @Test
+    public void testParsingExperienceGrowthPoints() {
+        assertEquals(1059860, bulbasaurParser.parseExperienceGrowthPoints());
+    }
+
+    @Test
+    public void testParsingExperienceGrowthDescription() {
+        assertEquals("Medium Slow", bulbasaurParser.parseExperienceGrowthDescription());
+    }
+
+    @Test
+    public void testParsingEffortValueGainedAmount() {
+        assertEquals(1, bulbasaurParser.parseEffortValueGainedAmount());
+    }
+
+    @Test
+    public void testParsingEffortValueGainedType() {
+        assertEquals(PokemonStatTypes.SATK, bulbasaurParser.parseEffortValueGainedType());
     }
 
 }

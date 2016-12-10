@@ -18,6 +18,7 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.webscraping;
 
 import java.util.HashMap;
+import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 
 /**
  * Defines an interface for a Pokemon Web Scraper
@@ -65,5 +66,47 @@ public interface PokemonScraper {
      * @return the classification of the pokemon
      */
     String parseClassification();
+
+    /**
+     * Parses the Pokemon's capture rate
+     * @return The Capture Rate
+     */
+    int parseCaptureRate();
+
+    /**
+     * Parses the Pokemon's required amount of steps to hatch
+     * @return The Pokemon's Base Egg Step amount
+     */
+    int parseBaseEggSteps();
+
+    /**
+     * Parses the Pokemon's base happiness value
+     * @return the Pokemon's base happiness
+     */
+    int parseBaseHappiness();
+
+    /**
+     * Parses the Pokemon's amount of XP required to reach Level 100
+     * @return the Pokemon's Experience Points at level 100
+     */
+    int parseExperienceGrowthPoints();
+
+    /**
+     * Parses the Pokemon's experience growth speed description
+     * @return The experience growth speed description
+     */
+    String parseExperienceGrowthDescription();
+
+    /**
+     * Parses the amount of effort values gained when defeating the Pokemon
+     * @return The Pokemon's EV gain
+     */
+    int parseEffortValueGainedAmount();
+
+    /**
+     * Parses the type of effort value gained when defeating this Pokemon
+     * @return The Pokemon's EV gain type
+     */
+    PokemonStatTypes parseEffortValueGainedType();
 
 }
