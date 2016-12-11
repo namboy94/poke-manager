@@ -17,15 +17,14 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
+import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 import org.junit.Test;
 import java.util.HashMap;
 import java.io.IOException;
 import org.junit.BeforeClass;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
 
 public class SerebiiParserTest {
@@ -217,5 +216,31 @@ public class SerebiiParserTest {
     @Test
     public void testParsingNoHiddenAbility() {
         assertTrue(gastlyParser.parseHiddenAbility() == null);
+    }
+
+    @Test
+    public void testParsingBaseStats(){
+        assertArrayEquals(new int[] {45, 49, 49, 65, 65, 45}, bulbasaurParser.parseBaseStats());
+    }
+
+    @Test
+    public void testParsingSingleEggGroup() {
+        String[] result = gastlyParser.parseEggGroups();
+        assertEquals(1, result.length);
+        assertEquals(EggGroupTypes.AMORPHOUS.name(), result[0]);
+    }
+
+    @Test
+    public void testParsingMultipleEggGroups() {
+        String[] results = bulbasaurParser.parseEggGroups();
+        assertEquals(2, results.length);
+        assertEquals(EggGroupTypes.MONSTER.name(), results[0]);
+        assertEquals(EggGroupTypes.GRASS.name(), results[1]);
+    }
+
+    @Test
+    public void testParsingHasMegaEvolution() {
+        assertFalse(bulbasaurParser.parseHasMegaEvolution());
+        assertTrue(venusaurParser.parseHasMegaEvolution());
     }
 }

@@ -53,8 +53,7 @@ public class BaseStats extends StatSpread {
      * @param parser: The parser to use
      * @return        The newly generated BaseStats object
      */
-    @Override
-    public StatSpread fromWebParser(PokemonScraper parser) {
+    public static BaseStats fromWebParser(PokemonScraper parser) {
         int[] stats = parser.parseBaseStats();
         return new BaseStats(stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]);
     }

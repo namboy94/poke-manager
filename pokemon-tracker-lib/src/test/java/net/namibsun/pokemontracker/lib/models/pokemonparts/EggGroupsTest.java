@@ -17,5 +17,20 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
-public class WildHeldItems {
+import org.junit.Test;
+import java.io.IOException;
+import static org.junit.Assert.*;
+import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
+
+public class EggGroupsTest {
+
+    @Test
+    public void testGeneratingFromWebParser() throws IOException {
+        EggGroups eggGroup = EggGroups.fromWebParser(new SerebiiParser("Bulbasaur"));
+        assertEquals(eggGroup.getPrimaryEggGroup(), EggGroupTypes.MONSTER);
+        assertEquals(eggGroup.getSecondaryEggGroup(), EggGroupTypes.GRASS);
+        assertTrue(eggGroup.hasTwoEggGroups());
+    }
+
 }

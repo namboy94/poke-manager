@@ -138,11 +138,4 @@ public abstract class StatSpread {
         return this.speed;
     }
 
-    /**
-     * Creates a new StatSpread from an Online parser's information
-     * @param parser: The parser to use
-     * @return        The newly generated StatSpread
-     */
-    public abstract StatSpread fromWebParser(PokemonScraper parser);
-
 }

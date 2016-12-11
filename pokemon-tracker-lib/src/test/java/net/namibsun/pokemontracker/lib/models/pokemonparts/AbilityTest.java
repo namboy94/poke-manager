@@ -19,10 +19,9 @@ package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
 import org.junit.Test;
 import java.io.IOException;
-
+import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
-import static org.junit.Assert.*;
 
 public class AbilityTest {
 
