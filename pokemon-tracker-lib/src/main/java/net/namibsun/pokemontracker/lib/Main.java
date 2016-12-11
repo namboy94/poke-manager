@@ -18,22 +18,21 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
+import net.namibsun.pokemontracker.lib.database.DatabaseHandler;
+import net.namibsun.pokemontracker.lib.database.sqlite.SQLiteDatabase;
+
 import java.sql.SQLException;
 
 public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        System.out.println(1);
+        Database db = new SQLiteDatabase("/home/hermann/pokedex.db");
 
-        String url = "jdbc:sqlite:/home/hermann/test.db";
-        Connection conn = DriverManager.getConnection(url);
+        //db.executeSql("create table test");
 
-        conn.nativeSQL("Create TABLE test (x INTEGER )");
-        conn.close();
-
+        DatabaseHandler.createPokedexTable(db);
 
     }
 }

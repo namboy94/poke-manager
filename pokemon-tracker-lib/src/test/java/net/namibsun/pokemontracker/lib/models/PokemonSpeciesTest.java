@@ -1,11 +1,11 @@
 package net.namibsun.pokemontracker.lib.models;
 
-import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
-import net.namibsun.pokemontracker.lib.models.enums.PokemonTypes;
-import net.namibsun.pokemontracker.lib.models.pokemonparts.*;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
+import net.namibsun.pokemontracker.lib.models.pokemonparts.*;
+import net.namibsun.pokemontracker.lib.models.enums.PokemonTypes;
+import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class PokemonSpeciesTest {
