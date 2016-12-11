@@ -17,5 +17,40 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
+import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
+
+/**
+ * Class that models the Mega Evolution of a Pokemon
+ */
 public class MegaEvolution {
+
+    /**
+     * Variables that stores if the Pokemon has a Mega Evolution or not
+     */
+    private boolean megaEvolutionExists;
+
+    /**
+     * Creates a new MegaEvolution object
+     * @param megaEvolutionExists: true if the Pokemon has a Mega Evolution, false otherwise
+     */
+    public MegaEvolution(boolean megaEvolutionExists) {
+        this.megaEvolutionExists = megaEvolutionExists;
+    }
+
+    /**
+     * @return true if the Pokemon has a Mega Evolution, false otherwise
+     */
+    public boolean hasMegaEvolution() {
+        return this.megaEvolutionExists;
+    }
+
+    /**
+     * Creates a new MegaEvolution object from the information of a Web Parser
+     * @param parser: The parser to use
+     * @return        The generated Mega Evolution object
+     */
+    public static MegaEvolution fromWebParser(PokemonScraper parser) {
+        return new MegaEvolution(parser.parseHasMegaEvolution());
+    }
+
 }
