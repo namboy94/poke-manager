@@ -17,5 +17,77 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
+import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
+
+/**
+ * Class that models the Egg groups of a Pokemon
+ */
 public class EggGroups {
+
+    /**
+     * The Pokemon's primary egg group
+     */
+    private EggGroupTypes primaryEggGroup;
+
+    /**
+     * The Pokemon's secondary egg group, if one is present
+     */
+    private EggGroupTypes secondaryEggGroup;
+
+    /**
+     * Constructor for a Pokemon with a single egg group
+     * @param primaryEggGroup: The egg group
+     */
+    public EggGroups(EggGroupTypes primaryEggGroup) {
+        this(primaryEggGroup, null);
+    }
+
+    /**
+     * Stores the egg groups in private variables
+     * @param primaryEggGroup:   The primary egg group
+     * @param secondaryEggGroup: The secondary egg group
+     */
+    public EggGroups(EggGroupTypes primaryEggGroup, EggGroupTypes secondaryEggGroup) {
+        this.primaryEggGroup = primaryEggGroup;
+        this.secondaryEggGroup = secondaryEggGroup;
+    }
+
+    /**
+     * Checks if the Pokemon has multiple egg groups
+     * @return true, if the Pokemon has multiple egg groups, false otherwise
+     */
+    public boolean hasTwoEggGroups() {
+        return this.secondaryEggGroup != null;
+    }
+
+    /**
+     * @return the primary egg group
+     */
+    public EggGroupTypes getPrimaryEggGroup() {
+        return this.primaryEggGroup;
+    }
+
+    /**
+     * @return the secondary egg group, or null if the Pokemon does not have two egg groups
+     */
+    public EggGroupTypes getSecondaryEggGroup() {
+        return this.secondaryEggGroup;
+    }
+
+    /**
+     * Generates a new EggGroup from a Web Parser's information
+     * @param parser: the parser to use
+     * @return        the generated Egg Group
+     */
+    public static EggGroups fromWebParser(PokemonScraper parser) {
+        String[] eggGroups = parser.parseEggGroups();
+        if (eggGroups.length == 1) {
+            return new EggGroups(EggGroupTypes.valueOf(eggGroups[0]));
+        }
+        else {
+            return new EggGroups(EggGroupTypes.valueOf(eggGroups[0]), EggGroupTypes.valueOf(eggGroups[1]));
+        }
+    }
+
 }

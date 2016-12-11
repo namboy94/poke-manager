@@ -126,4 +126,10 @@ public interface PokemonScraper {
      */
     int[] parseBaseStats();
 
+    /**
+     * Parses the egg groups of a Pokemon
+     * @return the egg groups as an array of strings, with a maximum length of 2
+     */
+    String[] parseEggGroups();
+
 }

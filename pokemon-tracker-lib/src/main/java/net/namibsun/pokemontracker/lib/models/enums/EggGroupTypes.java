@@ -18,10 +18,11 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.models.enums;
 
 /**
- * An Enum containing all base stats that a Pokemon has
+ * Enum that defines all Egg groups
  */
-public enum PokemonStatTypes {
+public enum EggGroupTypes {
 
-    HP, ATK, DEF, SATK, SDEF, SPD
+    MONSTER, HUMANLIKE, WATER1, WATER2, WATER3, BUG, MINERAL, FLYING, AMORPHOUS,
+    FIELD, FAIRY, DITTO, GRASS, DRAGON, UNDISCOVERED, GENDERUNKNOWN
 
 }

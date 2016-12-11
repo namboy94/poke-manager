@@ -21,7 +21,9 @@ package net.namibsun.pokemontracker.lib.models.enums;
  * An enum that defines all Pokemon Types that exist.
  */
 public enum PokemonTypes {
+
     NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE,
     FIGHTING, POISON, GROUND, FLYING, PSYCHIC, BUG,
     ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
+
 }
