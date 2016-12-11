@@ -17,6 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
+import net.namibsun.pokemontracker.lib.models.enums.Languages;
 import org.jsoup.Jsoup;
 import java.util.HashMap;
 import java.io.IOException;
@@ -124,11 +125,21 @@ public class SerebiiParser implements PokemonScraper {
         HashMap<String, String> names = new HashMap<>();
         String dexEntry = this.dexTables.get(0).text();
 
-        names.put(PokemonConstants.ENGLISH_KEY, dexEntry.split("Type")[1].split("Japan:")[0].trim());
-        names.put(PokemonConstants.JAPANESE_KEY, dexEntry.split("Japan: ")[1].split("French:")[0].trim());
-        names.put(PokemonConstants.GERMAN_KEY, dexEntry.split("German: ")[1].split("Korean:")[0].trim());
-        names.put(PokemonConstants.FRENCH_KEY, dexEntry.split("French: ")[1].split("German:")[0].trim());
-        names.put(PokemonConstants.KOREAN_KEY, dexEntry.split("Korean: ")[1].split("National:")[0].trim());
+        names.put(
+                Languages.ENGLISH.name().toLowerCase(),
+                dexEntry.split("Type")[1].split("Japan:")[0].trim());
+        names.put(
+                Languages.JAPANESE.name().toLowerCase(),
+                dexEntry.split("Japan: ")[1].split("French:")[0].trim());
+        names.put(
+                Languages.GERMAN.name().toLowerCase(),
+                dexEntry.split("German: ")[1].split("Korean:")[0].trim());
+        names.put(
+                Languages.FRENCH.name().toLowerCase(),
+                dexEntry.split("French: ")[1].split("German:")[0].trim());
+        names.put(
+                Languages.KOREAN.name().toLowerCase(),
+                dexEntry.split("Korean: ")[1].split("National:")[0].trim());
 
         return names;
     }

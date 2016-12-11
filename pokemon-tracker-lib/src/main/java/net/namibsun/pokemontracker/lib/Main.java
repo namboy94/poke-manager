@@ -17,17 +17,23 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib;
 
-import java.io.IOException;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
-import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException {
 
-        long timer = System.currentTimeMillis();
-        new PokemonSpecies(1);
-        System.out.println(System.currentTimeMillis() - timer);
+        System.out.println(1);
+
+        String url = "jdbc:sqlite:/home/hermann/test.db";
+        Connection conn = DriverManager.getConnection(url);
+
+        conn.nativeSQL("Create TABLE test (x INTEGER )");
+        conn.close();
+
 
     }
 }

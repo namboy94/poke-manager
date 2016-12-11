@@ -18,8 +18,8 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
 import java.util.HashMap;
+import net.namibsun.pokemontracker.lib.models.enums.Languages;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
-import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
 
 /**
  * Class that models a Pokemon Name. This is done internally by storing the name in different languages
@@ -64,11 +64,11 @@ public class Name {
      */
     public Name(String english, String french, String german, String japanese, String korean) {
 
-        this.names.put(PokemonConstants.ENGLISH_KEY, english);
-        this.names.put(PokemonConstants.FRENCH_KEY, french);
-        this.names.put(PokemonConstants.GERMAN_KEY, german);
-        this.names.put(PokemonConstants.JAPANESE_KEY, japanese);
-        this.names.put(PokemonConstants.KOREAN_KEY, korean);
+        this.names.put(Languages.ENGLISH.name().toLowerCase(), english);
+        this.names.put(Languages.FRENCH.name().toLowerCase(), french);
+        this.names.put(Languages.GERMAN.name().toLowerCase(), german);
+        this.names.put(Languages.JAPANESE.name().toLowerCase(), japanese);
+        this.names.put(Languages.KOREAN.name().toLowerCase(), korean);
 
     }
 
@@ -86,6 +86,17 @@ public class Name {
         }
         return name;
 
+    }
+
+    /**
+     * Returns the name of the Pokemon in the specified language, but using an enum as parameter instead
+     * of a String to minimize error sources
+     * @param language: The language to use
+     * @return          The name of the Pokemon in that language, or 'Missingno.' if the language does not exist,
+     *                  (Which should not happen using enums.)
+     */
+    public String getName(Languages language) {
+        return this.getName(language.name().toLowerCase());
     }
 
     /**

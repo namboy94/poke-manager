@@ -82,7 +82,7 @@ public class Type {
      * @return The Primary Pokemon Type, as a String
      */
     public String getPrimaryTypeAsString() {
-        return this.primaryType.name();
+        return this.formatTypeString(this.primaryType.name());
     }
 
     /**
@@ -90,11 +90,20 @@ public class Type {
      */
     public String getSecondaryTypeAsString() {
         if (this.isDualTyped()) {
-            return this.secondaryType.name();
+            return this.formatTypeString(this.secondaryType.name());
         }
         else {
             return null;
         }
+    }
+
+    /**
+     * Formats the Type String from e.g. GRASS -> Grass
+     * @param typeString: The string to format
+     * @return            The formatted string
+     */
+    private String formatTypeString(String typeString) {
+        return Character.toUpperCase(typeString.charAt(0)) + typeString.toLowerCase().substring(1);
     }
 
     /**

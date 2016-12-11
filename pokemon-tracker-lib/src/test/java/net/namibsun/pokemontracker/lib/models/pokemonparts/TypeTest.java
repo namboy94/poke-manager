@@ -31,7 +31,7 @@ public class TypeTest {
     public void generateMonotypePokemonFromSerebii() throws IOException {
         Type type = Type.fromWebParser(new SerebiiParser("Charmander"));
         assertEquals(PokemonTypes.FIRE, type.getPrimaryType());
-        assertEquals("FIRE", type.getPrimaryTypeAsString());
+        assertEquals("Fire", type.getPrimaryTypeAsString());
         assertEquals(null, type.getSecondaryType());
         assertEquals(null, type.getSecondaryTypeAsString());
         assertFalse(type.isDualTyped());
@@ -41,9 +41,9 @@ public class TypeTest {
     public void generateMultitypePokemonFromSerebii() throws IOException {
         Type type = Type.fromWebParser(new SerebiiParser("Bulbasaur"));
         assertEquals(PokemonTypes.GRASS, type.getPrimaryType());
-        assertEquals("GRASS", type.getPrimaryTypeAsString());
+        assertEquals("Grass", type.getPrimaryTypeAsString());
         assertEquals(PokemonTypes.POISON, type.getSecondaryType());
-        assertEquals("POISON", type.getSecondaryTypeAsString());
+        assertEquals("Poison", type.getSecondaryTypeAsString());
         assertTrue(type.isDualTyped());
     }
 

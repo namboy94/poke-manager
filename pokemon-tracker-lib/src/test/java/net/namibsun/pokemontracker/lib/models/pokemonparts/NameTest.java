@@ -20,7 +20,7 @@ package net.namibsun.pokemontracker.lib.models.pokemonparts;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.assertEquals;
-import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
+import net.namibsun.pokemontracker.lib.models.enums.Languages;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class NameTest{
@@ -38,11 +38,11 @@ public class NameTest{
         SerebiiParser parser = new SerebiiParser("Bulbasaur");
         Name name = Name.fromWebParser(parser);
 
-        assertEquals("Bulbasaur", name.getName(PokemonConstants.ENGLISH_KEY));
-        assertEquals("Bisasam", name.getName(PokemonConstants.GERMAN_KEY));
-        assertEquals("Bulbizarre", name.getName(PokemonConstants.FRENCH_KEY));
-        assertEquals("Fushigidane フシギダネ", name.getName(PokemonConstants.JAPANESE_KEY));
-        assertEquals("이상해씨", name.getName(PokemonConstants.KOREAN_KEY));
+        assertEquals("Bulbasaur", name.getName(Languages.ENGLISH));
+        assertEquals("Bisasam", name.getName(Languages.GERMAN));
+        assertEquals("Bulbizarre", name.getName(Languages.FRENCH));
+        assertEquals("Fushigidane フシギダネ", name.getName(Languages.JAPANESE));
+        assertEquals("이상해씨", name.getName(Languages.KOREAN));
 
     }
 
@@ -51,11 +51,11 @@ public class NameTest{
 
         Name name = new Name("A", "B", "C", "D", "E");
 
-        assertEquals("A", name.getName(PokemonConstants.ENGLISH_KEY));
-        assertEquals("B", name.getName(PokemonConstants.FRENCH_KEY));
-        assertEquals("C", name.getName(PokemonConstants.GERMAN_KEY));
-        assertEquals("D", name.getName(PokemonConstants.JAPANESE_KEY));
-        assertEquals("E", name.getName(PokemonConstants.KOREAN_KEY));
+        assertEquals("A", name.getName(Languages.ENGLISH));
+        assertEquals("B", name.getName(Languages.FRENCH));
+        assertEquals("C", name.getName(Languages.GERMAN));
+        assertEquals("D", name.getName(Languages.JAPANESE));
+        assertEquals("E", name.getName(Languages.KOREAN));
 
     }
 
@@ -66,4 +66,5 @@ public class NameTest{
         assertEquals(name.getName("NotExistingLanguage"), "Missingno.");
 
     }
+
 }

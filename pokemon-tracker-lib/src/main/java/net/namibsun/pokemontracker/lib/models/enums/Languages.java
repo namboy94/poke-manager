@@ -15,13 +15,13 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.webscraping;
+package net.namibsun.pokemontracker.lib.models.enums;
 
 /**
- * Constants that are used by multiple web scrapers or the Pokemon models in General
+ * Enum that stores the available languages for Pokemon names
  */
-public class PokemonConstants {
+public enum Languages {
 
-    public static final int MAX_POKEMON_NUMBER = 802;  // This will change once new Pokemon are added
+    ENGLISH, FRENCH, GERMAN, JAPANESE, KOREAN
 
 }

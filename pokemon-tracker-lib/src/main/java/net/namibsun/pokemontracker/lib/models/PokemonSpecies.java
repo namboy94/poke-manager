@@ -17,10 +17,8 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.models;
 
-import java.io.IOException;
 import net.namibsun.pokemontracker.lib.models.pokemonparts.*;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
-import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 /**
  * Class that models a Pokemon of a specific species
@@ -68,26 +66,58 @@ public class PokemonSpecies {
     private Ability ability;
 
     /**
-     * Creates a new Pokemon
-     * @param pokedexNumber: The national Pokedex Number to identify the Pokemon
+     * The Base Stats of the Pokemon
      */
-    public PokemonSpecies(int pokedexNumber) {
+    private BaseStats baseStats;
 
+    /**
+     * The egg group information of the Pokemon
+     */
+    private EggGroups eggGroups;
+
+    /**
+     * The Mega Evolution information of a Pokemon
+     */
+    private MegaEvolution megaEvolution;
+
+    /**
+     * Creates a new Pokemon Species object
+     * @param pokedexNumber: The Pokedex Number of this Pokemon
+     * @param name:          The name of the pokemon
+     * @param genderRatio:   The gender ratio of the Pokemon
+     * @param type:          The Pokemon' type
+     * @param description:   The Pokemon's species' description
+     * @param rates:         The various rate values of the Pokemon
+     * @param evYield:       The EV yield of the Pokemon
+     * @param ability:       The ability of the Pokemon
+     * @param baseStats:     The Base Stats of the Pokemon
+     * @param eggGroups:     The Egg Groups of the Pokemon
+     * @param megaEvolution: The Mega Evolution information of the Pokemon
+     */
+    public PokemonSpecies(int pokedexNumber, Name name, GenderRatio genderRatio, Type type,
+                          SpeciesDescription description, Rates rates, EffortValueYield evYield,
+                          Ability ability, BaseStats baseStats, EggGroups eggGroups, MegaEvolution megaEvolution) {
         this.pokedexNumber = pokedexNumber;
-
-        try {
-            SerebiiParser parser = new SerebiiParser(pokedexNumber);
-            this.getOnlineInfo(parser);
-        } catch (IOException e) {
-            System.out.println("Null - TODO");
-        }
+        this.name = name;
+        this.genderRatio = genderRatio;
+        this.type = type;
+        this.description = description;
+        this.rates = rates;
+        this.evYield = evYield;
+        this.ability = ability;
+        this.baseStats = baseStats;
+        this.eggGroups = eggGroups;
+        this.megaEvolution = megaEvolution;
     }
 
     /**
-     * Retrieves the Pokemon's information from the internet
-     * @param parser: The Online parser to be used
+     * Creates a new PokemonSpecies object using a Web Parser.
+     * @param pokedexNumber: The Pokemon's Pokedex Number
+     * @param parser:        The parser to be used
      */
-    private void getOnlineInfo(PokemonScraper parser) {
+    public PokemonSpecies(int pokedexNumber, PokemonScraper parser) {
+
+        this.pokedexNumber = pokedexNumber;
         this.name = Name.fromWebParser(parser);
         this.genderRatio = GenderRatio.fromWebParser(parser);
         this.type = Type.fromWebParser(parser);
@@ -95,6 +125,86 @@ public class PokemonSpecies {
         this.rates = Rates.fromWebParser(parser);
         this.evYield = EffortValueYield.fromWebParser(parser);
         this.ability = Ability.fromWebParser(parser);
+        this.baseStats = BaseStats.fromWebParser(parser);
+        this.eggGroups = EggGroups.fromWebParser(parser);
+        this.megaEvolution = MegaEvolution.fromWebParser(parser);
+    }
+
+    /**
+     * @return The Pokemon Species' Pokedex number
+     */
+    public int getPokedexNumber() {
+        return this.pokedexNumber;
+    }
+
+    /**
+     * @return The Pokemon Species' Name
+     */
+    public Name getName() {
+        return this.name;
+    }
+
+    /**
+     * @return The Pokemon Species' Gender Ratio
+     */
+    public GenderRatio getGenderRatio() {
+        return this.genderRatio;
+    }
+
+    /**
+     * @return The Pokemon Species' Type
+     */
+    public Type getType() {
+        return this.type;
+    }
+
+    /**
+     * @return The Pokemon Species' description
+     */
+    public SpeciesDescription getSpeciesDescription() {
+        return this.description;
+    }
+
+    /**
+     * @return The Pokemon Species' rates
+     */
+    public Rates getRates() {
+        return this.rates;
+    }
+
+    /**
+     * @return The Pokemon Species' effort value yield
+     */
+    public EffortValueYield getEffortValueYield() {
+        return this.evYield;
+    }
+
+    /**
+     * @return The Pokemon Species' ability
+     */
+    public Ability getAbility() {
+        return this.ability;
+    }
+
+    /**
+     * @return The Pokemon Species' base stats
+     */
+    public BaseStats getBaseStats() {
+        return this.baseStats;
+    }
+
+    /**
+     * @return The Pokemon Species' egg groups
+     */
+    public EggGroups getEggGroups() {
+        return this.eggGroups;
+    }
+
+    /**
+     * @return The Pokemon Species' Mega Evolution information
+     */
+    public MegaEvolution getMegaEvolution() {
+        return this.megaEvolution;
     }
 
 }

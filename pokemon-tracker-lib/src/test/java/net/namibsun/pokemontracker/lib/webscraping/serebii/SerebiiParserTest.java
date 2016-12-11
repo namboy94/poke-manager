@@ -17,16 +17,15 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
-import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
-import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 import org.junit.Test;
 import java.util.HashMap;
 import java.io.IOException;
 import org.junit.BeforeClass;
-
 import static org.junit.Assert.*;
+import net.namibsun.pokemontracker.lib.models.enums.Languages;
+import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
-import org.junit.experimental.theories.suppliers.TestedOn;
+import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
 
 public class SerebiiParserTest {
     
@@ -85,11 +84,11 @@ public class SerebiiParserTest {
     @Test
     public void testParsingPokemonName() {
         HashMap<String, String> names = bulbasaurParser.parsePokemonName();
-        assertEquals("Bulbasaur", names.get(PokemonConstants.ENGLISH_KEY));
-        assertEquals("Bisasam", names.get(PokemonConstants.GERMAN_KEY));
-        assertEquals("Bulbizarre", names.get(PokemonConstants.FRENCH_KEY));
-        assertEquals("Fushigidane フシギダネ", names.get(PokemonConstants.JAPANESE_KEY));
-        assertEquals("이상해씨", names.get(PokemonConstants.KOREAN_KEY));
+        assertEquals("Bulbasaur", names.get(Languages.ENGLISH.name().toLowerCase()));
+        assertEquals("Bisasam", names.get(Languages.GERMAN.name().toLowerCase()));
+        assertEquals("Bulbizarre", names.get(Languages.FRENCH.name().toLowerCase()));
+        assertEquals("Fushigidane フシギダネ", names.get(Languages.JAPANESE.name().toLowerCase()));
+        assertEquals("이상해씨", names.get(Languages.KOREAN.name().toLowerCase()));
     }
 
     @Test
