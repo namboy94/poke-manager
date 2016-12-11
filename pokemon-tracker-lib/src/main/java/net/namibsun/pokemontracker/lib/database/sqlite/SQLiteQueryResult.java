@@ -52,7 +52,7 @@ public class SQLiteQueryResult extends QueryResult {
                 this.queryResult.last();
                 return this.queryResult.getRow() + 1;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             return 0;
         }
     }

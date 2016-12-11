@@ -22,6 +22,10 @@ public class DatabaseColumn {
         return this.name;
     }
 
+    public String getName(String end) {
+        return this.getName() + end;
+    }
+
     public String getType() {
         return this.type;
     }

@@ -31,7 +31,7 @@ public class PokedexColumns {
     public static DatabaseColumn SECONDARY_ABILITY = new DatabaseColumn("secondary_ability", "Text");
     public static DatabaseColumn SECONDARY_ABILITY_DESCRIPTION
             = new DatabaseColumn("secondary_ability_description", "Text");
-    public static DatabaseColumn HIDDEN_ABILITY = new DatabaseColumn("hidden_ability_description", "TEXT");
+    public static DatabaseColumn HIDDEN_ABILITY = new DatabaseColumn("hidden_ability", "TEXT");
     public static DatabaseColumn HIDDEN_ABILITY_DESCRIPTION = new DatabaseColumn("hidden_ability_description", "TEXT");
     public static DatabaseColumn HP_BASE = new DatabaseColumn("hp_base", "Integer");
     public static DatabaseColumn ATTACK_BASE = new DatabaseColumn("attack_base", "Integer");

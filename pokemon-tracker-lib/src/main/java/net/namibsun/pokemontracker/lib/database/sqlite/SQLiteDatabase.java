@@ -44,6 +44,7 @@ public class SQLiteDatabase implements Database {
 
         String url = "jdbc:sqlite:" + databaseFile;
         this.connection = DriverManager.getConnection(url);
+        this.connection.setAutoCommit(false);
 
     }
 
@@ -55,12 +56,6 @@ public class SQLiteDatabase implements Database {
     @Override
     public void executeSql(String sqlStatement) throws SQLException {
         this.connection.createStatement().execute(sqlStatement);
-        ResultSet res = this.connection.createStatement().executeQuery("");
-        res.last();
-        res.getRow();
-        res.first();
-        res.relative(1);
-
     }
 
     /**

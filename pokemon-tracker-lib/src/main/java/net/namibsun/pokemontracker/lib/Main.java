@@ -20,19 +20,23 @@ package net.namibsun.pokemontracker.lib;
 
 import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.DatabaseHandler;
+import net.namibsun.pokemontracker.lib.database.pokedex.PokedexDatabaseHandler;
 import net.namibsun.pokemontracker.lib.database.sqlite.SQLiteDatabase;
+import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
 
         Database db = new SQLiteDatabase("/home/hermann/pokedex.db");
+        PokedexDatabaseHandler handler = new PokedexDatabaseHandler(db);
 
-        //db.executeSql("create table test");
-
-        DatabaseHandler.createPokedexTable(db);
+        handler.createPokedexTable();
+        handler.storePokemonSpeciesInDatabase(new PokemonSpecies(1, new SerebiiParser(1)));
 
     }
 }
