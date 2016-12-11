@@ -119,4 +119,11 @@ public interface PokemonScraper {
      */
     String[] parseHiddenAbility();
 
+    /**
+     * Parses the base stats of a Pokemon
+     * @return these stats in an ordered Array in the following order:
+     *           HP, Attack, Defense, Special Attack, Special Defense, Speed
+     */
+    int[] parseBaseStats();
+
 }
