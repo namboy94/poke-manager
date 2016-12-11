@@ -35,22 +35,27 @@ public class EggGroups {
      */
     private EggGroupTypes secondaryEggGroup;
 
+    private boolean onlyWithDitto;
+
     /**
      * Constructor for a Pokemon with a single egg group
      * @param primaryEggGroup: The egg group
+     * @param genderless:      Indicates that the Pokemon is genderless
      */
-    public EggGroups(EggGroupTypes primaryEggGroup) {
-        this(primaryEggGroup, null);
+    public EggGroups(EggGroupTypes primaryEggGroup, boolean genderless) {
+        this(primaryEggGroup, null, genderless);
     }
 
     /**
      * Stores the egg groups in private variables
      * @param primaryEggGroup:   The primary egg group
      * @param secondaryEggGroup: The secondary egg group
+     * @param genderless:        Indicates that the Pokemon is genderless
      */
-    public EggGroups(EggGroupTypes primaryEggGroup, EggGroupTypes secondaryEggGroup) {
+    public EggGroups(EggGroupTypes primaryEggGroup, EggGroupTypes secondaryEggGroup, boolean genderless) {
         this.primaryEggGroup = primaryEggGroup;
         this.secondaryEggGroup = secondaryEggGroup;
+        this.onlyWithDitto = genderless && primaryEggGroup != EggGroupTypes.UNDISCOVERED;
     }
 
     /**
@@ -76,17 +81,41 @@ public class EggGroups {
     }
 
     /**
+     * Checks if the Pokemon is able to breed
+     * @return true if it is able to breed, false otherwise
+     */
+    public boolean canBreed() {
+        return this.primaryEggGroup != EggGroupTypes.UNDISCOVERED;
+    }
+
+    /**
+     * Checks if the Pokemon can only breed with Ditto
+     * @return true if the Pokemon can only breed with Ditto, false otherwise
+     */
+    public boolean canOnlyBreedWithDitto() {
+        return onlyWithDitto;
+    }
+
+    /**
      * Generates a new EggGroup from a Web Parser's information
      * @param parser: the parser to use
      * @return        the generated Egg Group
      */
     public static EggGroups fromWebParser(PokemonScraper parser) {
+
         String[] eggGroups = parser.parseEggGroups();
-        if (eggGroups.length == 1) {
-            return new EggGroups(EggGroupTypes.valueOf(eggGroups[0]));
-        }
-        else {
-            return new EggGroups(EggGroupTypes.valueOf(eggGroups[0]), EggGroupTypes.valueOf(eggGroups[1]));
+
+        try {
+            return new EggGroups(
+                    EggGroupTypes.valueOf(eggGroups[0]),
+                    EggGroupTypes.valueOf(eggGroups[1]),
+                    Boolean.parseBoolean(eggGroups[2])
+            );
+        } catch (NullPointerException e) {
+            return new EggGroups(
+                    EggGroupTypes.valueOf(eggGroups[0]),
+                    Boolean.parseBoolean(eggGroups[2])
+            );
         }
     }
 

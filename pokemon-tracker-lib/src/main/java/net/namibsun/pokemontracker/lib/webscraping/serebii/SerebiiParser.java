@@ -48,6 +48,7 @@ public class SerebiiParser implements PokemonScraper {
      * Elements used by multiple parser methods
      */
     private Elements dexTables;
+    private Elements dexItems;
     private Elements toolTabs;
 
     /**
@@ -101,6 +102,7 @@ public class SerebiiParser implements PokemonScraper {
         this.url = SerebiiConstants.POKEDEX_ROOT_URL + formattedPokedexNumber + ".shtml";
         this.serebiiPage = Jsoup.connect(this.url).get();
         this.dexTables = this.serebiiPage.select("table.dextable");
+        this.dexItems = this.serebiiPage.select("table.dexitem");
         this.toolTabs = this.serebiiPage.select("table.tooltab");
     }
 
@@ -366,4 +368,76 @@ public class SerebiiParser implements PokemonScraper {
             return null;
         }
     }
+
+    /**
+     * Parses the base stats of a Pokemon
+     * @return these stats in an ordered Array in the following order:
+     *           HP, Attack, Defense, Special Attack, Special Defense, Speed
+     */
+    public int[] parseBaseStats() {
+
+        Elements stats = dexTables.get(12).select("tr").get(2).select("td");
+
+        return new int[]{
+                Integer.parseInt(stats.get(1).text()),
+                Integer.parseInt(stats.get(2).text()),
+                Integer.parseInt(stats.get(3).text()),
+                Integer.parseInt(stats.get(4).text()),
+                Integer.parseInt(stats.get(5).text()),
+                Integer.parseInt(stats.get(6).text())
+        };
+    }
+
+    /**
+     * Parses the egg groups of a Pokemon
+     * @return the egg groups as an array of strings of length 3 in the following order:
+     *         the primary egg group, the secondary egg group, an indicator if the Pokemon is genderless
+     *             (genderless = 'true', has gender = 'false')
+     */
+    public String[] parseEggGroups() {
+
+        Elements groups = this.dexItems.select("td");
+        String[] returnArray = new String[] {null, null, null};
+
+        returnArray[2] = "" + (this.parseGenderRatio() == null);  //Check if genderless -> Can only breed with Ditto
+
+        if (groups.size() < 2) {
+            returnArray[0] = "UNDISCOVERED";
+        }
+        if (groups.size() >= 2) {
+            returnArray[0] = this.convertIntoEggGroupName(groups.get(1).text());
+        }
+        if (groups.size() == 4) {
+            returnArray[1] = this.convertIntoEggGroupName(groups.get(3).text());
+        }
+
+        return returnArray;
+    }
+
+    /**
+     * Changes the Egg Group String value into something that can be converted to an EggGroupTypes enum
+     * @param name: The name as parsed from serebii.net
+     * @return      The enum-ready name
+     */
+    private String convertIntoEggGroupName(String name) {
+
+        if (name.toLowerCase().equals("human-like")) {
+            name = name.replace("-", "");
+        }
+
+        return name.toUpperCase();
+    }
+
+    /**
+     * Checks if the Pokemon has a Mega Evolution
+     * @return true if the Pokemon has a Mega Evolution, false otherwise
+     */
+    public boolean parseHasMegaEvolution() {
+
+        String[] parts = this.dexTables.get(1).text().split(" ");
+        String hasMegaEvolution = parts[parts.length - 1];
+
+        return !hasMegaEvolution.equals("No");
+    }
+
 }

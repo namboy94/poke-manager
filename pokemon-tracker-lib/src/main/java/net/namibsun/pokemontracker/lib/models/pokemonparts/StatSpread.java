@@ -54,12 +54,12 @@ public abstract class StatSpread {
     /**
      * A limiter on the Pokemon's stat. Can be used to create different types of spreads, for example IV or EV spreads.
      */
-    protected int upperRangeLimit = Integer.MAX_VALUE;
+    protected int upperRangeLimit;
 
     /**
      * A limiter on what the lowest possible Stat a Pokemon can have is.
      */
-    protected int lowerRangeLimit = 0;
+    protected int lowerRangeLimit;
 
     /**
      * Basic Constructor, that sets the internal stat values and checks if they are below the specified threshold.
@@ -71,7 +71,9 @@ public abstract class StatSpread {
      * @param speed:          The Speed Value
      */
     public StatSpread(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed) {
-       
+
+        this.setValidRanges();
+
         this.hp = this.checkValue(hp);
         this.attack = this.checkValue(attack);
         this.defense = this.checkValue(defense);
@@ -94,6 +96,14 @@ public abstract class StatSpread {
         else {
             throw new NumberFormatException("Stat out of Range");
         }
+    }
+
+    /**
+     * Sets the valid ranges of the Stat Spread
+     */
+    protected void setValidRanges() {
+        this.upperRangeLimit = Integer.MAX_VALUE;
+        this.lowerRangeLimit = 0;
     }
 
     /**

@@ -25,16 +25,6 @@ import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 public class BaseStats extends StatSpread {
 
     /**
-     * Base stats are limited to 255
-     */
-    private int upperRangeLimit = 255;
-
-    /**
-     * Base stats are at least 1
-     */
-    private int lowerRangeLimit = 1;
-
-    /**
      * Basic Constructor, that sets the internal stat values and checks if they are below the specified threshold.
      *
      * @param hp:             The HP value
@@ -46,6 +36,15 @@ public class BaseStats extends StatSpread {
      */
     public BaseStats(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed) {
         super(hp, attack, defense, specialAttack, specialDefense, speed);
+    }
+
+    /**
+     * Sets the limits of the ranges to 1 and 255
+     */
+    @Override
+    protected void setValidRanges() {
+        this.upperRangeLimit = 255;
+        this.lowerRangeLimit = 1;
     }
 
     /**

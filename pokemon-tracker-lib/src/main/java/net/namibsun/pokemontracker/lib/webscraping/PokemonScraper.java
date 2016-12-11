@@ -128,7 +128,9 @@ public interface PokemonScraper {
 
     /**
      * Parses the egg groups of a Pokemon
-     * @return the egg groups as an array of strings, with a maximum length of 2
+     * @return the egg groups as an array of strings of length 3 in the following order:
+     *         the primary egg group, the secondary egg group, an indicator if the Pokemon is genderless
+     *             (genderless = 'true', has gender = 'false')
      */
     String[] parseEggGroups();
 

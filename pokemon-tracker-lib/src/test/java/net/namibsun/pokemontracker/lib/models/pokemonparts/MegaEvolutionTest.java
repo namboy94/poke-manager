@@ -25,10 +25,14 @@ import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 public class MegaEvolutionTest {
 
     @Test
-    public void testGeneratingFromWebParser() throws IOException {
+    public void testGeneratingFromWebParserWithoutMegaEvolution() throws IOException {
         MegaEvolution bulbasaur = MegaEvolution.fromWebParser(new SerebiiParser("Bulbasaur"));
-        MegaEvolution venusaur = MegaEvolution.fromWebParser(new SerebiiParser("venusaur"));
         assertFalse(bulbasaur.hasMegaEvolution());
+    }
+
+    @Test
+    public void testGeneratingFromWebParserWithMegaEvolution() throws IOException {
+        MegaEvolution venusaur = MegaEvolution.fromWebParser(new SerebiiParser("Venusaur"));
         assertTrue(venusaur.hasMegaEvolution());
     }
 

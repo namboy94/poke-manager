@@ -30,7 +30,27 @@ public class EggGroupsTest {
         EggGroups eggGroup = EggGroups.fromWebParser(new SerebiiParser("Bulbasaur"));
         assertEquals(eggGroup.getPrimaryEggGroup(), EggGroupTypes.MONSTER);
         assertEquals(eggGroup.getSecondaryEggGroup(), EggGroupTypes.GRASS);
+        assertTrue(eggGroup.canBreed());
+        assertFalse(eggGroup.canOnlyBreedWithDitto());
         assertTrue(eggGroup.hasTwoEggGroups());
+    }
+
+    @Test
+    public void testGeneratingNonBreedablePokemon() throws IOException {
+        EggGroups eggGroup = EggGroups.fromWebParser(new SerebiiParser("Magnemite"));
+        assertEquals(eggGroup.getPrimaryEggGroup(), EggGroupTypes.MINERAL);
+        assertTrue(eggGroup.canBreed());
+        assertTrue(eggGroup.canOnlyBreedWithDitto());
+        assertFalse(eggGroup.hasTwoEggGroups());
+    }
+
+    @Test
+    public void testGeneratingGenderlessPokemon() throws IOException {
+        EggGroups eggGroup = EggGroups.fromWebParser(new SerebiiParser("Mewtwo"));
+        assertEquals(eggGroup.getPrimaryEggGroup(), EggGroupTypes.UNDISCOVERED);
+        assertFalse(eggGroup.canBreed());
+        assertFalse(eggGroup.canOnlyBreedWithDitto());
+        assertFalse(eggGroup.hasTwoEggGroups());
     }
 
 }

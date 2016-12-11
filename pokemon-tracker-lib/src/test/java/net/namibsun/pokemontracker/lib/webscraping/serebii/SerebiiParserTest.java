@@ -26,6 +26,7 @@ import org.junit.BeforeClass;
 
 import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
+import org.junit.experimental.theories.suppliers.TestedOn;
 
 public class SerebiiParserTest {
     
@@ -35,6 +36,8 @@ public class SerebiiParserTest {
     private static SerebiiParser magnemiteParser;
     private static SerebiiParser gastlyParser;
     private static SerebiiParser parasParser;
+    private static SerebiiParser abraParser;
+    private static SerebiiParser mewtwoParser;
     
     @BeforeClass
     public static void setupClass() throws IOException {
@@ -44,6 +47,8 @@ public class SerebiiParserTest {
         magnemiteParser = new SerebiiParser("Magnemite");
         gastlyParser = new SerebiiParser("Gastly");
         parasParser = new SerebiiParser("Paras");
+        abraParser = new SerebiiParser("Abra");
+        mewtwoParser = new SerebiiParser("Mewtwo");
     }
     
 
@@ -226,16 +231,33 @@ public class SerebiiParserTest {
     @Test
     public void testParsingSingleEggGroup() {
         String[] result = gastlyParser.parseEggGroups();
-        assertEquals(1, result.length);
         assertEquals(EggGroupTypes.AMORPHOUS.name(), result[0]);
     }
 
     @Test
     public void testParsingMultipleEggGroups() {
         String[] results = bulbasaurParser.parseEggGroups();
-        assertEquals(2, results.length);
         assertEquals(EggGroupTypes.MONSTER.name(), results[0]);
         assertEquals(EggGroupTypes.GRASS.name(), results[1]);
+    }
+
+    @Test
+    public void testParsingHumanLikeEggGroup() {
+        String[] results = abraParser.parseEggGroups();
+        assertEquals(EggGroupTypes.HUMANLIKE.name(), results[0]);
+    }
+
+    @Test
+    public void testParsingOnlyDittoEggGroups() {
+        String[] results = magnemiteParser.parseEggGroups();
+        assertEquals(EggGroupTypes.MINERAL.name(), results[0]);
+        assertEquals("true", results[2]);
+    }
+
+    @Test
+    public void testParsingUndiscoveredEggGroups() {
+        String[] results = mewtwoParser.parseEggGroups();
+        assertEquals(EggGroupTypes.UNDISCOVERED.name(), results[0]);
     }
 
     @Test
