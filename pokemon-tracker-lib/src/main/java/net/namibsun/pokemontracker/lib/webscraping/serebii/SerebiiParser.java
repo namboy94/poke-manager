@@ -175,6 +175,10 @@ public class SerebiiParser implements PokemonScraper {
 
         Element typeTab = this.toolTabs.get(1);
         Elements types = typeTab.select("a");
+        if (types.size() == 0) {
+            typeTab = this.toolTabs.get(2);
+            types = typeTab.select("tr").get(1).select("td").get(0).select("a");
+        }
 
         if (types.size() == 1) {
             return new String[]{
@@ -189,19 +193,33 @@ public class SerebiiParser implements PokemonScraper {
         }
     }
 
+    public String[] parseTypesForPokemonWithAlolanForm() {
+        return null;
+    }
+
     /**
      * Parse the weight of the Pokemon
      * @return an array of doubles, with the first element being in kg, the second in lbs
      */
     @Override
     public double[] parseWeight() {
-        String info = this.toolTabs.get(3).select("tr").get(1).text();
-        String metricWeight = info.split("kg")[0].split(" ")[3].trim();
-        String imperialWeight = info.split("lbs")[0].split(" ")[2].trim();
+
+        String metric;
+        String imperial;
+
+        try {
+            String info = this.toolTabs.get(3).select("tr").get(1).text();
+            metric = info.split("kg")[0].split(" ")[3].trim();
+            imperial = info.split("lbs")[0].split(" ")[2].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            String info = this.toolTabs.get(4).select("tr").get(3).text();
+            metric = info.split("kg")[0].split(" ")[1].trim();
+            imperial = info.split("lbs")[0].split(" ")[0].trim();
+        }
 
         return new double[]{
-                Double.parseDouble(metricWeight),
-                Double.parseDouble(imperialWeight)
+                Double.parseDouble(metric),
+                Double.parseDouble(imperial)
         };
     }
 
@@ -213,6 +231,11 @@ public class SerebiiParser implements PokemonScraper {
     public double[] parseHeight() {
 
         String info = this.toolTabs.get(3).select("tr").get(1).text();
+
+        if (!info.contains("m") || !info.contains("\u0094") || !info.contains("\u0092")) {
+            info = this.toolTabs.get(4).select("tr").get(1).text();
+        }
+
         String metricHeight = info.split("m")[0].split(" ")[1].trim();
         String imperialFeet = info.split("\u0092")[0];
         String imperialInches = info.split("\u0092")[1].split("\u0094")[0];

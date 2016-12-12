@@ -36,7 +36,7 @@ public class Main {
 
         handler.createPokedexTable();
 
-        for (int i = 1; i < 25; i++) {
+        for (int i = 1; i < 50; i++) {
             System.out.println(i);
             try {
                 handler.storePokemonSpeciesInDatabase(new PokemonSpecies(i, new SerebiiParser(i)));

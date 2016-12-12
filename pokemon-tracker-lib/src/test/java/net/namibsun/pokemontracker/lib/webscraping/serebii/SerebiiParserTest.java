@@ -32,6 +32,7 @@ public class SerebiiParserTest {
     private static SerebiiParser bulbasaurParser;
     private static SerebiiParser venusaurParser;
     private static SerebiiParser charmanderParser;
+    private static SerebiiParser rattataParser;
     private static SerebiiParser magnemiteParser;
     private static SerebiiParser gastlyParser;
     private static SerebiiParser parasParser;
@@ -44,6 +45,7 @@ public class SerebiiParserTest {
         bulbasaurParser = new SerebiiParser("Bulbasaur");
         venusaurParser = new SerebiiParser("Venusaur");
         charmanderParser = new SerebiiParser("Charmander");
+        rattataParser = new SerebiiParser("Rattata");
         magnemiteParser = new SerebiiParser("Magnemite");
         gastlyParser = new SerebiiParser("Gastly");
         parasParser = new SerebiiParser("Paras");
@@ -121,6 +123,13 @@ public class SerebiiParserTest {
     }
 
     @Test
+    public void testParsingAlolanPokemonNormalType() {
+        String[] types = rattataParser.parseTypes();
+        assertEquals(1, types.length);
+        assertEquals("NORMAL", types[0]);
+    }
+
+    @Test
     public void testParsingWeight() {
         double[] results = bulbasaurParser.parseWeight();
         assertEquals(results[0], 6.9, 0.0);
@@ -128,10 +137,24 @@ public class SerebiiParserTest {
     }
 
     @Test
+    public void testParsingAlolanPokemonNormalWeight() {
+        double[] results = rattataParser.parseWeight();
+        assertEquals(results[0], 3.5, 0.0);
+        assertEquals(results[1], 7.7, 0.0);
+    }
+
+    @Test
     public void testParsingHeight() {
         double[] results = bulbasaurParser.parseHeight();
         assertEquals(results[0], 0.7, 0.0);
         assertEquals(results[1], 2.04, 0.0);
+    }
+
+    @Test
+    public void testParsingAlolanPokemonNormalHeight() {
+        double[] results = rattataParser.parseHeight();
+        assertEquals(results[0], 0.3, 0.0);
+        assertEquals(results[1], 1.00, 0.0);
     }
 
     @Test

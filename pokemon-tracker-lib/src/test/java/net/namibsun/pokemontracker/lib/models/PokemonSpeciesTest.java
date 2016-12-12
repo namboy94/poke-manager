@@ -115,4 +115,9 @@ public class PokemonSpeciesTest {
                 new PokemonSpecies(1, new SerebiiParser("Venusaur"))));
     }
 
+    @Test
+    public void testGeneratingPokemonWithAlolaForm() throws IOException {
+        new PokemonSpecies(20, new SerebiiParser(20));
+    }
+
 }
