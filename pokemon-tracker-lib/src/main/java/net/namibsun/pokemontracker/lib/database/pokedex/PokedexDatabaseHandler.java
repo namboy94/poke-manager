@@ -203,6 +203,11 @@ public class PokedexDatabaseHandler {
             tableColumnHeaders = tableColumnHeaders.substring(0, tableColumnHeaders.length() - 1);
             tableColumnHeaders += ")";
 
+            String secondaryType = species.getType().getSecondaryTypeAsString();
+            if (secondaryType != null) {
+                secondaryType = secondaryType.toUpperCase();
+            }
+
             String values = "VALUES (";
             values += species.getPokedexNumber() + ",";
             values += "\"" + species.getName().getName(Languages.ENGLISH) + "\",";
@@ -213,7 +218,7 @@ public class PokedexDatabaseHandler {
             values += species.getGenderRatio().getMaleRatio() + ",";
             values += species.getGenderRatio().getFemaleRatio() + ",";
             values += "\"" + species.getType().getPrimaryTypeAsString().toUpperCase() + "\",";
-            values += "\"" + species.getType().getSecondaryTypeAsString().toUpperCase() + "\",";
+            values += "\"" + secondaryType + "\",";
             values += species.getSpeciesDescription().getMetricHeight() + ",";
             values += species.getSpeciesDescription().getMetricWeight() + ",";
             values += species.getSpeciesDescription().getImperialHeight() + ",";

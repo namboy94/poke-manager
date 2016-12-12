@@ -178,4 +178,38 @@ public class Ability {
                 hiddenAbility[0], hiddenAbility[1]);
     }
 
+    /**
+     * Compares the Ability object with another Ability object
+     * @param otherAbility: The Ability object to compare against
+     * @return              true if the objects are equal, false otherwise
+     */
+    public boolean equals(Ability otherAbility) {
+
+        boolean abilityOneSame =
+                this.abilityOneName.equals(otherAbility.getAbilityOne()[0]) &&
+                this.abilityOneDescription.equals(otherAbility.getAbilityOne()[1]);
+        boolean abilityTwoSame;
+        boolean hiddenAbilitySame;
+
+        if (this.abilityTwoName == null) {
+            abilityTwoSame = null == otherAbility.getAbilityTwo();
+        }
+        else {
+            abilityTwoSame =
+                    this.abilityTwoName.equals(otherAbility.getAbilityTwo()[0]) &&
+                    this.abilityTwoDescription.equals(otherAbility.getAbilityTwo()[1]);
+        }
+
+        if (this.hiddenAbilityName == null) {
+            hiddenAbilitySame = null == otherAbility.getHiddenAbility();
+        }
+        else {
+            hiddenAbilitySame =
+                    this.hiddenAbilityName.equals(otherAbility.getHiddenAbility()[0]) &&
+                    this.hiddenAbilityDescription.equals(otherAbility.getHiddenAbility()[1]);
+        }
+
+        return abilityOneSame && abilityTwoSame && hiddenAbilitySame;
+    }
+
 }

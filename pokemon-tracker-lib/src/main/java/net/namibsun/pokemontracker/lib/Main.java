@@ -36,19 +36,17 @@ public class Main {
 
         handler.createPokedexTable();
 
-        /*
-        for (int i = 1; i < 800; i++) {
+        for (int i = 1; i < 25; i++) {
             System.out.println(i);
             try {
                 handler.storePokemonSpeciesInDatabase(new PokemonSpecies(i, new SerebiiParser(i)));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }*/
+        }
 
         handler.storePokemonSpeciesInDatabase(new PokemonSpecies(1, new SerebiiParser(1)));
         PokemonSpecies species = handler.getSpeciesFromDatabase(1);
-
         System.out.println(species.getName().getName("english"));
     }
 }

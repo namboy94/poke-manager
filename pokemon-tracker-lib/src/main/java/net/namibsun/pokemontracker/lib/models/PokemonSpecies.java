@@ -207,4 +207,22 @@ public class PokemonSpecies {
         return this.megaEvolution;
     }
 
+    /**
+     * Compares a Pokemon Species with another Pokemon Species
+     * @param otherSpecies: The Species to compare this species to
+     * @return              true if both species are equal, false otherwise
+     */
+    public boolean equals(PokemonSpecies otherSpecies) {
+        return  this.pokedexNumber == otherSpecies.pokedexNumber &&
+                this.name.equals(otherSpecies.getName()) &&
+                this.genderRatio.equals(otherSpecies.getGenderRatio()) &&
+                this.type.equals(otherSpecies.getType()) &&
+                this.description.equals(otherSpecies.getSpeciesDescription()) &&
+                this.rates.equals(otherSpecies.getRates()) &&
+                this.evYield.equals(otherSpecies.getEffortValueYield()) &&
+                this.baseStats.equals(otherSpecies.getBaseStats()) &&
+                this.eggGroups.equals(otherSpecies.getEggGroups()) &&
+                this.megaEvolution.equals(otherSpecies.megaEvolution);
+    }
+
 }
