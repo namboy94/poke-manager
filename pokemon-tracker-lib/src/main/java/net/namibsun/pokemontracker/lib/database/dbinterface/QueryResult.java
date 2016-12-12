@@ -26,22 +26,9 @@ import java.sql.SQLException;
 public abstract class QueryResult {
 
     /**
-     * A generic object which is the result of an SQL query
-     */
-    protected Object queryResult;
-
-    /**
-     * Initializes the query result
-     * @param queryResult: The query result to wrap around
-     */
-    public QueryResult(Object queryResult) {
-        this.queryResult = queryResult;
-    }
-
-    /**
      * @return The amount of rows in the query result
      */
-    public abstract int getQueryLength();
+    public abstract int getQueryLength() throws SQLException ;
 
     /**
      * Fetches a String value from a specified column and row

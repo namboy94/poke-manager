@@ -174,8 +174,8 @@ public class PokedexDatabaseHandler {
             values += "\"" + species.getName().getName(Languages.KOREAN) + "\",";
             values += species.getGenderRatio().getMaleRatio() + ",";
             values += species.getGenderRatio().getFemaleRatio() + ",";
-            values += "\"" + species.getType().getPrimaryTypeAsString() + "\",";
-            values += "\"" + species.getType().getSecondaryTypeAsString() + "\",";
+            values += "\"" + species.getType().getPrimaryTypeAsString().toUpperCase() + "\",";
+            values += "\"" + species.getType().getSecondaryTypeAsString().toUpperCase() + "\",";
             values += species.getSpeciesDescription().getMetricHeight() + ",";
             values += species.getSpeciesDescription().getMetricWeight() + ",";
             values += species.getSpeciesDescription().getImperialHeight() + ",";

@@ -18,7 +18,9 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.database.sqlite;
 
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
+import net.namibsun.pokemontracker.lib.database.pokedex.PokedexColumns;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -27,34 +29,36 @@ import java.sql.SQLException;
  */
 public class SQLiteQueryResult extends QueryResult {
 
-    /**
-     * The ResultSet provided by the SQLite Database
-     */
-    private ResultSet queryResult;
+    private Connection database;
+    private String query;
 
-    /**
-     * Initializes the SQLite query result
-     * @param queryResult: The query result to wrap around
-     */
-    public SQLiteQueryResult(ResultSet queryResult) {
-        super(queryResult);
+    public SQLiteQueryResult(Connection database, String query) throws SQLException {
+        this.database = database;
+        this.query = query;
     }
 
     /**
      * @return The amount of rows in the query result
      */
-    public int getQueryLength() {
-        try {
-            if (this.queryResult.isBeforeFirst()) {
-                return 0;
-            }
-            else {
-                this.queryResult.last();
-                return this.queryResult.getRow() + 1;
-            }
-        } catch (SQLException | NullPointerException e) {
-            return 0;
+    public int getQueryLength() throws SQLException {
+
+        int length = 0;
+        ResultSet set = this.database.createStatement().executeQuery(this.query);
+        while(set.next()) {
+            length++;
         }
+
+        return length;
+    }
+
+    private ResultSet getRowResultSet(int index) throws SQLException {
+
+        ResultSet set = this.database.createStatement().executeQuery(this.query);
+        for (int i = 0; i < index; i++) {
+            set.next();
+        }
+        return set;
+
     }
 
     /**
@@ -64,8 +68,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return             The String value in that location
      */
     public String getString(String column_name, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getString(column_name);
+        return this.getRowResultSet(rowNumber).getString(column_name);
     }
 
     /**
@@ -75,8 +78,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The String value in that location
      */
     public String getString(int column_number, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getString(column_number);
+        return this.getRowResultSet(rowNumber).getString(column_number);
     }
 
     /**
@@ -86,8 +88,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return             The int value in that location
      */
     public int getInt(String column_name, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getInt(column_name);
+        return this.getRowResultSet(rowNumber).getInt(column_name);
     }
 
     /**
@@ -97,8 +98,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The int value in that location
      */
     public int getInt(int column_number, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getInt(column_number);
+        return this.getRowResultSet(rowNumber).getInt(column_number);
     }
 
     /**
@@ -108,8 +108,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return             The double value in that location
      */
     public double getDouble(String column_name, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getDouble(column_name);
+        return this.getRowResultSet(rowNumber).getDouble(column_name);
     }
 
     /**
@@ -119,8 +118,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The double value in that location
      */
     public double getDouble(int column_number, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getDouble(column_number);
+        return this.getRowResultSet(rowNumber).getDouble(column_number);
     }
 
     /**
@@ -130,8 +128,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return             The boolean value in that location
      */
     public boolean getBoolean(String column_name, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getBoolean(column_name);
+        return this.getRowResultSet(rowNumber).getBoolean(column_name);
     }
 
     /**
@@ -141,7 +138,6 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The boolean value in that location
      */
     public boolean getBoolean(int column_number, int rowNumber) throws SQLException {
-        this.queryResult.relative(rowNumber);
-        return this.queryResult.getBoolean(column_number);
+        return this.getRowResultSet(rowNumber).getBoolean(column_number);
     }
 }

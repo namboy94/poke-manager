@@ -19,6 +19,7 @@ package net.namibsun.pokemontracker.lib.database.sqlite;
 
 import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
+import net.namibsun.pokemontracker.lib.database.pokedex.PokedexColumns;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -65,7 +66,7 @@ public class SQLiteDatabase implements Database {
      */
     @Override
     public QueryResult query(String sqlStatement) throws SQLException {
-        return new SQLiteQueryResult(this.connection.createStatement().executeQuery(sqlStatement));
+        return new SQLiteQueryResult(this.connection, sqlStatement);
     }
 
     /**
