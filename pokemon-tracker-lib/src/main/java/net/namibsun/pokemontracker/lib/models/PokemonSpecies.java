@@ -76,11 +76,6 @@ public class PokemonSpecies {
     private EggGroups eggGroups;
 
     /**
-     * The Mega Evolution information of a Pokemon
-     */
-    private MegaEvolution megaEvolution;
-
-    /**
      * Creates a new Pokemon Species object
      * @param pokedexNumber: The Pokedex Number of this Pokemon
      * @param name:          The name of the pokemon
@@ -92,11 +87,10 @@ public class PokemonSpecies {
      * @param ability:       The ability of the Pokemon
      * @param baseStats:     The Base Stats of the Pokemon
      * @param eggGroups:     The Egg Groups of the Pokemon
-     * @param megaEvolution: The Mega Evolution information of the Pokemon
      */
     public PokemonSpecies(int pokedexNumber, Name name, GenderRatio genderRatio, Type type,
                           SpeciesDescription description, Rates rates, EffortValueYield evYield,
-                          Ability ability, BaseStats baseStats, EggGroups eggGroups, MegaEvolution megaEvolution) {
+                          Ability ability, BaseStats baseStats, EggGroups eggGroups) {
         this.pokedexNumber = pokedexNumber;
         this.name = name;
         this.genderRatio = genderRatio;
@@ -107,7 +101,6 @@ public class PokemonSpecies {
         this.ability = ability;
         this.baseStats = baseStats;
         this.eggGroups = eggGroups;
-        this.megaEvolution = megaEvolution;
     }
 
     /**
@@ -127,7 +120,6 @@ public class PokemonSpecies {
         this.ability = Ability.fromWebParser(parser);
         this.baseStats = BaseStats.fromWebParser(parser);
         this.eggGroups = EggGroups.fromWebParser(parser);
-        this.megaEvolution = MegaEvolution.fromWebParser(parser);
     }
 
     /**
@@ -201,13 +193,6 @@ public class PokemonSpecies {
     }
 
     /**
-     * @return The Pokemon Species' Mega Evolution information
-     */
-    public MegaEvolution getMegaEvolution() {
-        return this.megaEvolution;
-    }
-
-    /**
      * Compares a Pokemon Species with another Pokemon Species
      * @param otherSpecies: The Species to compare this species to
      * @return              true if both species are equal, false otherwise
@@ -221,8 +206,7 @@ public class PokemonSpecies {
                 this.rates.equals(otherSpecies.getRates()) &&
                 this.evYield.equals(otherSpecies.getEffortValueYield()) &&
                 this.baseStats.equals(otherSpecies.getBaseStats()) &&
-                this.eggGroups.equals(otherSpecies.getEggGroups()) &&
-                this.megaEvolution.equals(otherSpecies.megaEvolution);
+                this.eggGroups.equals(otherSpecies.getEggGroups());
     }
 
 }

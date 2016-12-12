@@ -134,10 +134,4 @@ public interface PokemonScraper {
      */
     String[] parseEggGroups();
 
-    /**
-     * Checks if the Pokemon has a Mega Evolution
-     * @return true if the Pokemon has a Mega Evolution, false otherwise
-     */
-    boolean parseHasMegaEvolution();
-
 }

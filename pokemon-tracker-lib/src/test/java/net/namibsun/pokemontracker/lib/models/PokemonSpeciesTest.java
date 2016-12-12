@@ -27,8 +27,7 @@ public class PokemonSpeciesTest {
                         "Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
                         "However, Speed will not double on the turn weather becomes Strong Sunlight."),
                 new BaseStats(45, 49, 49, 65, 65, 45),
-                new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.GRASS, false),
-                new MegaEvolution(false)
+                new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.GRASS, false)
         );
         this.checkBulbasaur(species);
     }
@@ -101,8 +100,6 @@ public class PokemonSpeciesTest {
         assertTrue(bulbasaur.getEggGroups().hasTwoEggGroups());
         assertTrue(bulbasaur.getEggGroups().canBreed());
         assertFalse(bulbasaur.getEggGroups().canOnlyBreedWithDitto());
-
-        assertFalse(bulbasaur.getMegaEvolution().hasMegaEvolution());
 
     }
 }

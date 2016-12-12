@@ -75,7 +75,6 @@ public class PokedexDatabaseHandler {
         PokedexColumns.BASE_HAPPINESS,
         PokedexColumns.XP_GROWTH_POINTS,
         PokedexColumns.XP_GROWTH_DESCRIPTION,
-        PokedexColumns.HAS_MEGA_EVOLUTION
     };
 
     /**
@@ -176,9 +175,6 @@ public class PokedexDatabaseHandler {
                             primaryEggGroup,
                             secondaryEggGroup,
                             genderRatio.isNeutralGendered()
-                    ),
-                    new MegaEvolution(
-                            query.getBoolean(PokedexColumns.HAS_MEGA_EVOLUTION.getName(),0)
                     )
             );
         }
@@ -263,8 +259,7 @@ public class PokedexDatabaseHandler {
             values += species.getRates().getBaseEggSteps() + ",";
             values += species.getRates().getBaseHappiness() + ",";
             values += species.getRates().getExperienceGrowthPoints() + ",";
-            values += "\"" + species.getRates().getExperienceGrowthDescription() + "\",";
-            values += "\"" + species.getMegaEvolution().hasMegaEvolution() + "\");";
+            values += "\"" + species.getRates().getExperienceGrowthDescription() + "\");";
 
             String sql = "INSERT INTO pokedex_data " + tableColumnHeaders + " " + values;
 

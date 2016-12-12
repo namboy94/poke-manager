@@ -259,9 +259,4 @@ public class SerebiiParserTest {
         assertEquals(EggGroupTypes.UNDISCOVERED.name(), results[0]);
     }
 
-    @Test
-    public void testParsingHasMegaEvolution() {
-        assertFalse(bulbasaurParser.parseHasMegaEvolution());
-        assertTrue(venusaurParser.parseHasMegaEvolution());
-    }
 }

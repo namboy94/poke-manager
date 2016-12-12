@@ -62,7 +62,6 @@ public class PokedexColumns {
     public static DatabaseColumn SPEED_BASE = new DatabaseColumn("speed_base", "Integer");
     public static DatabaseColumn EGG_GROUP_ONE = new DatabaseColumn("egg_group_one", "Text");
     public static DatabaseColumn EGG_GROUP_TWO = new DatabaseColumn("egg_group_two", "Text");
-    public static DatabaseColumn HAS_MEGA_EVOLUTION = new DatabaseColumn("has_mega_evolution", "Boolean");
     public static DatabaseColumn CAPTURE_RATE = new DatabaseColumn("capture_rate", "Integer");
     public static DatabaseColumn BASE_EGG_STEPS = new DatabaseColumn("base_egg_steps", "Integer");
     public static DatabaseColumn BASE_HAPPINESS = new DatabaseColumn("base_happiness", "Integer");

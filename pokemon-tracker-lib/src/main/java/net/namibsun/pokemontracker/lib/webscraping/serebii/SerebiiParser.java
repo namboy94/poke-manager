@@ -452,17 +452,4 @@ public class SerebiiParser implements PokemonScraper {
 
         return name.toUpperCase();
     }
-
-    /**
-     * Checks if the Pokemon has a Mega Evolution
-     * @return true if the Pokemon has a Mega Evolution, false otherwise
-     */
-    public boolean parseHasMegaEvolution() {
-
-        String[] parts = this.dexTables.get(1).text().split(" ");
-        String hasMegaEvolution = parts[parts.length - 1];
-
-        return !hasMegaEvolution.equals("No");
-    }
-
 }
