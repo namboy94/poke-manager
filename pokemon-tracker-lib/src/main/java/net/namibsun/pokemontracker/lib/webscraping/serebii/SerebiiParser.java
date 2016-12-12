@@ -173,8 +173,6 @@ public class SerebiiParser implements PokemonScraper {
     @Override
     public String[] parseTypes() {
 
-        System.out.println(this.toolTabs.get(1).text());
-
         Element typeTab = this.toolTabs.get(1);
         Elements types = typeTab.select("a");
 

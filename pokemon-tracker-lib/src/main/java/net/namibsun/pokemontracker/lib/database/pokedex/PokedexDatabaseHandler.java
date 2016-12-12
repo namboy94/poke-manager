@@ -4,7 +4,9 @@ import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.dbinterface.DatabaseColumn;
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.models.enums.Languages;
+import net.namibsun.pokemontracker.lib.models.pokemonparts.*;
 
 import java.sql.SQLException;
 
@@ -69,11 +71,84 @@ public class PokedexDatabaseHandler {
             return null;
         }
         else {
-            //return new PokemonSpecies();
+
+            String primaryEggGroupString = query.getString(PokedexColumns.EGG_GROUP_ONE.getName(), 0);
+            String secondaryEggGroupString = query.getString(PokedexColumns.EGG_GROUP_TWO.getName(), 0);
+            EggGroupTypes primaryEggGroup = EggGroupTypes.valueOf(primaryEggGroupString);
+            EggGroupTypes secondaryEggGroup;
+            try {
+                secondaryEggGroup = EggGroupTypes.valueOf(secondaryEggGroupString);
+            } catch (NullPointerException e) {
+                secondaryEggGroup = null;
+            }
+
+            GenderRatio genderRatio = new GenderRatio(
+                    query.getDouble(PokedexColumns.MALE_RATIO.getName(), 0),
+                    query.getDouble(PokedexColumns.FEMALE_RATIO.getName(), 0)
+            );
+
+            return new PokemonSpecies(
+                    query.getInt(PokedexColumns.POKEDEX_NUMBER.getName(), 0),
+                    new Name(
+                            query.getString(PokedexColumns.ENGLISH_NAME.getName(), 0),
+                            query.getString(PokedexColumns.GERMAN_NAME.getName(), 0),
+                            query.getString(PokedexColumns.FRENCH_NAME.getName(), 0),
+                            query.getString(PokedexColumns.JAPANESE_NAME.getName(), 0),
+                            query.getString(PokedexColumns.KOREAN_NAME.getName(), 0)
+                    ),
+                    genderRatio,
+                    new Type(
+                            query.getString(PokedexColumns.PRIMARY_TYPE.getName(), 0),
+                            query.getString(PokedexColumns.SECONDARY_TYPE.getName(), 0)
+                    ),
+                    new SpeciesDescription(
+                            query.getDouble(PokedexColumns.METRIC_WEIGHT.getName(), 0),
+                            query.getDouble(PokedexColumns.IMPERIAL_WEIGHT.getName(), 0),
+                            query.getDouble(PokedexColumns.METRIC_HEIGHT.getName(), 0),
+                            query.getDouble(PokedexColumns.IMPERIAL_HEIGHT.getName(), 0),
+                            query.getString(PokedexColumns.CLASSIFICATION.getName(), 0)
+                    ),
+                    new Rates(
+                            query.getInt(PokedexColumns.CAPTURE_RATE.getName(), 0),
+                            query.getInt(PokedexColumns.BASE_EGG_STEPS.getName(), 0),
+                            query.getInt(PokedexColumns.BASE_HAPPINESS.getName(), 0),
+                            query.getInt(PokedexColumns.XP_GROWTH_POINTS.getName(), 0),
+                            query.getString(PokedexColumns.XP_GROWTH_DESCRIPTION.getName(), 0)
+                    ),
+                    new EffortValueYield(
+                            query.getInt(PokedexColumns.HP_EV_YIELD.getName(), 0),
+                            query.getInt(PokedexColumns.ATTACK_EV_YIELD.getName(), 0),
+                            query.getInt(PokedexColumns.DEFENSE_EV_YIELD.getName(), 0),
+                            query.getInt(PokedexColumns.SP_ATTACK_EV_YIELD.getName(), 0),
+                            query.getInt(PokedexColumns.SP_DEFENSE_EV_YIELD.getName(), 0),
+                            query.getInt(PokedexColumns.SPEED_EV_YIELD.getName(), 0)
+                    ),
+                    new Ability(
+                            query.getString(PokedexColumns.PRIMARY_ABILITY.getName(), 0),
+                            query.getString(PokedexColumns.PRIMARY_ABILITY_DESCRIPTION.getName(), 0),
+                            query.getString(PokedexColumns.SECONDARY_ABILITY.getName(), 0),
+                            query.getString(PokedexColumns.SECONDARY_ABILITY_DESCRIPTION.getName(), 0),
+                            query.getString(PokedexColumns.HIDDEN_ABILITY.getName(), 0),
+                            query.getString(PokedexColumns.HIDDEN_ABILITY_DESCRIPTION.getName(), 0)
+                    ),
+                    new BaseStats(
+                            query.getInt(PokedexColumns.HP_BASE.getName(), 0),
+                            query.getInt(PokedexColumns.ATTACK_BASE.getName(), 0),
+                            query.getInt(PokedexColumns.DEFENSE_BASE.getName(), 0),
+                            query.getInt(PokedexColumns.SP_ATTACK_BASE.getName(), 0),
+                            query.getInt(PokedexColumns.SP_DEFENSE_BASE.getName(), 0),
+                            query.getInt(PokedexColumns.SPEED_BASE.getName(), 0)
+                    ),
+                    new EggGroups(
+                            primaryEggGroup,
+                            secondaryEggGroup,
+                            genderRatio.isNeutralGendered()
+                    ),
+                    new MegaEvolution(
+                            query.getBoolean(PokedexColumns.HAS_MEGA_EVOLUTION.getName(),0)
+                    )
+            );
         }
-        return null;
-
-
     }
 
     public void storePokemonSpeciesInDatabase(PokemonSpecies species) throws SQLException {
