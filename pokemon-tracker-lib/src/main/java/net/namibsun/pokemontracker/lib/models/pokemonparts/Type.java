@@ -134,4 +134,14 @@ public class Type {
             return new Type(types[0], types[1]);
         }
     }
+
+    /**
+     * Compares two Type objects
+     * @param otherType: The other Type object
+     * @return           true if equal, false otherwise
+     */
+    public boolean equals(Type otherType) {
+        return  this.primaryType == otherType.getPrimaryType() &&
+                this.secondaryType == otherType.getSecondaryType();
+    }
 }

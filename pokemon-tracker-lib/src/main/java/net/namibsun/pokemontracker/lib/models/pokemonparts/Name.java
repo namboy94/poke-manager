@@ -108,4 +108,19 @@ public class Name {
         return new Name(parser.parsePokemonName());
     }
 
+    /**
+     * Compares two Name objects
+     * @param otherName: The other Name object
+     * @return           true if equal, false otherwise
+     */
+    public boolean equals(Name otherName) {
+
+        boolean equal = true;
+
+        for (String key: this.names.keySet()) {
+            equal = equal && this.getName(key).equals(otherName.getName(key));
+        }
+        return equal;
+    }
+
 }

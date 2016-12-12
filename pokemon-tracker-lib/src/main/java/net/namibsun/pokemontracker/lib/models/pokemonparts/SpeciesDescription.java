@@ -116,4 +116,18 @@ public class SpeciesDescription {
 
         return new SpeciesDescription(weights[0], weights[1], heights[0], heights[1], classification);
     }
+
+    /**
+     * Checks two SpeciesDescription objects for equality
+     * @param otherDescription: The SpeciesDescription object to compare against
+     * @return                  true if they are equal, false otherwise
+     */
+    public boolean equals(SpeciesDescription otherDescription) {
+        return  this.metricWeight == otherDescription.getMetricWeight() &&
+                this.metricHeight == otherDescription.getMetricHeight() &&
+                this.imperialWeight == otherDescription.getImperialWeight() &&
+                this.imperialHeight == otherDescription.getImperialHeight() &&
+                this.classification.equals(otherDescription.getClassification());
+    }
+
 }

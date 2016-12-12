@@ -17,8 +17,6 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
-import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
-
 public abstract class StatSpread {
 
     /**
@@ -146,6 +144,20 @@ public abstract class StatSpread {
      */
     public int getSpeed() {
         return this.speed;
+    }
+
+    /**
+     * Compares two StatSpread objects
+     * @param otherStatSpread: The other StatSpread object to compare against
+     * @return                 true, if both objects are equal to one another, false otherwise
+     */
+    public boolean equals(BaseStats otherStatSpread) {
+        return  this.hp == otherStatSpread.getHp() &&
+                this.attack == otherStatSpread.getAttack() &&
+                this.defense == otherStatSpread.getDefense() &&
+                this.specialAttack == otherStatSpread.getSpecialAttack() &&
+                this.specialDefense == otherStatSpread.getSpecialDefense() &&
+                this.speed == otherStatSpread.getSpeed();
     }
 
 }

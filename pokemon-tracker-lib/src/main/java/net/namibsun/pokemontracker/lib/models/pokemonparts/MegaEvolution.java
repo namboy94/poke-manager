@@ -53,4 +53,13 @@ public class MegaEvolution {
         return new MegaEvolution(parser.parseHasMegaEvolution());
     }
 
+    /**
+     * Compares two MegaEvolution objects
+     * @param otherMegaEvolution: The other MegaEvolution object
+     * @return                    true if equal, false otherwise
+     */
+    public boolean equals(MegaEvolution otherMegaEvolution) {
+        return this.megaEvolutionExists && otherMegaEvolution.hasMegaEvolution();
+    }
+
 }

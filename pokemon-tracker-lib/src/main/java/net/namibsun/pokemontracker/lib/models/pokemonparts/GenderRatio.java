@@ -95,4 +95,14 @@ public class GenderRatio {
         }
     }
 
+    /**
+     * Compares two GenderRatio objects
+     * @param otherRatio: The other GenderRatio object to compare against
+     * @return            true, if the objects are equal, false otherwise
+     */
+    public boolean equals(GenderRatio otherRatio) {
+        return  this.maleRatio == otherRatio.getMaleRatio() &&
+                this.femaleRatio == otherRatio.getFemaleRatio();
+    }
+
 }

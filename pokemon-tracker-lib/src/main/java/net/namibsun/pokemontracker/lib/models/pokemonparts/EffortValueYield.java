@@ -136,4 +136,18 @@ public class EffortValueYield {
         );
     }
 
+    /**
+     * Compares two Effort Value Yields to one another
+     * @param otherEvYield: The Effort Value Yield to compare to
+     * @return              true if the objects are equal, false otherwise
+     */
+    public boolean equals(EffortValueYield otherEvYield) {
+        return  this.hpYield == otherEvYield.getHpYield() &&
+                this.attackYield == otherEvYield.getAttackYield() &&
+                this.defenseYield == otherEvYield.getDefenseYield() &&
+                this.spAttackYield == otherEvYield.getSpAttackYield() &&
+                this.spDefenseYield == otherEvYield.getSpDefenseYield() &&
+                this.speedYield == otherEvYield.getSpeedYield();
+    }
+
 }

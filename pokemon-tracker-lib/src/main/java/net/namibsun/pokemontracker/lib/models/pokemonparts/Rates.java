@@ -115,4 +115,17 @@ public class Rates {
                 parser.parseExperienceGrowthDescription());
     }
 
+    /**
+     * Compares two Rates objects
+     * @param otherRates: The other object to compare against
+     * @return            true if they are equal, false otherwise
+     */
+    public boolean equals(Rates otherRates) {
+        return  this.captureRate == otherRates.getCaptureRate() &&
+                this.baseEggSteps == otherRates.getBaseEggSteps() &&
+                this.baseHappiness == otherRates.getBaseHappiness() &&
+                this.experienceGrowthPoints == otherRates.getExperienceGrowthPoints() &&
+                this.experienceGrowthDescription.equals(otherRates.getExperienceGrowthDescription());
+    }
+
 }

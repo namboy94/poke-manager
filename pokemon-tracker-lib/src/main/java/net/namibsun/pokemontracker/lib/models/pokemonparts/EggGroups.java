@@ -119,4 +119,15 @@ public class EggGroups {
         }
     }
 
+    /**
+     * Compares two EggGroups object
+     * @param otherEggGroups: The EggGroups object to compare against
+     * @return                true if the objects are equal, false otherwise
+     */
+    public boolean equals(EggGroups otherEggGroups) {
+
+        return  this.primaryEggGroup == otherEggGroups.getPrimaryEggGroup() &&
+                this.secondaryEggGroup == otherEggGroups.getSecondaryEggGroup();
+
+    }
 }
