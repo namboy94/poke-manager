@@ -70,12 +70,12 @@ public class PokemonSpeciesTest {
         assertEquals(1059860, bulbasaur.getRates().getExperienceGrowthPoints());
         assertEquals("Medium Slow", bulbasaur.getRates().getExperienceGrowthDescription());
 
-        assertEquals(0, bulbasaur.getEffortValueYield().getHpYield());
-        assertEquals(0, bulbasaur.getEffortValueYield().getAttackYield());
-        assertEquals(0, bulbasaur.getEffortValueYield().getDefenseYield());
-        assertEquals(1, bulbasaur.getEffortValueYield().getSpAttackYield());
-        assertEquals(0, bulbasaur.getEffortValueYield().getSpDefenseYield());
-        assertEquals(0, bulbasaur.getEffortValueYield().getSpeedYield());
+        assertEquals(0, bulbasaur.getEffortValueYield().getHp());
+        assertEquals(0, bulbasaur.getEffortValueYield().getAttack());
+        assertEquals(0, bulbasaur.getEffortValueYield().getDefense());
+        assertEquals(1, bulbasaur.getEffortValueYield().getSpecialAttack());
+        assertEquals(0, bulbasaur.getEffortValueYield().getSpecialDefense());
+        assertEquals(0, bulbasaur.getEffortValueYield().getSpeed());
 
         assertArrayEquals(new String[] {
                 "Overgrow", "When HP is below 1/3rd its maximum, " +

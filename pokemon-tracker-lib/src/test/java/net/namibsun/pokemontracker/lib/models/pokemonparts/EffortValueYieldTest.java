@@ -28,24 +28,24 @@ public class EffortValueYieldTest {
     @Test
     public void testSingleEffortValuePokemon() throws IOException {
         EffortValueYield yield = EffortValueYield.fromWebParser(new SerebiiParser("Bulbasaur"));
-        assertEquals(0, yield.getHpYield());
-        assertEquals(0, yield.getAttackYield());
-        assertEquals(0, yield.getDefenseYield());
-        assertEquals(1, yield.getSpAttackYield());
-        assertEquals(0, yield.getSpDefenseYield());
-        assertEquals(0, yield.getSpeedYield());
+        assertEquals(0, yield.getHp());
+        assertEquals(0, yield.getAttack());
+        assertEquals(0, yield.getDefense());
+        assertEquals(1, yield.getSpecialAttack());
+        assertEquals(0, yield.getSpecialDefense());
+        assertEquals(0, yield.getSpeed());
     }
 
     @SuppressWarnings("Duplicates")
     @Test
     public void testDoubleEffortValuePokemon() throws IOException {
         EffortValueYield yield = EffortValueYield.fromWebParser(new SerebiiParser("Venusaur"));
-        assertEquals(0, yield.getHpYield());
-        assertEquals(0, yield.getAttackYield());
-        assertEquals(0, yield.getDefenseYield());
-        assertEquals(2, yield.getSpAttackYield());
-        assertEquals(1, yield.getSpDefenseYield());
-        assertEquals(0, yield.getSpeedYield());
+        assertEquals(0, yield.getHp());
+        assertEquals(0, yield.getAttack());
+        assertEquals(0, yield.getDefense());
+        assertEquals(2, yield.getSpecialAttack());
+        assertEquals(1, yield.getSpecialDefense());
+        assertEquals(0, yield.getSpeed());
     }
 
 }

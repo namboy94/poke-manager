@@ -23,37 +23,7 @@ import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 /**
  * Class that models the effort value yield of a Pokemon
  */
-public class EffortValueYield {
-
-    /**
-     * The amount of HP effort values gained when defeating this Pokemon
-     */
-    private int hpYield;
-
-    /**
-     * The amount of Attack effort values gained when defeating this Pokemon
-     */
-    private int attackYield;
-
-    /**
-     * The amount of Defense effort values gained when defeating this Pokemon
-     */
-    private int defenseYield;
-
-    /**
-     * The amount of Special Attack effort values gained when defeating this Pokemon
-     */
-    private int spAttackYield;
-
-    /**
-     * The amount of Special Defense effort values gained when defeating this Pokemon
-     */
-    private int spDefenseYield;
-
-    /**
-     * The amount of Speed effort values gained when defeating this Pokemon
-     */
-    private int speedYield;
+public class EffortValueYield extends StatSpread {
 
     /**
      * Creates a new EffortValueYield object
@@ -70,54 +40,7 @@ public class EffortValueYield {
                             int spAttackYield,
                             int spDefenseYield,
                             int speedYield) {
-        this.hpYield = hpYield;
-        this.attackYield = attackYield;
-        this.defenseYield = defenseYield;
-        this.spAttackYield = spAttackYield;
-        this.spDefenseYield = spDefenseYield;
-        this.speedYield = speedYield;
-    }
-
-    /**
-     * @return The HP Effort Value Yield for this Pokemon
-     */
-    public int getHpYield() {
-        return this.hpYield;
-    }
-
-    /**
-     * @return The Attack Effort Value Yield for this Pokemon
-     */
-    public int getAttackYield() {
-        return this.attackYield;
-    }
-
-    /**
-     * @return The Defense Effort Value Yield for this Pokemon
-     */
-    public int getDefenseYield() {
-        return this.defenseYield;
-    }
-
-    /**
-     * @return The Special Attack Effort Value Yield for this Pokemon
-     */
-    public int getSpAttackYield() {
-        return this.spAttackYield;
-    }
-
-    /**
-     * @return The Special Defense Value Yield for this Pokemon
-     */
-    public int getSpDefenseYield() {
-        return this.spDefenseYield;
-    }
-
-    /**
-     * @return The Speed Effort Value Yield for this Pokemon
-     */
-    public int getSpeedYield() {
-        return this.speedYield;
+        super(hpYield, attackYield, defenseYield, spAttackYield, spDefenseYield, speedYield);
     }
 
     /**
@@ -135,19 +58,4 @@ public class EffortValueYield {
                 parser.parseEffortValueYield(PokemonStatTypes.SPD)
         );
     }
-
-    /**
-     * Compares two Effort Value Yields to one another
-     * @param otherEvYield: The Effort Value Yield to compare to
-     * @return              true if the objects are equal, false otherwise
-     */
-    public boolean equals(EffortValueYield otherEvYield) {
-        return  this.hpYield == otherEvYield.getHpYield() &&
-                this.attackYield == otherEvYield.getAttackYield() &&
-                this.defenseYield == otherEvYield.getDefenseYield() &&
-                this.spAttackYield == otherEvYield.getSpAttackYield() &&
-                this.spDefenseYield == otherEvYield.getSpDefenseYield() &&
-                this.speedYield == otherEvYield.getSpeedYield();
-    }
-
 }
