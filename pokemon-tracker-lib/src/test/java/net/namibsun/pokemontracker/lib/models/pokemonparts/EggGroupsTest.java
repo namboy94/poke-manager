@@ -53,4 +53,16 @@ public class EggGroupsTest {
         assertFalse(eggGroup.hasTwoEggGroups());
     }
 
+    @Test
+    public void testTrueEquality() {
+        assertTrue(new EggGroups(EggGroupTypes.MONSTER, false)
+                .equals(new EggGroups(EggGroupTypes.MONSTER, false)));
+    }
+
+    @Test
+    public void testFalseEquality() {
+        assertFalse(new EggGroups(EggGroupTypes.MONSTER, false)
+                .equals(new EggGroups(EggGroupTypes.GRASS, false)));
+    }
+
 }

@@ -64,4 +64,15 @@ public class BaseStatsTest {
             assertTrue(false);
         }
     }
+
+    @Test
+    public void testTrueEquality() {
+        assertTrue(new BaseStats(1, 2, 3, 4, 5, 6).equals(new BaseStats(1, 2, 3, 4, 5, 6)));
+    }
+
+    @Test
+    public void testFalseEquality() {
+        assertFalse(new BaseStats(1, 2, 3, 4, 5, 6).equals(new BaseStats(1, 2, 3, 4, 5, 5)));
+    }
+
 }

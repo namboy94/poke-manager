@@ -48,7 +48,7 @@ public class Type {
      * @param primaryType: The primary Pokemon type, as a String
      */
     public Type(String primaryType) {
-        this(PokemonTypes.valueOf(primaryType));
+        this(PokemonTypes.valueOf(primaryType.toUpperCase()));
     }
 
     /**
@@ -67,7 +67,8 @@ public class Type {
      * @param secondaryType: The secondary Pokemon Type, as a String
      */
     public Type(String primaryType, String secondaryType) {
-        this(PokemonTypes.valueOf(primaryType), PokemonTypes.valueOf(secondaryType));
+        this(PokemonTypes.valueOf(primaryType.toUpperCase()),
+                PokemonTypes.valueOf(secondaryType.toUpperCase()));
     }
 
     /**

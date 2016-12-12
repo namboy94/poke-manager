@@ -198,6 +198,7 @@ public class PokemonSpecies {
      * @return              true if both species are equal, false otherwise
      */
     public boolean equals(PokemonSpecies otherSpecies) {
+
         return  this.pokedexNumber == otherSpecies.pokedexNumber &&
                 this.name.equals(otherSpecies.getName()) &&
                 this.genderRatio.equals(otherSpecies.getGenderRatio()) &&

@@ -191,7 +191,10 @@ public class Ability {
         boolean abilityTwoSame;
         boolean hiddenAbilitySame;
 
-        if (this.abilityTwoName == null) {
+        if (otherAbility.getAbilityTwo() == null) {
+            abilityTwoSame = null == this.abilityTwoName && null == this.abilityTwoDescription;
+        }
+        else if (this.abilityTwoName == null || this.abilityTwoDescription == null) {
             abilityTwoSame = null == otherAbility.getAbilityTwo();
         }
         else {
@@ -200,7 +203,10 @@ public class Ability {
                     this.abilityTwoDescription.equals(otherAbility.getAbilityTwo()[1]);
         }
 
-        if (this.hiddenAbilityName == null) {
+        if (otherAbility.getHiddenAbility() == null) {
+            hiddenAbilitySame = null == this.hiddenAbilityName && null == this.hiddenAbilityDescription;
+        }
+        else if (this.hiddenAbilityName == null || this.hiddenAbilityDescription == null) {
             hiddenAbilitySame = null == otherAbility.getHiddenAbility();
         }
         else {

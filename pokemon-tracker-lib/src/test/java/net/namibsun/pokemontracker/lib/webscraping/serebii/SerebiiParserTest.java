@@ -37,6 +37,7 @@ public class SerebiiParserTest {
     private static SerebiiParser parasParser;
     private static SerebiiParser abraParser;
     private static SerebiiParser mewtwoParser;
+    private static SerebiiParser popplioParser;
     
     @BeforeClass
     public static void setupClass() throws IOException {
@@ -48,6 +49,7 @@ public class SerebiiParserTest {
         parasParser = new SerebiiParser("Paras");
         abraParser = new SerebiiParser("Abra");
         mewtwoParser = new SerebiiParser("Mewtwo");
+        popplioParser = new SerebiiParser("Popplio");
     }
     
 
@@ -244,6 +246,12 @@ public class SerebiiParserTest {
     public void testParsingHumanLikeEggGroup() {
         String[] results = abraParser.parseEggGroups();
         assertEquals(EggGroupTypes.HUMANLIKE.name(), results[0]);
+    }
+
+    @Test
+    public void testParsingWaterEggGroup() {
+        String[] results = popplioParser.parseEggGroups();
+        assertEquals(EggGroupTypes.WATER1.name(), results[0]);
     }
 
     @Test

@@ -19,9 +19,7 @@ package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
 import org.junit.Test;
 import java.io.IOException;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.models.enums.PokemonTypes;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
@@ -45,6 +43,17 @@ public class TypeTest {
         assertEquals(PokemonTypes.POISON, type.getSecondaryType());
         assertEquals("Poison", type.getSecondaryTypeAsString());
         assertTrue(type.isDualTyped());
+    }
+
+    @Test
+    public void testTrueEquality() {
+        assertTrue(new Type(PokemonTypes.BUG).equals(new Type(PokemonTypes.BUG)));
+        assertTrue(new Type(PokemonTypes.BUG).equals(new Type("Bug")));
+    }
+
+    @Test
+    public void testFalseEquality() {
+        assertFalse(new Type(PokemonTypes.BUG).equals(new Type(PokemonTypes.GRASS)));
     }
 
 }

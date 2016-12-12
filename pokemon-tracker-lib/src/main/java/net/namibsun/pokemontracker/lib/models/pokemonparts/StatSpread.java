@@ -151,7 +151,7 @@ public abstract class StatSpread {
      * @param otherStatSpread: The other StatSpread object to compare against
      * @return                 true, if both objects are equal to one another, false otherwise
      */
-    public boolean equals(BaseStats otherStatSpread) {
+    public boolean equals(StatSpread otherStatSpread) {
         return  this.hp == otherStatSpread.getHp() &&
                 this.attack == otherStatSpread.getAttack() &&
                 this.defense == otherStatSpread.getDefense() &&

@@ -124,4 +124,19 @@ public class AbilityTest {
         assertArrayEquals(ability.getHiddenAbility(), new String[] {"E", "F"});
     }
 
+    @Test
+    public void testTrueEquality() {
+        assertTrue(new Ability("A", "B").equals(new Ability("A", "B")));
+        assertTrue(new Ability("A", "B", "C", "D").equals(new Ability("A", "B", "C", "D")));
+        assertTrue(new Ability("A", "B", "C", "D", "E", "F").equals(new Ability("A", "B", "C", "D", "E", "F")));
+    }
+
+    @Test
+    public void testFalseEquality() {
+        assertFalse(new Ability("A", "B").equals(new Ability("B", "A")));
+        assertFalse(new Ability("A", "B").equals(new Ability("A", "B", "C", "D")));
+        assertFalse(new Ability("A", "B", "C", "D").equals(new Ability("A", "B")));
+        assertFalse(new Ability("A", "B", "C", "D").equals(new Ability("A", "B", "C", "D", "E", "F")));
+    }
+
 }

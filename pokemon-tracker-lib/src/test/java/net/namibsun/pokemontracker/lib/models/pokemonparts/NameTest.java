@@ -19,7 +19,7 @@ package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
 import org.junit.Test;
 import java.io.IOException;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.models.enums.Languages;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
@@ -65,6 +65,16 @@ public class NameTest{
         Name name = new Name("TestName", "TestLanguage");
         assertEquals(name.getName("NotExistingLanguage"), "Missingno.");
 
+    }
+
+    @Test
+    public void testTrueEquality() {
+        assertTrue(new Name("A", "B").equals(new Name("A", "B")));
+    }
+
+    @Test
+    public void testFalseEquality() {
+        assertFalse(new Name("A", "B").equals(new Name("A", "C")));
     }
 
 }

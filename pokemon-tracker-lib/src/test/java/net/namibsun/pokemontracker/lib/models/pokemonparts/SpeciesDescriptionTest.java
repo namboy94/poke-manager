@@ -19,7 +19,7 @@ package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
 import org.junit.Test;
 import java.io.IOException;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class SpeciesDescriptionTest {
@@ -36,6 +36,18 @@ public class SpeciesDescriptionTest {
         assertEquals(0.7, description.getMetricHeight(), 0.0);
         assertEquals("Seed Pokémon", description.getClassification());
 
+    }
+
+    @Test
+    public void testTrueEquality() {
+        assertTrue(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")
+                .equals(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")));
+    }
+
+    @Test
+    public void testFalseEquality() {
+        assertFalse(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")
+                .equals(new SpeciesDescription(0.0, 0.0, 0.0, 0.1, "")));
     }
 
 }

@@ -298,7 +298,7 @@ public class SerebiiParser implements PokemonScraper {
     @Override
     public int parseEffortValueYield(PokemonStatTypes statType) {
 
-        String statTypeIdentifier;
+        String statTypeIdentifier = "";
         //noinspection IfCanBeSwitch  Because of Java7 compatibility
         if (statType == PokemonStatTypes.HP)        { statTypeIdentifier = "HP"; }
         else if (statType == PokemonStatTypes.ATK)  { statTypeIdentifier = "Attack"; }
@@ -306,7 +306,6 @@ public class SerebiiParser implements PokemonScraper {
         else if (statType == PokemonStatTypes.SATK) { statTypeIdentifier = "Sp. Attack"; }
         else if (statType == PokemonStatTypes.SDEF) { statTypeIdentifier = "Sp. Defense"; }
         else if (statType == PokemonStatTypes.SPD)  { statTypeIdentifier = "Speed"; }
-        else                                        { return 0; }
 
         Elements tableElements = this.dexTables.get(1).select("td");
         String evYieldText = tableElements.get(tableElements.size() - 2).text();
@@ -396,9 +395,7 @@ public class SerebiiParser implements PokemonScraper {
             }
         }
 
-        if (stats == null) {
-            return new int[] { 0, 0, 0, 0, 0, 0 };
-        }
+        assert(stats != null);
 
         return new int[]{
                 Integer.parseInt(stats.get(1).text()),

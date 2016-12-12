@@ -12,7 +12,12 @@ public class PokemonSpeciesTest {
 
     @Test
     public void testGeneratingPokemonSpecies() {
-        PokemonSpecies species = new PokemonSpecies(
+        PokemonSpecies species = this.generateBulbasaur();
+        this.checkBulbasaur(species);
+    }
+
+    private PokemonSpecies generateBulbasaur() {
+        return new PokemonSpecies(
                 1,
                 new Name("Bulbasaur", "Bulbizarre", "Bisasam", "Fushigidane フシギダネ", "이상해씨"),
                 new GenderRatio(87.5, 12.5),
@@ -29,7 +34,6 @@ public class PokemonSpeciesTest {
                 new BaseStats(45, 49, 49, 65, 65, 45),
                 new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.GRASS, false)
         );
-        this.checkBulbasaur(species);
     }
 
     @Test
@@ -102,4 +106,13 @@ public class PokemonSpeciesTest {
         assertFalse(bulbasaur.getEggGroups().canOnlyBreedWithDitto());
 
     }
+
+    @Test
+    public void testEqualityCheck() throws IOException {
+        assertTrue(this.generateBulbasaur().equals(
+                new PokemonSpecies(1, new SerebiiParser("Bulbasaur"))));
+        assertFalse(this.generateBulbasaur().equals(
+                new PokemonSpecies(1, new SerebiiParser("Venusaur"))));
+    }
+
 }

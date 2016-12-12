@@ -42,4 +42,14 @@ public class GenderRatioTest {
         assertTrue(ratio.isNeutralGendered());
     }
 
+    @Test
+    public void testTrueEquality() {
+        assertTrue(new GenderRatio(0.0, 0.0).equals(new GenderRatio(0.0, 0.0)));
+    }
+
+    @Test
+    public void testFalseEquality() {
+        assertFalse(new GenderRatio(0.0, 0.0).equals(new GenderRatio(0.0, 0.1)));
+    }
+
 }
