@@ -135,7 +135,12 @@ public class PokedexDatabaseHandler {
             values += species.getBaseStats().getSpecialDefense() + ",";
             values += species.getBaseStats().getSpeed() + ",";
             values += "\"" + species.getEggGroups().getPrimaryEggGroup().name() + "\",";
-            values += "\"" + species.getEggGroups().getSecondaryEggGroup().name() + "\",";
+            if (species.getEggGroups().getSecondaryEggGroup() != null) {
+                values += "\"" + species.getEggGroups().getSecondaryEggGroup().name() + "\",";
+            }
+            else {
+                values += "NULL,";
+            }
             values += species.getRates().getCaptureRate() + ",";
             values += species.getRates().getBaseEggSteps() + ",";
             values += species.getRates().getBaseHappiness() + ",";
@@ -144,7 +149,6 @@ public class PokedexDatabaseHandler {
             values += "\"" + species.getMegaEvolution().hasMegaEvolution() + "\");";
 
             String sql = "INSERT INTO pokedex_data " + tableColumnHeaders + " " + values;
-            System.out.println(sql);
 
             this.database.executeSql(sql);
             this.database.commitChanges();

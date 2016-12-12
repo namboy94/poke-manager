@@ -172,6 +172,9 @@ public class SerebiiParser implements PokemonScraper {
      */
     @Override
     public String[] parseTypes() {
+
+        System.out.println(this.toolTabs.get(1).text());
+
         Element typeTab = this.toolTabs.get(1);
         Elements types = typeTab.select("a");
 
@@ -387,7 +390,17 @@ public class SerebiiParser implements PokemonScraper {
      */
     public int[] parseBaseStats() {
 
-        Elements stats = dexTables.get(12).select("tr").get(2).select("td");
+        Elements stats = null;
+        for (Element table: dexTables) {
+            if (table.text().startsWith("Stats")) {
+                stats = table.select("tr").get(2).select("td");
+                break;
+            }
+        }
+
+        if (stats == null) {
+            return new int[] { 0, 0, 0, 0, 0, 0 };
+        }
 
         return new int[]{
                 Integer.parseInt(stats.get(1).text()),
@@ -434,6 +447,9 @@ public class SerebiiParser implements PokemonScraper {
 
         if (name.toLowerCase().equals("human-like")) {
             name = name.replace("-", "");
+        }
+        else if (name.contains(" ")) {
+            name = name.replace(" ", "");
         }
 
         return name.toUpperCase();

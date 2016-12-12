@@ -36,7 +36,14 @@ public class Main {
         PokedexDatabaseHandler handler = new PokedexDatabaseHandler(db);
 
         handler.createPokedexTable();
-        handler.storePokemonSpeciesInDatabase(new PokemonSpecies(1, new SerebiiParser(1)));
 
+        for (int i = 1; i < 800; i++) {
+            System.out.println(i);
+            try {
+                handler.storePokemonSpeciesInDatabase(new PokemonSpecies(i, new SerebiiParser(i)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
