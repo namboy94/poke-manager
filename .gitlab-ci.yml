@@ -1,0 +1,8 @@
+stages:
+  - test
+
+run_unit_tests:
+  stage: test
+  script:
+    - gradle test jacocoTestReport
+    - rsync -av pokemon-tracker-lib/build/reports/coverage/ /var/www/coverage.namibsun.net/public_html/pokemon-tracker-lib --delete-before
