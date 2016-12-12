@@ -27,26 +27,26 @@ public interface Database {
     /**
      * Executes an SQL stement
      * @param sqlStatement: The statement to execute
-     * @throws SQLException if an SQL Error occured
+     * @throws SQLException if an SQL Error occurred
      */
     void executeSql(String sqlStatement) throws SQLException;
 
     /**
      * Executes an SQL query and returns the result as a QueryResult object
      * @param sqlStatement: The query to execute
-     * @throws SQLException if an SQL Error occured
+     * @throws SQLException if an SQL Error occurred
      */
     QueryResult query(String sqlStatement) throws SQLException;
 
     /**
      * Commits the changes to the database
-     * @throws SQLException if an SQL Error occured
+     * @throws SQLException if an SQL Error occurred
      */
     void commitChanges() throws SQLException;
 
     /**
      * Closes the database connection
-     * @throws SQLException if an SQL Error occured
+     * @throws SQLException if an SQL Error occurred
      */
     void close() throws SQLException;
 

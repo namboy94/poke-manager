@@ -1,9 +1,32 @@
+/*
+This file is part of pokemon-tracker.
+
+    pokemon-tracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    pokemon-tracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package net.namibsun.pokemontracker.lib.database.pokedex;
 
 import net.namibsun.pokemontracker.lib.database.dbinterface.DatabaseColumn;
 
+/**
+ * Class that defines the columns of the Pokedex Table
+ */
 public class PokedexColumns {
 
+    /**
+     * The Various Database Columns
+     */
     public static DatabaseColumn POKEDEX_NUMBER = new DatabaseColumn("pokedex_number", "Integer");
     public static DatabaseColumn ENGLISH_NAME = new DatabaseColumn("english_name", "Text");
     public static DatabaseColumn GERMAN_NAME = new DatabaseColumn("german_name", "Text");
@@ -26,11 +49,9 @@ public class PokedexColumns {
     public static DatabaseColumn SP_DEFENSE_EV_YIELD = new DatabaseColumn("sp_defense_ev_yield", "Integer");
     public static DatabaseColumn SPEED_EV_YIELD = new DatabaseColumn("speed_ev_yield", "Integer");
     public static DatabaseColumn PRIMARY_ABILITY = new DatabaseColumn("primary_ability", "Text");
-    public static DatabaseColumn PRIMARY_ABILITY_DESCRIPTION
-            = new DatabaseColumn("primary_ability_description", "Text");
+    public static DatabaseColumn PRIMARY_ABILITY_DESCRIPTION = new DatabaseColumn("primary_ability_description", "Text");
     public static DatabaseColumn SECONDARY_ABILITY = new DatabaseColumn("secondary_ability", "Text");
-    public static DatabaseColumn SECONDARY_ABILITY_DESCRIPTION
-            = new DatabaseColumn("secondary_ability_description", "Text");
+    public static DatabaseColumn SECONDARY_ABILITY_DESCRIPTION = new DatabaseColumn("secondary_ability_description", "Text");
     public static DatabaseColumn HIDDEN_ABILITY = new DatabaseColumn("hidden_ability", "TEXT");
     public static DatabaseColumn HIDDEN_ABILITY_DESCRIPTION = new DatabaseColumn("hidden_ability_description", "TEXT");
     public static DatabaseColumn HP_BASE = new DatabaseColumn("hp_base", "Integer");

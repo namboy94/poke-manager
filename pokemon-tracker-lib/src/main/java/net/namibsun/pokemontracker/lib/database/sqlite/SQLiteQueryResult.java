@@ -17,22 +17,34 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.database.sqlite;
 
-import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
-import net.namibsun.pokemontracker.lib.database.pokedex.PokedexColumns;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Connection;
 import java.sql.SQLException;
+import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 
 /**
- * Class that wraps around an SQL ResultSet to give a uniform acces to its results
+ * Class that wraps around an SQL ResultSet to supply an interface that is interchangeable with other
+ * Database Implementations
  */
 public class SQLiteQueryResult extends QueryResult {
 
+    /**
+     * The database to use with the query
+     */
     private Connection database;
+
+    /**
+     * The SQL query
+     */
     private String query;
 
-    public SQLiteQueryResult(Connection database, String query) throws SQLException {
+    /**
+     * Creates a new SQLiteQueryResult object
+     * Stores the database and query as private variables
+     * @param database: The database to use
+     * @param query:    The SQL query to execute
+     */
+    public SQLiteQueryResult(Connection database, String query) {
         this.database = database;
         this.query = query;
     }
@@ -47,10 +59,17 @@ public class SQLiteQueryResult extends QueryResult {
         while(set.next()) {
             length++;
         }
-
         return length;
     }
 
+    /**
+     * Moves the cursor of the result set to a specified position and returns it
+     * This is done like this because JDBC in conjunction with SQLite currently does
+     * not support traversing a ResultSet bidirectionally
+     * @param index:        The row index to move to.
+     * @return              The ResultSet moved to the specified index
+     * @throws SQLException if an SQL error occurred
+     */
     private ResultSet getRowResultSet(int index) throws SQLException {
 
         ResultSet set = this.database.createStatement().executeQuery(this.query);
@@ -58,7 +77,6 @@ public class SQLiteQueryResult extends QueryResult {
             set.next();
         }
         return set;
-
     }
 
     /**

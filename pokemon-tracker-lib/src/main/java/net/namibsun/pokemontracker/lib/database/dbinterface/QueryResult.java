@@ -20,13 +20,14 @@ package net.namibsun.pokemontracker.lib.database.dbinterface;
 import java.sql.SQLException;
 
 /**
- * Interface that wraps around the various implementations of SQL query results and provides a unified way to\
+ * Interface that wraps around the various implementations of SQL query results and provides a unified way to
  * access the results
  */
 public abstract class QueryResult {
 
     /**
      * @return The amount of rows in the query result
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract int getQueryLength() throws SQLException ;
 
@@ -35,6 +36,7 @@ public abstract class QueryResult {
      * @param column_name: The column's name
      * @param rowNumber:   The row's index
      * @return             The String value in that location
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract String getString(String column_name, int rowNumber) throws SQLException;
 
@@ -43,6 +45,7 @@ public abstract class QueryResult {
      * @param column_number: The column's index
      * @param rowNumber:     The row's index
      * @return               The String value in that location
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract String getString(int column_number, int rowNumber) throws SQLException;
 
@@ -51,6 +54,7 @@ public abstract class QueryResult {
      * @param column_name: The column's name
      * @param rowNumber:   The row's index
      * @return             The int value in that location
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract int getInt(String column_name, int rowNumber) throws SQLException;
 
@@ -59,6 +63,7 @@ public abstract class QueryResult {
      * @param column_number: The column's index
      * @param rowNumber:     The row's index
      * @return               The int value in that location
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract int getInt(int column_number, int rowNumber) throws SQLException;
 
@@ -67,7 +72,9 @@ public abstract class QueryResult {
      * @param column_name: The column's name
      * @param rowNumber:   The row's index
      * @return             The double value in that location
+     * @throws SQLException if an SQL Error occurred
      */
+
     public abstract double getDouble(String column_name, int rowNumber) throws SQLException;
 
     /**
@@ -75,6 +82,7 @@ public abstract class QueryResult {
      * @param column_number: The column's index
      * @param rowNumber:     The row's index
      * @return               The double value in that location
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract double getDouble(int column_number, int rowNumber) throws SQLException;
 
@@ -83,6 +91,7 @@ public abstract class QueryResult {
      * @param column_name: The column's name
      * @param rowNumber:   The row's index
      * @return             The boolean value in that location
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract boolean getBoolean(String column_name, int rowNumber) throws SQLException;
 
@@ -91,6 +100,7 @@ public abstract class QueryResult {
      * @param column_number: The column's index
      * @param rowNumber:     The row's index
      * @return               The boolean value in that location
+     * @throws SQLException if an SQL Error occurred
      */
     public abstract boolean getBoolean(int column_number, int rowNumber) throws SQLException;
 
