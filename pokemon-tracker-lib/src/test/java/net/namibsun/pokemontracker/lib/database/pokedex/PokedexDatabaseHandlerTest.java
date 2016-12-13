@@ -17,18 +17,16 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.database.pokedex;
 
-import net.namibsun.pokemontracker.lib.database.sqlite.SQLiteDatabase;
-import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
-import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
-import org.junit.Test;
-
 import java.io.File;
+import org.junit.Test;
 import java.io.IOException;
-import java.nio.file.Files;
 import org.junit.AfterClass;
-import java.sql.SQLException;
 import org.junit.BeforeClass;
+import java.sql.SQLException;
 import static org.junit.Assert.*;
+import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.database.sqlite.SQLiteDatabase;
+import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class PokedexDatabaseHandlerTest {
 
@@ -52,6 +50,43 @@ public class PokedexDatabaseHandlerTest {
         PokemonSpecies species = new PokemonSpecies(1, new SerebiiParser(1));
         handler.storePokemonSpeciesInDatabase(species);
         PokemonSpecies retrieved = handler.getSpeciesFromDatabase(1);
+        assertTrue(species.equals(retrieved));
+    }
+
+    @Test
+    public void testRetrievingNotExistingPokemon() throws SQLException {
+        assertTrue(handler.getSpeciesFromDatabase(2) == null);
+    }
+
+    @Test
+    public void testStoringAndRetrievingPokemonWithSingleEggGroup() throws IOException, SQLException {
+        PokemonSpecies species = new PokemonSpecies(150, new SerebiiParser(150));
+        handler.storePokemonSpeciesInDatabase(species);
+        PokemonSpecies retrieved = handler.getSpeciesFromDatabase(150);
+        assertTrue(species.equals(retrieved));
+    }
+
+    @Test
+    public void testStoringPokemonTwice() throws IOException, SQLException {
+        PokemonSpecies species = new PokemonSpecies(3, new SerebiiParser(3));
+        handler.storePokemonSpeciesInDatabase(species);
+        handler.storePokemonSpeciesInDatabase(species);
+        assertTrue(handler.getSpeciesFromDatabase(3).equals(species));
+    }
+
+    @Test
+    public void testStoringAndRetrivingPokemonWithoutHiddenAbility() throws IOException, SQLException {
+        PokemonSpecies species = new PokemonSpecies(92, new SerebiiParser(92));
+        handler.storePokemonSpeciesInDatabase(species);
+        PokemonSpecies retrieved = handler.getSpeciesFromDatabase(92);
+        assertTrue(species.equals(retrieved));
+    }
+
+    @Test
+    public void testStoringAndRetrivingPokemonWithoutTwoRegularAbilities() throws IOException, SQLException {
+        PokemonSpecies species = new PokemonSpecies(19, new SerebiiParser(19));
+        handler.storePokemonSpeciesInDatabase(species);
+        PokemonSpecies retrieved = handler.getSpeciesFromDatabase(19);
         assertTrue(species.equals(retrieved));
     }
 

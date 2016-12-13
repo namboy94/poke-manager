@@ -73,7 +73,7 @@ public class SQLiteQueryResult extends QueryResult {
     private ResultSet getRowResultSet(int index) throws SQLException {
 
         ResultSet set = this.database.createStatement().executeQuery(this.query);
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i <= index; i++) {
             set.next();
         }
         return set;
@@ -96,7 +96,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The String value in that location
      */
     public String getString(int column_number, int rowNumber) throws SQLException {
-        return this.getRowResultSet(rowNumber).getString(column_number);
+        return this.getRowResultSet(rowNumber).getString(column_number + 1);
     }
 
     /**
@@ -116,7 +116,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The int value in that location
      */
     public int getInt(int column_number, int rowNumber) throws SQLException {
-        return this.getRowResultSet(rowNumber).getInt(column_number);
+        return this.getRowResultSet(rowNumber).getInt(column_number + 1);
     }
 
     /**
@@ -136,7 +136,7 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The double value in that location
      */
     public double getDouble(int column_number, int rowNumber) throws SQLException {
-        return this.getRowResultSet(rowNumber).getDouble(column_number);
+        return this.getRowResultSet(rowNumber).getDouble(column_number + 1);
     }
 
     /**
@@ -156,6 +156,6 @@ public class SQLiteQueryResult extends QueryResult {
      * @return               The boolean value in that location
      */
     public boolean getBoolean(int column_number, int rowNumber) throws SQLException {
-        return this.getRowResultSet(rowNumber).getBoolean(column_number);
+        return this.getRowResultSet(rowNumber).getBoolean(column_number + 1);
     }
 }

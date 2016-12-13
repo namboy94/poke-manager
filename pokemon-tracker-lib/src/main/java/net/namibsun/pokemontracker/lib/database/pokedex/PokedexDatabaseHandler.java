@@ -127,6 +127,18 @@ public class PokedexDatabaseHandler {
                     query.getDouble(PokedexColumns.FEMALE_RATIO.getName(), 0)
             );
 
+            Type type;
+            try {
+                type = new Type(
+                        query.getString(PokedexColumns.PRIMARY_TYPE.getName(), 0),
+                        query.getString(PokedexColumns.SECONDARY_TYPE.getName(), 0)
+                );
+            } catch (IllegalArgumentException e) {
+                type = new Type(
+                        query.getString(PokedexColumns.PRIMARY_TYPE.getName(), 0)
+                );
+            }
+
             return new PokemonSpecies(
                     query.getInt(PokedexColumns.POKEDEX_NUMBER.getName(), 0),
                     new Name(
@@ -137,10 +149,7 @@ public class PokedexDatabaseHandler {
                             query.getString(PokedexColumns.KOREAN_NAME.getName(), 0)
                     ),
                     genderRatio,
-                    new Type(
-                            query.getString(PokedexColumns.PRIMARY_TYPE.getName(), 0),
-                            query.getString(PokedexColumns.SECONDARY_TYPE.getName(), 0)
-                    ),
+                    type,
                     new SpeciesDescription(
                             query.getDouble(PokedexColumns.METRIC_WEIGHT.getName(), 0),
                             query.getDouble(PokedexColumns.IMPERIAL_WEIGHT.getName(), 0),
