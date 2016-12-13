@@ -17,7 +17,6 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
-import net.namibsun.pokemontracker.lib.models.Pokemon;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;

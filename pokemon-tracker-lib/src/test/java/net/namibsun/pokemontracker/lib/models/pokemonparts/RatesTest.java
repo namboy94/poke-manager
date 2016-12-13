@@ -42,6 +42,10 @@ public class RatesTest {
     @Test
     public void testFalseEquality() {
         assertFalse(new Rates(0, 0, 0, 0, "").equals(new Rates(0, 0, 0, 0, "A")));
+        assertFalse(new Rates(0, 0, 0, 0, "").equals(new Rates(0, 0, 0, 1, "")));
+        assertFalse(new Rates(0, 0, 0, 0, "").equals(new Rates(0, 0, 1, 0, "")));
+        assertFalse(new Rates(0, 0, 0, 0, "").equals(new Rates(0, 1, 0, 0, "")));
+        assertFalse(new Rates(0, 0, 0, 0, "").equals(new Rates(1, 0, 0, 0, "")));
     }
 
 }

@@ -57,12 +57,16 @@ public class EggGroupsTest {
     public void testTrueEquality() {
         assertTrue(new EggGroups(EggGroupTypes.MONSTER, false)
                 .equals(new EggGroups(EggGroupTypes.MONSTER, false)));
+        assertTrue(new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.AMORPHOUS, false)
+                .equals(new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.AMORPHOUS, false)));
     }
 
     @Test
     public void testFalseEquality() {
         assertFalse(new EggGroups(EggGroupTypes.MONSTER, false)
                 .equals(new EggGroups(EggGroupTypes.GRASS, false)));
+        assertFalse(new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.AMORPHOUS, false)
+                .equals(new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.GRASS, false)));
     }
 
 }

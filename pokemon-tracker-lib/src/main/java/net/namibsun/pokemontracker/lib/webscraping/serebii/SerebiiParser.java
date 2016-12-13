@@ -82,11 +82,8 @@ public class SerebiiParser implements PokemonScraper {
         for (Element entry: entries) {
             if (entry.text().contains(pokemonName)){
                 String pokedexNumber = entry.text().split(" ")[0];
-                try {
-                    this.fetchPage(Integer.parseInt(pokedexNumber));
-                    return;
-                } catch (NumberFormatException ignored) {
-                }
+                this.fetchPage(Integer.parseInt(pokedexNumber));
+                return;
             }
         }
 
@@ -200,10 +197,6 @@ public class SerebiiParser implements PokemonScraper {
                     types.get(1).toString().split("/")[2].split(".shtml")[0].toUpperCase()
             };
         }
-    }
-
-    public String[] parseTypesForPokemonWithAlolanForm() {
-        return null;
     }
 
     /**
@@ -538,9 +531,7 @@ public class SerebiiParser implements PokemonScraper {
                 groups.remove(0);
             }
 
-            if (groups.size() >= 2) {
-                returnArray[0] = this.convertIntoEggGroupName(groups.get(1).text());
-            }
+            returnArray[0] = this.convertIntoEggGroupName(groups.get(1).text());
             if (groups.size() == 4) {
                 returnArray[1] = this.convertIntoEggGroupName(groups.get(3).text());
             }

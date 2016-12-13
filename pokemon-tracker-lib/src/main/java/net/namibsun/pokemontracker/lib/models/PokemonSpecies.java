@@ -205,6 +205,7 @@ public class PokemonSpecies {
                 this.type.equals(otherSpecies.getType()) &&
                 this.description.equals(otherSpecies.getSpeciesDescription()) &&
                 this.rates.equals(otherSpecies.getRates()) &&
+                this.ability.equals(otherSpecies.getAbility()) &&
                 this.evYield.equals(otherSpecies.getEffortValueYield()) &&
                 this.baseStats.equals(otherSpecies.getBaseStats()) &&
                 this.eggGroups.equals(otherSpecies.getEggGroups());

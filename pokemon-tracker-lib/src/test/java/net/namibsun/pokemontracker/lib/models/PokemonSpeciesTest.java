@@ -137,4 +137,62 @@ public class PokemonSpeciesTest {
         new PokemonSpecies(20, new SerebiiParser(20));
     }
 
+    @Test
+    public void extensiveEqualityCheck() {
+
+        //defaults
+        Name name = new Name("A", "B", "C", "D", "E");
+        GenderRatio ratio = new GenderRatio(0.0, 0.0);
+        Type type = new Type(PokemonTypes.GRASS);
+        SpeciesDescription desc = new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "");
+        Rates rates = new Rates(0, 0, 0, 0, "");
+        EffortValueYield evYield = new EffortValueYield(0, 0, 0, 0, 0, 0);
+        Ability ability = new Ability("A", "B");
+        BaseStats baseStats = new BaseStats(1, 1, 1, 1, 1, 1);
+        EggGroups eggGroups = new EggGroups(EggGroupTypes.MONSTER,false);
+
+        PokemonSpecies one =
+                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, ability, baseStats, eggGroups);
+        assertFalse(one.equals(
+                new PokemonSpecies(1, name, ratio, type, desc, rates, evYield, ability, baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0,
+                        new Name("A", "B"), ratio, type, desc, rates, evYield, ability, baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name,
+                        new GenderRatio(0.1, 0.2), type, desc, rates, evYield, ability, baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name, ratio,
+                        new Type("Fire"), desc, rates, evYield, ability, baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name, ratio, type,
+                        new SpeciesDescription(0.1, 0.1, 0.2, 0.1, "A"), rates, evYield, ability, baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name, ratio, type, desc,
+                        new Rates(1, 1, 1, 1, "A"), evYield, ability, baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name, ratio, type, desc, rates,
+                        new EffortValueYield(5, 5, 5, 5, 5, 5), ability, baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield,
+                        new Ability("B", "A"), baseStats, eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, ability,
+                        new BaseStats(5, 5, 5, 5, 5, 5), eggGroups)
+        ));
+        assertFalse(one.equals(
+                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, ability, baseStats,
+                        new EggGroups(EggGroupTypes.AMORPHOUS, false))
+        ));
+
+    }
+
 }

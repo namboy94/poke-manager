@@ -50,6 +50,7 @@ public class GenderRatioTest {
     @Test
     public void testFalseEquality() {
         assertFalse(new GenderRatio(0.0, 0.0).equals(new GenderRatio(0.0, 0.1)));
+        assertFalse(new GenderRatio(0.0, 0.0).equals(new GenderRatio(0.1, 0.0)));
     }
 
 }

@@ -48,6 +48,14 @@ public class SpeciesDescriptionTest {
     public void testFalseEquality() {
         assertFalse(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")
                 .equals(new SpeciesDescription(0.0, 0.0, 0.0, 0.1, "")));
+        assertFalse(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")
+                .equals(new SpeciesDescription(0.0, 0.0, 0.1, 0.0, "")));
+        assertFalse(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")
+                .equals(new SpeciesDescription(0.0, 0.1, 0.0, 0.0, "")));
+        assertFalse(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")
+                .equals(new SpeciesDescription(0.1, 0.0, 0.0, 0.0, "")));
+        assertFalse(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "")
+                .equals(new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "a")));
     }
 
 }
