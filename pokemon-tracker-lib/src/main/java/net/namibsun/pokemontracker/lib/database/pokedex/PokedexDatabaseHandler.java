@@ -91,6 +91,14 @@ public class PokedexDatabaseHandler {
     }
 
     /**
+     * Closes the connected database
+     * @throws SQLException: If an SQL error occured
+     */
+    public void quit() throws SQLException {
+        this.database.close();
+    }
+
+    /**
      * Retrieves a Pokemon Species from the Pokedex Table
      * @param pokedexNumber: The Pokemon's Pokedex Number
      * @return               The Pokemon Species, or null if it was not found in the database
@@ -123,8 +131,8 @@ public class PokedexDatabaseHandler {
                     query.getInt(PokedexColumns.POKEDEX_NUMBER.getName(), 0),
                     new Name(
                             query.getString(PokedexColumns.ENGLISH_NAME.getName(), 0),
-                            query.getString(PokedexColumns.GERMAN_NAME.getName(), 0),
                             query.getString(PokedexColumns.FRENCH_NAME.getName(), 0),
+                            query.getString(PokedexColumns.GERMAN_NAME.getName(), 0),
                             query.getString(PokedexColumns.JAPANESE_NAME.getName(), 0),
                             query.getString(PokedexColumns.KOREAN_NAME.getName(), 0)
                     ),
