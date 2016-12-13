@@ -134,14 +134,18 @@ public class AbilityTest {
     @Test
     public void testFalseEquality() {
         assertFalse(new Ability("A", "B").equals(new Ability("B", "A")));
+        assertFalse(new Ability("A", "B").equals(new Ability("A", "A")));
         assertFalse(new Ability("A", "B").equals(new Ability("A", "B", "C", "D")));
         assertFalse(new Ability("A", "B").equals(new Ability("A", "B", "C", "D", "E", "F")));
         assertFalse(new Ability("A", "B", "C", "D").equals(new Ability("A", "B")));
+        assertFalse(new Ability("A", "B", "C", "D").equals(new Ability("A", "B")));
         assertFalse(new Ability("A", "B", "C", "D").equals(new Ability("A", "B", "B", "A")));
+        assertFalse(new Ability("A", "B", "C", "D").equals(new Ability("A", "B", "C", "C")));
         assertFalse(new Ability("A", "B", "C", "D").equals(new Ability("A", "B", "C", "D", "E", "F")));
         assertFalse(new Ability("A", "B", "C", "D", "E", "F").equals(new Ability("A", "B")));
         assertFalse(new Ability("A", "B", "C", "D", "E", "F").equals(new Ability("A", "B", "C", "D")));
         assertFalse(new Ability("A", "B", "C", "D", "E", "F").equals(new Ability("A", "B", "C", "D", "E", "A")));
+        assertFalse(new Ability("A", "B", "C", "D", "E", "F").equals(new Ability("A", "B", "C", "D", "G", "F")));
     }
 
 }

@@ -124,7 +124,7 @@ public class Ability {
      *         or null if the Pokemon has no second regular ability
      */
     public String[] getAbilityTwo() {
-        if (this.abilityTwoName == null || this.abilityTwoDescription == null) {
+        if (this.abilityTwoName == null) {
             return null;
         }
         else {
@@ -137,7 +137,7 @@ public class Ability {
      *         or null if the Pokemon has no hidden ability
      */
     public String[] getHiddenAbility() {
-        if (this.hiddenAbilityName == null || this.hiddenAbilityDescription == null) {
+        if (this.hiddenAbilityName == null) {
             return null;
         }
         else {
@@ -185,28 +185,36 @@ public class Ability {
      */
     public boolean equals(Ability otherAbility) {
 
-        boolean abilityOneSame = this.abilityOneName.equals(otherAbility.getAbilityOne()[0]);
+        boolean abilityOneSame =
+                this.abilityOneName.equals(otherAbility.getAbilityOne()[0]) &&
+                this.abilityOneDescription.equals(otherAbility.getAbilityOne()[1]);
         boolean abilityTwoSame;
         boolean hiddenAbilitySame;
 
         if (otherAbility.getAbilityTwo() == null) {
             abilityTwoSame = null == this.abilityTwoName;
         }
-        else if (this.abilityTwoName == null) {
-            abilityTwoSame = null == otherAbility.getAbilityTwo();
+        else //noinspection SimplifiableIfStatement
+            if (this.abilityTwoName == null) {
+            abilityTwoSame = false;
         }
         else {
-            abilityTwoSame = this.abilityTwoName.equals(otherAbility.getAbilityTwo()[0]);
+            abilityTwoSame =
+                    this.abilityTwoName.equals(otherAbility.getAbilityTwo()[0]) &&
+                    this.abilityTwoDescription.equals(otherAbility.getAbilityTwo()[1]);
         }
 
         if (otherAbility.getHiddenAbility() == null) {
             hiddenAbilitySame = null == this.hiddenAbilityName;
         }
-        else if (this.hiddenAbilityName == null) {
-            hiddenAbilitySame = null == otherAbility.getHiddenAbility();
+        else //noinspection SimplifiableIfStatement
+            if (this.hiddenAbilityName == null) {
+            hiddenAbilitySame = false;
         }
         else {
-            hiddenAbilitySame = this.hiddenAbilityName.equals(otherAbility.getHiddenAbility()[0]);
+            hiddenAbilitySame =
+                    this.hiddenAbilityName.equals(otherAbility.getHiddenAbility()[0]) &&
+                    this.hiddenAbilityDescription.equals(otherAbility.getHiddenAbility()[1]);
         }
 
         return abilityOneSame && abilityTwoSame && hiddenAbilitySame;
