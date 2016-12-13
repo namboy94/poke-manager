@@ -185,34 +185,28 @@ public class Ability {
      */
     public boolean equals(Ability otherAbility) {
 
-        boolean abilityOneSame =
-                this.abilityOneName.equals(otherAbility.getAbilityOne()[0]) &&
-                this.abilityOneDescription.equals(otherAbility.getAbilityOne()[1]);
+        boolean abilityOneSame = this.abilityOneName.equals(otherAbility.getAbilityOne()[0]);
         boolean abilityTwoSame;
         boolean hiddenAbilitySame;
 
         if (otherAbility.getAbilityTwo() == null) {
-            abilityTwoSame = null == this.abilityTwoName && null == this.abilityTwoDescription;
+            abilityTwoSame = null == this.abilityTwoName;
         }
-        else if (this.abilityTwoName == null || this.abilityTwoDescription == null) {
+        else if (this.abilityTwoName == null) {
             abilityTwoSame = null == otherAbility.getAbilityTwo();
         }
         else {
-            abilityTwoSame =
-                    this.abilityTwoName.equals(otherAbility.getAbilityTwo()[0]) &&
-                    this.abilityTwoDescription.equals(otherAbility.getAbilityTwo()[1]);
+            abilityTwoSame = this.abilityTwoName.equals(otherAbility.getAbilityTwo()[0]);
         }
 
         if (otherAbility.getHiddenAbility() == null) {
-            hiddenAbilitySame = null == this.hiddenAbilityName && null == this.hiddenAbilityDescription;
+            hiddenAbilitySame = null == this.hiddenAbilityName;
         }
-        else if (this.hiddenAbilityName == null || this.hiddenAbilityDescription == null) {
+        else if (this.hiddenAbilityName == null) {
             hiddenAbilitySame = null == otherAbility.getHiddenAbility();
         }
         else {
-            hiddenAbilitySame =
-                    this.hiddenAbilityName.equals(otherAbility.getHiddenAbility()[0]) &&
-                    this.hiddenAbilityDescription.equals(otherAbility.getHiddenAbility()[1]);
+            hiddenAbilitySame = this.hiddenAbilityName.equals(otherAbility.getHiddenAbility()[0]);
         }
 
         return abilityOneSame && abilityTwoSame && hiddenAbilitySame;
