@@ -36,14 +36,21 @@ public class Main {
 
         handler.createPokedexTable();
 
-        for (int i = 1; i < 50; i++) {
+        int errorCount = 0;
+
+        for (int i = 1; i < 802; i++) {
             System.out.println(i);
             try {
                 handler.storePokemonSpeciesInDatabase(new PokemonSpecies(i, new SerebiiParser(i)));
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println(i + " has an error");
+                //System.exit(1);
+                errorCount += 1;
             }
         }
+
+        System.out.println("Errors: " + errorCount);
 
         handler.storePokemonSpeciesInDatabase(new PokemonSpecies(1, new SerebiiParser(1)));
         PokemonSpecies species = handler.getSpeciesFromDatabase(1);

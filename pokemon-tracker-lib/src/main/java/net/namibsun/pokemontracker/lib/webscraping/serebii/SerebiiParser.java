@@ -35,6 +35,15 @@ import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
  */
 public class SerebiiParser implements PokemonScraper {
 
+    // A couple of Pokemon are a bit non-standard, which requires hard-coded hacks to make them work
+    // These are:
+    // Deoxys - EV Yield due to multiple Forms
+    // Minior - Catch Rate, since Minior has different catch rates in each form
+    // Basculin - Abilities/Hidden Abilities, due to form differences and Hidden Ability marked as 'Dream World Ability'
+    // Shaymin - Regular Ability, because of its Sky Forme
+    // Kyurem, Zygarde, Hoopa - Weight/Height due to their unique forms
+    // Kyurem, Zygarde - Abilities, due to their forms
+
     /**
      * The JSoup document of the Serebii Page
      */
@@ -204,23 +213,44 @@ public class SerebiiParser implements PokemonScraper {
     @Override
     public double[] parseWeight() {
 
+        // Pokemon-specific hacks
+        if (this.url.endsWith("646.shtml")) { return new double[] { 325.0, 716.5 }; } // Kyurem
+        if (this.url.endsWith("718.shtml")) { return new double[] { 284.6, 627.4 }; } // Zygarde
+        if (this.url.endsWith("720.shtml")) { return new double[] { 9.0, 19.8 }; }    // Hoopa
+
+        String info;
         String metric;
         String imperial;
 
-        try {
-            String info = this.toolTabs.get(3).select("tr").get(1).text();
+        try { // Normal Pokemon
+            info = this.toolTabs.get(3).select("tr").get(1).text();
             metric = info.split("kg")[0].split(" ")[3].trim();
             imperial = info.split("lbs")[0].split(" ")[2].trim();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            String info = this.toolTabs.get(4).select("tr").get(3).text();
-            metric = info.split("kg")[0].split(" ")[1].trim();
-            imperial = info.split("lbs")[0].split(" ")[0].trim();
+
+        } catch (ArrayIndexOutOfBoundsException e) { //Pokemon with Multiple Forms
+
+            info = this.toolTabs.get(4).select("tr").get(1).text();
+            metric = info.split("kg")[0].split(" ")[3].trim();
+            imperial = info.split("lbs")[0].split(" ")[2].trim();
+
         }
 
-        return new double[]{
-                Double.parseDouble(metric),
-                Double.parseDouble(imperial)
-        };
+        try {
+            return new double[]{
+                    Double.parseDouble(metric),
+                    Double.parseDouble(imperial)
+            };
+        } catch (NumberFormatException e) {  // Pokemon with Alolan form
+
+            info = this.toolTabs.get(4).select("tr").get(3).text();
+            metric = info.split("kg")[0].split(" ")[1].trim();
+            imperial = info.split("lbs")[0].split(" ")[0].trim();
+
+            return new double[]{
+                    Double.parseDouble(metric),
+                    Double.parseDouble(imperial)
+            };
+        }
     }
 
     /**
@@ -229,6 +259,11 @@ public class SerebiiParser implements PokemonScraper {
      */
     @Override
     public double[] parseHeight() {
+
+        // Pokemon-specific hacks
+        if (this.url.endsWith("646.shtml")) { return new double[] { 3.0, 9.10 }; }
+        if (this.url.endsWith("718.shtml")) { return new double[] { 5.0, 16.05 }; }
+        if (this.url.endsWith("720.shtml")) { return new double[] { 0.5, 1.08 }; }
 
         String info = this.toolTabs.get(3).select("tr").get(1).text();
 
@@ -262,6 +297,11 @@ public class SerebiiParser implements PokemonScraper {
      */
     @Override
     public int parseCaptureRate() {
+
+        if (this.url.endsWith("774.shtml")) { // Special case for Minior, who has two different catch rates
+            return 30;
+        }
+
         String[] parts = this.dexTables.get(0).text().split(" ");
         return Integer.parseInt(parts[parts.length - 2]);
     }
@@ -321,6 +361,18 @@ public class SerebiiParser implements PokemonScraper {
     @Override
     public int parseEffortValueYield(PokemonStatTypes statType) {
 
+        if (this.url.endsWith("386.shtml")) {
+            // Special case for Deoxys
+            if (statType == PokemonStatTypes.HP
+                    || statType == PokemonStatTypes.DEF
+                    || statType == PokemonStatTypes.SDEF) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+
         String statTypeIdentifier = "";
         //noinspection IfCanBeSwitch  Because of Java7 compatibility
         if (statType == PokemonStatTypes.HP)        { statTypeIdentifier = "HP"; }
@@ -354,18 +406,41 @@ public class SerebiiParser implements PokemonScraper {
      */
     public String[] parseRegularAbilities() {
 
+        if (this.url.endsWith("550.shtml")) {  // Basculin-specific Hack
+            return new String[] { "Adaptability", "Increases the Same Type Attack Bonus from *1.5 to *2." };
+        }
+        if (this.url.endsWith("492.shtml")) {  // Shaymin-specific Hack
+            return new String[] { "Natural Cure", "The Pokémon’s status (BURN, PARALYZE, SLEEP, POISON, FREEZE)" +
+                    " is healed when withdrawn from battle." };
+        }
+        if (this.url.endsWith("646.shtml")) {  //Kyurem-specific Hack
+            return new String[] { "Pressure", "When this Pokémon is hit by a move, the opponent’s PP lowers by 2 " +
+                    "rather than 1. Opponents in S.O.S. Battles are more likely to call for help."};
+        }
+        if (this.url.endsWith("718.shtml")) {
+            return new String[] {"Aura Break", "The effects of Aura Abilities are reversed to lower the power of " +
+                    "affected moves.",
+                    "Power Construct", "Other Cells gather to aid when its HP becomes half or less. " +
+                    "Then the Pokémon changes its form to Complete Forme."};
+        }
+
         Elements tableElements = this.dexTables.get(1).select("td");
 
         String[] abilities = tableElements.get(0).text().split("Abilities: ")[1].split(" - ");
         String abilityDescriptions = tableElements.get(1).text();
 
         String primaryAbility = abilities[0].trim();
-        String primaryAbilityDescription = abilityDescriptions.split(primaryAbility + ": ")[1].trim();
+        String primaryAbilityDescription;
+        try {
+            primaryAbilityDescription = abilityDescriptions.split(primaryAbility + ": ")[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            primaryAbilityDescription = abilityDescriptions.split(primaryAbility + " : ")[1].trim();
+        }
 
         if (abilities.length > 1) {
             String secondaryAbility = abilities[1].trim();
 
-            if (secondaryAbility.contains("Hidden Ability")) {
+            if (secondaryAbility.contains("(Hidden Ability)") || secondaryAbility.contains("(Hidden)")) {
                 primaryAbilityDescription = primaryAbilityDescription.split(" Hidden Ability")[0].trim();
             }
             else {
@@ -387,14 +462,25 @@ public class SerebiiParser implements PokemonScraper {
      * @return an array of the form [Ability Name, Description] or null if the Pokemon has no hidden ability
      */
     public String[] parseHiddenAbility() {
+
+        if (this.url.endsWith("550.shtml")) {  // Basculin-specific Hack
+            return new String[] {
+                    "Mold Breaker", "The Pokémon's moves are not affected by foe’s abilities during battle."};
+        }
+
         Elements tableElements = this.dexTables.get(1).select("td");
         String abilities = tableElements.get(0).text().split("Abilities: ")[1];
         String abilityDescriptions = tableElements.get(1).text();
 
-        if (abilities.contains("Hidden Ability")) {
-            String[] abilityNames = abilities.split(" \\(Hidden Ability\\)")[0].split(" - ");
+        if (abilities.contains("(Hidden Ability)") || abilities.contains("(Hidden)")) {
+            String[] abilityNames = abilities.split(" \\(")[0].split(" - ");
             String abilityName = abilityNames[abilityNames.length - 1].trim();
-            String abilityDescription = abilityDescriptions.split(abilityName + ": ")[1].trim();
+            String abilityDescription;
+            try {
+                abilityDescription = abilityDescriptions.split(abilityName + ": ")[1].trim();
+            }catch (ArrayIndexOutOfBoundsException e) {
+                abilityDescription = abilityDescriptions.split(abilityName + " : ")[1].trim();
+            }
 
             return new String[]{abilityName, abilityDescription};
         }
@@ -440,20 +526,27 @@ public class SerebiiParser implements PokemonScraper {
 
         Elements groups = this.dexItems.select("td");
         String[] returnArray = new String[] {null, null, null};
-
         returnArray[2] = "" + (this.parseGenderRatio() == null);  //Check if genderless -> Can only breed with Ditto
 
         if (groups.size() < 2) {
             returnArray[0] = "UNDISCOVERED";
+            return returnArray;
         }
-        if (groups.size() >= 2) {
-            returnArray[0] = this.convertIntoEggGroupName(groups.get(1).text());
-        }
-        if (groups.size() == 4) {
-            returnArray[1] = this.convertIntoEggGroupName(groups.get(3).text());
-        }
+        else {
 
-        return returnArray;
+            while (groups.size() > 4 || groups.get(0).text().contains(" - ")) {
+                groups.remove(0);
+            }
+
+            if (groups.size() >= 2) {
+                returnArray[0] = this.convertIntoEggGroupName(groups.get(1).text());
+            }
+            if (groups.size() == 4) {
+                returnArray[1] = this.convertIntoEggGroupName(groups.get(3).text());
+            }
+
+            return returnArray;
+        }
     }
 
     /**

@@ -33,12 +33,23 @@ public class SerebiiParserTest {
     private static SerebiiParser venusaurParser;
     private static SerebiiParser charmanderParser;
     private static SerebiiParser rattataParser;
+    private static SerebiiParser raichuParser;
+    private static SerebiiParser venoMothParser;
     private static SerebiiParser magnemiteParser;
     private static SerebiiParser gastlyParser;
     private static SerebiiParser parasParser;
     private static SerebiiParser abraParser;
     private static SerebiiParser mewtwoParser;
+    private static SerebiiParser deoxysParser;
+    private static SerebiiParser shayminParser;
+    private static SerebiiParser basculinParser;
+    private static SerebiiParser darmanitanParser;
+    private static SerebiiParser sigilyphParser;
+    private static SerebiiParser kyuremParser;
+    private static SerebiiParser zygardeParser;
+    private static SerebiiParser hoopaParser;
     private static SerebiiParser popplioParser;
+    private static SerebiiParser miniorParser;
     
     @BeforeClass
     public static void setupClass() throws IOException {
@@ -46,12 +57,23 @@ public class SerebiiParserTest {
         venusaurParser = new SerebiiParser("Venusaur");
         charmanderParser = new SerebiiParser("Charmander");
         rattataParser = new SerebiiParser("Rattata");
+        raichuParser = new SerebiiParser("Raichu");
+        venoMothParser = new SerebiiParser("Venomoth");
         magnemiteParser = new SerebiiParser("Magnemite");
         gastlyParser = new SerebiiParser("Gastly");
         parasParser = new SerebiiParser("Paras");
         abraParser = new SerebiiParser("Abra");
         mewtwoParser = new SerebiiParser("Mewtwo");
+        deoxysParser = new SerebiiParser("Deoxys");
+        shayminParser = new SerebiiParser("Shaymin");
+        basculinParser = new SerebiiParser("Basculin");
+        darmanitanParser = new SerebiiParser("Darmanitan");
+        sigilyphParser = new SerebiiParser("Sigilyph");
+        kyuremParser = new SerebiiParser("Kyurem");
+        zygardeParser = new SerebiiParser("Zygarde");
+        hoopaParser = new SerebiiParser("Hoopa");
         popplioParser = new SerebiiParser("Popplio");
+        miniorParser = new SerebiiParser("Minior");
     }
     
 
@@ -144,6 +166,34 @@ public class SerebiiParserTest {
     }
 
     @Test
+    public void testParsingMultiFormPokemonWeight() {
+        double[] results = darmanitanParser.parseWeight();
+        assertEquals(results[0], 92.9, 0.0);
+        assertEquals(results[1], 204.8, 0.0);
+    }
+
+    @Test
+    public void testParsingKyuremWeight() {
+        double[] results = kyuremParser.parseWeight();
+        assertEquals(results[0], 325.0, 0.0);
+        assertEquals(results[1], 716.5, 0.0);
+    }
+
+    @Test
+    public void testParsingZygardeWeight() {
+        double[] results = zygardeParser.parseWeight();
+        assertEquals(results[0], 284.6, 0.0);
+        assertEquals(results[1], 627.4, 0.0);
+    }
+
+    @Test
+    public void testParsingHoopaWeight() {
+        double[] results = hoopaParser.parseWeight();
+        assertEquals(results[0], 9.0, 0.0);
+        assertEquals(results[1], 19.8, 0.0);
+    }
+
+    @Test
     public void testParsingHeight() {
         double[] results = bulbasaurParser.parseHeight();
         assertEquals(results[0], 0.7, 0.0);
@@ -158,6 +208,34 @@ public class SerebiiParserTest {
     }
 
     @Test
+    public void testParsingMultiFormPokemonHeight() {
+        double[] results = darmanitanParser.parseHeight();
+        assertEquals(results[0], 1.3, 0.0);
+        assertEquals(results[1], 4.03, 0.0);
+    }
+
+    @Test
+    public void testParsingKyuremHeight() {
+        double[] results = kyuremParser.parseHeight();
+        assertEquals(results[0], 3.0, 0.0);
+        assertEquals(results[1], 9.10, 0.0);
+    }
+
+    @Test
+    public void testParsingZygardeHeight() {
+        double[] results = zygardeParser.parseHeight();
+        assertEquals(results[0], 5.0, 0.0);
+        assertEquals(results[1], 16.05, 0.0);
+    }
+
+    @Test
+    public void testParsingHoopaHeight() {
+        double[] results = hoopaParser.parseHeight();
+        assertEquals(results[0], 0.5, 0.0);
+        assertEquals(results[1], 1.08, 0.0);
+    }
+
+    @Test
     public void testParsingClassification() {
         String classification = bulbasaurParser.parseClassification();
         assertEquals("Seed Pokémon", classification);
@@ -166,6 +244,11 @@ public class SerebiiParserTest {
     @Test
     public void testParsingCaptureRate() {
         assertEquals(45, bulbasaurParser.parseCaptureRate());
+    }
+
+    @Test
+    public void testParsingMiniorCaptureRate() {
+        assertEquals(30, miniorParser.parseCaptureRate());
     }
 
     @Test
@@ -211,6 +294,16 @@ public class SerebiiParserTest {
     }
 
     @Test
+    public void testParsingDeoxysEffortValueYield() {
+        assertEquals(0, deoxysParser.parseEffortValueYield(PokemonStatTypes.HP));
+        assertEquals(1, deoxysParser.parseEffortValueYield(PokemonStatTypes.ATK));
+        assertEquals(0, deoxysParser.parseEffortValueYield(PokemonStatTypes.DEF));
+        assertEquals(1, deoxysParser.parseEffortValueYield(PokemonStatTypes.SATK));
+        assertEquals(0, deoxysParser.parseEffortValueYield(PokemonStatTypes.SDEF));
+        assertEquals(1, deoxysParser.parseEffortValueYield(PokemonStatTypes.SPD));
+    }
+
+    @Test
     public void testParsingSingleAbility() {
         String[] ability = bulbasaurParser.parseRegularAbilities();
         assertEquals(2, ability.length);
@@ -233,12 +326,104 @@ public class SerebiiParserTest {
     }
 
     @Test
+    public void testParsingAlolanPokemonNormalAbilities() {
+        String[] abilities = rattataParser.parseRegularAbilities();
+        assertEquals(4, abilities.length);
+        assertArrayEquals(abilities, new String[] {
+                "Run Away", "Except for trainer battles, can always run from battle. " +
+                "Cannot run during Mean Look or Block or when the opponent is trapping with the Arena Trap, " +
+                "Magnet Pull, or Shadow Tag ability.",
+                "Guts", "Attack is increased by 50% when induced with a status " +
+                "(BURN, PARALYZE, SLEEP, POISON, FREEZE). Burn’s effect of lowering Attack is not applied."
+        });
+    }
+
+    @Test
+    public void testParsingAnotherAlolanPokemonNormalAbilities() {
+        String[] abilities = raichuParser.parseRegularAbilities();
+        assertEquals(2, abilities.length);
+        assertArrayEquals(abilities, new String[] {
+                "Static", "The opponent has a 30% chance of being induced with PARALYZE when using an attack, " +
+                "that requires physical contact, against this Pokémon."
+        });
+    }
+
+    @Test
+    public void testParsingSigilyphAbility() {
+        String[] abilities = sigilyphParser.parseRegularAbilities();
+        assertEquals(4, abilities.length);
+        assertArrayEquals(abilities, new String[] {
+                "Wonder Skin", "Makes non-damaging moves that are targeted at this Pokémon have the accuracy of 50%.",
+                "Magic Guard", "Prevents all damage except from direct-attack moves."
+        });
+    }
+
+    @Test
+    public void testParsingBasculinRegularAbility() {
+        String[] abilities = basculinParser.parseRegularAbilities();
+        assertEquals(2, abilities.length);
+        assertArrayEquals(abilities, new String[] {
+                "Adaptability", "Increases the Same Type Attack Bonus from *1.5 to *2."
+        });
+    }
+
+    @Test
+    public void testParsingShayminAbilities() {
+        String regular[] = shayminParser.parseRegularAbilities();
+        String hidden[] = shayminParser.parseHiddenAbility();
+        assertArrayEquals(regular,
+                new String[] {"Natural Cure", "The Pokémon’s status (BURN, PARALYZE, SLEEP, POISON, FREEZE) " +
+                        "is healed when withdrawn from battle."});
+        assertTrue(hidden == null);
+    }
+
+    @Test
+    public void testParsingZygardeAbilities() {
+        String regular[] = zygardeParser.parseRegularAbilities();
+        String hidden[] = zygardeParser.parseHiddenAbility();
+        assertArrayEquals(regular,
+                new String[] {
+                "Aura Break", "The effects of Aura Abilities are reversed to lower the power of affected moves.",
+                "Power Construct", "Other Cells gather to aid when its HP becomes half or less. " +
+                        "Then the Pokémon changes its form to Complete Forme."});
+        assertTrue(hidden == null);
+    }
+
+    @Test
+    public void testParsingKyuremAbilities() {
+        String regular[] = kyuremParser.parseRegularAbilities();
+        String hidden[] = kyuremParser.parseHiddenAbility();
+        assertArrayEquals(regular,
+                new String[] {"Pressure", "When this Pokémon is hit by a move, the opponent’s PP lowers by 2 " +
+                        "rather than 1. Opponents in S.O.S. Battles are more likely to call for help."});
+        assertTrue(hidden == null);
+    }
+
+    @Test
     public void testParsingHiddenAbility() {
         String[] hiddenAbility = bulbasaurParser.parseHiddenAbility();
         assertEquals(2, hiddenAbility.length);
         assertArrayEquals(hiddenAbility, new String[] {
                 "Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
                 "However, Speed will not double on the turn weather becomes Strong Sunlight."
+        });
+    }
+
+    @Test
+    public void testParsingDreamWorldAbility() {
+        String[] hiddenAbility = basculinParser.parseHiddenAbility();
+        assertEquals(2, hiddenAbility.length);
+        assertArrayEquals(hiddenAbility, new String[] {
+                "Mold Breaker", "The Pokémon's moves are not affected by foe’s abilities during battle."
+        });
+    }
+
+    @Test
+    public void testParsingHiddenAbilityWithVenomoth() {
+        String[] hiddenAbility = venoMothParser.parseHiddenAbility();
+        assertEquals(2, hiddenAbility.length);
+        assertArrayEquals(hiddenAbility, new String[] {
+                "Wonder Skin", "Makes non-damaging moves that are targeted at this Pokémon have the accuracy of 50%."
         });
     }
 
@@ -290,4 +475,10 @@ public class SerebiiParserTest {
         assertEquals(EggGroupTypes.UNDISCOVERED.name(), results[0]);
     }
 
+    @Test
+    public void testParsingEggGroupsPokemonWithTwoHeldItems() {
+        String[] results = parasParser.parseEggGroups();
+        assertEquals(EggGroupTypes.BUG.name(), results[0]);
+        assertEquals(EggGroupTypes.GRASS.name(), results[1]);
+    }
 }
