@@ -17,6 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.models.pokemonparts;
 
+import net.namibsun.pokemontracker.lib.models.Pokemon;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
@@ -49,11 +50,16 @@ public class TypeTest {
     public void testTrueEquality() {
         assertTrue(new Type(PokemonTypes.BUG).equals(new Type(PokemonTypes.BUG)));
         assertTrue(new Type(PokemonTypes.BUG).equals(new Type("Bug")));
+        assertTrue(new Type(PokemonTypes.BUG, PokemonTypes.POISON).equals(
+                new Type(PokemonTypes.BUG, PokemonTypes.POISON)));
+        assertTrue(new Type(PokemonTypes.BUG, PokemonTypes.POISON).equals(
+                new Type("Bug", "poison")));
     }
 
     @Test
     public void testFalseEquality() {
         assertFalse(new Type(PokemonTypes.BUG).equals(new Type(PokemonTypes.GRASS)));
+        assertFalse(new Type(PokemonTypes.BUG).equals(new Type(PokemonTypes.BUG, PokemonTypes.POISON)));
     }
 
 }
