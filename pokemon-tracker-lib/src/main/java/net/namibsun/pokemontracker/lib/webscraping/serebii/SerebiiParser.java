@@ -17,7 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
-import net.namibsun.pokemontracker.lib.species.enums.Languages;
+import net.namibsun.pokemontracker.lib.pokemon.species.enums.Languages;
 import org.jsoup.Jsoup;
 import java.util.HashMap;
 import java.io.IOException;
@@ -28,7 +28,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
-import net.namibsun.pokemontracker.lib.species.enums.PokemonStatTypes;
+import net.namibsun.pokemontracker.lib.pokemon.species.enums.PokemonStatTypes;
 
 /**
  * A Pokemon Parser for serebii.net

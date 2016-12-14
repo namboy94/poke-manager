@@ -18,7 +18,7 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.webscraping;
 
 import java.util.HashMap;
-import net.namibsun.pokemontracker.lib.species.enums.PokemonStatTypes;
+import net.namibsun.pokemontracker.lib.pokemon.species.enums.PokemonStatTypes;
 
 /**
  * Defines an interface for a Pokemon Web Scraper
