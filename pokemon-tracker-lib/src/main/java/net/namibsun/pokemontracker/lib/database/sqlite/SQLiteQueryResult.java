@@ -17,6 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.database.sqlite;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,24 +30,23 @@ import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 public class SQLiteQueryResult extends QueryResult {
 
     /**
-     * The database to use with the query
+     * The SQL statement that created this Query Result
      */
-    private Connection database;
-
-    /**
-     * The SQL query
-     */
-    private String query;
+    private PreparedStatement statement;
 
     /**
      * Creates a new SQLiteQueryResult object
      * Stores the database and query as private variables
-     * @param database: The database to use
-     * @param query:    The SQL query to execute
+     * @param database:     The database to use
+     * @param query:        The SQL query to execute
+     * @throws SQLException If an SQL Error occurs
      */
-    public SQLiteQueryResult(Connection database, String query) {
-        this.database = database;
-        this.query = query;
+    public SQLiteQueryResult(Connection database, String query, String[] arguments) throws SQLException {
+
+        this.statement = database.prepareStatement(query);
+        for (int i = 0; i < arguments.length; i++) {
+            this.statement.setString(i + 1, arguments[i]);
+        }
     }
 
     /**
@@ -55,7 +55,7 @@ public class SQLiteQueryResult extends QueryResult {
     public int getQueryLength() throws SQLException {
 
         int length = 0;
-        ResultSet set = this.database.createStatement().executeQuery(this.query);
+        ResultSet set = this.statement.executeQuery();
         while(set.next()) {
             length++;
         }
@@ -72,7 +72,7 @@ public class SQLiteQueryResult extends QueryResult {
      */
     private ResultSet getRowResultSet(int index) throws SQLException {
 
-        ResultSet set = this.database.createStatement().executeQuery(this.query);
+        ResultSet set = this.statement.executeQuery();
         for (int i = 0; i <= index; i++) {
             set.next();
         }

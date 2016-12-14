@@ -18,45 +18,70 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.database.sqlite;
 
 import java.io.File;
-import org.junit.Test;
+
+import net.namibsun.pokemontracker.lib.database.dbinterface.DatabaseColumn;
+import org.junit.*;
+
 import java.sql.SQLException;
 import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 
 public class SQLiteDatabaseTest {
 
-    @Test
-    public void testCreatingDatabase() throws SQLException {
-        new SQLiteDatabase("test.db").close();
+    private SQLiteDatabase db;
+
+    @Before
+    public void setup() throws SQLException {
+        db = new SQLiteDatabase("test.db");
+    }
+
+    @After
+    public void tearDown() throws SQLException {
+        this.db.close();
         File dbFile = new File("test.db");
-        assertTrue(dbFile.isFile());
         //noinspection ResultOfMethodCallIgnored
         dbFile.delete();
     }
 
     @Test
-    public void testStoringAndGettingValues() throws SQLException {
-        SQLiteDatabase db = new SQLiteDatabase("test.db");
-        db.executeSql("CREATE TABLE test (one Text, two Integer, three Double, four Boolean);");
-        db.executeSql("INSERT INTO test (one, two, three, four) VALUES (\"A\", 1, 1.0, 0)");
-        db.executeSql("INSERT INTO test (one, two, three, four) VALUES (\"B\", 2, 2.0, 1)");
-        db.commitChanges();
+    public void testCreatingDatabaseFile() throws SQLException {
+        File dbFile = new File("test.db");
+        assertTrue(dbFile.isFile());
+    }
 
-        QueryResult result = db.query("SELECT * FROM test");
+    @Test
+    public void testCreatingAndInsertingData() throws SQLException {
+
+        DatabaseColumn[] columns = new DatabaseColumn[] {
+                new DatabaseColumn("one", "Integer"),
+                new DatabaseColumn("two", "Text"),
+                new DatabaseColumn("three", "Double"),
+                new DatabaseColumn("four", "Boolean")
+        };
+
+        this.db.createTable("test", columns);
+
+        this.db.insert("test", columns, new String[] {"1", "A", "1.0", "1"});
+        assertEquals(this.db.query("SELECT * FROM test", null).getQueryLength(), 1);
+        this.db.insert("test", columns, new String[] {"2", "B", "2.0", "0"});
+        assertEquals(this.db.query("SELECT * FROM test", null).getQueryLength(), 2);
+    }
+
+    @Test
+    public void testRetrievingData() throws SQLException {
+        this.testCreatingAndInsertingData();
+
+        QueryResult result = this.db.query("SELECT * FROM test", null);
         assertEquals(result.getQueryLength(), 2);
-        assertEquals(result.getString("one", 0), "A");
-        assertEquals(result.getString(0, 1), "B");
-        assertEquals(result.getInt("two", 0), 1);
-        assertEquals(result.getInt(1, 1), 2);
+
+        assertEquals(result.getInt("one", 0), 1);
+        assertEquals(result.getInt(0, 1), 2);
+        assertEquals(result.getString("two", 0), "A");
+        assertEquals(result.getString(1, 1), "B");
         assertEquals(result.getDouble("three", 0), 1.0, 0.0);
         assertEquals(result.getDouble(2, 1), 2.0, 0.0);
-        assertEquals(result.getBoolean("four", 0), false);
-        assertEquals(result.getBoolean(3, 1), true);
-
-        db.close();
-        //noinspection ResultOfMethodCallIgnored
-        new File("test.db").delete();
-
+        assertEquals(result.getBoolean("four", 0), true);
+        assertEquals(result.getBoolean(3, 1), false);
     }
 
 }

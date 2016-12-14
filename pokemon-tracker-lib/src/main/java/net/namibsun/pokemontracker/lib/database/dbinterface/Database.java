@@ -25,18 +25,47 @@ import java.sql.SQLException;
 public interface Database {
 
     /**
-     * Executes an SQL stement
+     * Executes an SQL statement
      * @param sqlStatement: The statement to execute
+     * @param arguments:    Arguments that will be inserted into '?' characters in the statement.
+     *                      This reduces the risk of SQL injection
      * @throws SQLException if an SQL Error occurred
      */
-    void executeSql(String sqlStatement) throws SQLException;
+    void executeSql(String sqlStatement, String[] arguments) throws SQLException;
+
+    /**
+     * Creates a new table in the database
+     * @param tableName:    The name of the table
+     * @param columns:      The columns of the table
+     * @throws SQLException if an SQL Error occurred
+     */
+    void createTable(String tableName, DatabaseColumn[] columns) throws SQLException;
+
+    /**
+     * Inserts an element into the database
+     * @param tableName: The table to insert the element into.
+     * @param data:      An array of data for the new database entry
+     * @throws SQLException if an SQL Error occurred
+     */
+    void insert(String tableName, String[] data) throws SQLException;
+
+    /**
+     * Inserts an element into the database
+     * @param tableName: The table to insert the element into.
+     * @param order:     An array of columns, defining the order in which to insert the data elements
+     * @param data:      An array of data for the new database entry
+     * @throws SQLException if an SQL Error occurred
+     */
+    void insert(String tableName, DatabaseColumn[] order, String[] data) throws SQLException;
 
     /**
      * Executes an SQL query and returns the result as a QueryResult object
      * @param sqlStatement: The query to execute
+     * @param arguments:    Arguments that will be inserted into '?' characters in the statement.
+     *                      This reduces the risk of SQL injection
      * @throws SQLException if an SQL Error occurred
      */
-    QueryResult query(String sqlStatement) throws SQLException;
+    QueryResult query(String sqlStatement, String[] arguments) throws SQLException;
 
     /**
      * Commits the changes to the database

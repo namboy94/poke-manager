@@ -106,6 +106,7 @@ public class PokedexDatabaseHandler {
      */
     public PokemonSpecies getSpeciesFromDatabase(int pokedexNumber) throws SQLException {
 
+        /*
         QueryResult query = this.database.query("SELECT * FROM pokedex_data WHERE pokedex_number = " + pokedexNumber);
         if (query.getQueryLength() == 0) {
             return null;
@@ -195,6 +196,8 @@ public class PokedexDatabaseHandler {
                     )
             );
         }
+        */
+        return null;
     }
 
     /**
@@ -204,6 +207,7 @@ public class PokedexDatabaseHandler {
      */
     public void storePokemonSpeciesInDatabase(PokemonSpecies species) throws SQLException {
 
+        /*
         QueryResult checkIfExists = this.database.query(
                 "SELECT * FROM pokedex_data WHERE pokedex_number = " + species.getPokedexNumber());
 
@@ -283,6 +287,7 @@ public class PokedexDatabaseHandler {
             this.database.executeSql(sql);
             this.database.commitChanges();
         }
+        */
     }
 
     /**
@@ -298,8 +303,10 @@ public class PokedexDatabaseHandler {
         sql = sql.substring(0, sql.length() - 1);
         sql += ");";
 
+        /*
         this.database.executeSql(sql);
         this.database.commitChanges();
+        */
 
     }
 }
