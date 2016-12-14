@@ -55,7 +55,7 @@ public class SQLiteDatabase implements Database {
      *                      This reduces the risk of SQL injection
      * @throws SQLException if an SQL Error occurred
      */
-    public void executeSql(String sqlStatement, String[] arguments) throws SQLException {
+    public void executeSql(String sqlStatement, Object[] arguments) throws SQLException {
 
         if (arguments == null) {
             arguments = new String[] {};
@@ -63,7 +63,12 @@ public class SQLiteDatabase implements Database {
 
         PreparedStatement statement = this.connection.prepareStatement(sqlStatement);
         for (int i = 0; i < arguments.length; i++) {
-            statement.setString(i + 1, arguments[i]);
+            if (arguments[i] != null) {
+                statement.setString(i + 1, "" + arguments[i]);
+            }
+            else {
+                statement.setString(i + 1, null);
+            }
         }
         statement.execute();
     }
@@ -87,7 +92,6 @@ public class SQLiteDatabase implements Database {
         }
 
         this.executeSql(sql, null);
-        this.commitChanges();
     }
 
     /**
@@ -96,7 +100,7 @@ public class SQLiteDatabase implements Database {
      * @param data:      An array of data for the new database entry
      * @throws SQLException if an SQL Error occurred
      */
-    public void insert(String tableName, String[] data) throws SQLException {
+    public void insert(String tableName, Object[] data) throws SQLException {
 
         String sql = "INSERT INTO " + tableName + " VALUES " + this.parameterize(data.length);
         this.executeSql(sql, data);
@@ -109,7 +113,7 @@ public class SQLiteDatabase implements Database {
      * @param data:      An array of data for the new database entry
      * @throws SQLException if an SQL Error occurred
      */
-    public void insert(String tableName, DatabaseColumn[] order, String[] data) throws SQLException {
+    public void insert(String tableName, DatabaseColumn[] order, Object[] data) throws SQLException {
 
         if (order.length != data.length) {
             throw new SQLException("Inconsistent amount of columns and arguments");
@@ -156,7 +160,7 @@ public class SQLiteDatabase implements Database {
      * @throws SQLException if an SQL Error occurred
      */
     @Override
-    public QueryResult query(String sqlStatement, String[] arguments) throws SQLException {
+    public QueryResult query(String sqlStatement, Object[] arguments) throws SQLException {
 
         if (arguments == null) {
             arguments = new String[] {};

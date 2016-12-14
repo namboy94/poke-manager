@@ -106,8 +106,9 @@ public class PokedexDatabaseHandler {
      */
     public PokemonSpecies getSpeciesFromDatabase(int pokedexNumber) throws SQLException {
 
-        /*
-        QueryResult query = this.database.query("SELECT * FROM pokedex_data WHERE pokedex_number = " + pokedexNumber);
+
+        QueryResult query = this.database.query(
+                "SELECT * FROM pokedex_data WHERE pokedex_number=?", new String[]{"" + pokedexNumber});
         if (query.getQueryLength() == 0) {
             return null;
         }
@@ -119,7 +120,7 @@ public class PokedexDatabaseHandler {
             EggGroupTypes secondaryEggGroup;
             try {
                 secondaryEggGroup = EggGroupTypes.valueOf(secondaryEggGroupString);
-            } catch (NullPointerException e) {
+            } catch (IllegalArgumentException | NullPointerException e) {
                 secondaryEggGroup = null;
             }
 
@@ -134,7 +135,7 @@ public class PokedexDatabaseHandler {
                         query.getString(PokedexColumns.PRIMARY_TYPE.getName(), 0),
                         query.getString(PokedexColumns.SECONDARY_TYPE.getName(), 0)
                 );
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | NullPointerException e) {
                 type = new Type(
                         query.getString(PokedexColumns.PRIMARY_TYPE.getName(), 0)
                 );
@@ -196,8 +197,6 @@ public class PokedexDatabaseHandler {
                     )
             );
         }
-        */
-        return null;
     }
 
     /**
@@ -207,87 +206,72 @@ public class PokedexDatabaseHandler {
      */
     public void storePokemonSpeciesInDatabase(PokemonSpecies species) throws SQLException {
 
-        /*
         QueryResult checkIfExists = this.database.query(
-                "SELECT * FROM pokedex_data WHERE pokedex_number = " + species.getPokedexNumber());
+                "SELECT * FROM pokedex_data WHERE pokedex_number=?",
+                new String[]{"" + species.getPokedexNumber()});
 
         if (checkIfExists.getQueryLength() == 0) {
-
-            String tableColumnHeaders = "(";
-            for (DatabaseColumn column: this.tableOrder) {
-                tableColumnHeaders += column.getName(",");
-            }
-            tableColumnHeaders = tableColumnHeaders.substring(0, tableColumnHeaders.length() - 1);
-            tableColumnHeaders += ")";
 
             String secondaryType = species.getType().getSecondaryTypeAsString();
             if (secondaryType != null) {
                 secondaryType = secondaryType.toUpperCase();
             }
 
-            String values = "VALUES (";
-            values += species.getPokedexNumber() + ",";
-            values += "\"" + species.getName().getName(Languages.ENGLISH) + "\",";
-            values += "\"" + species.getName().getName(Languages.GERMAN) + "\",";
-            values += "\"" + species.getName().getName(Languages.FRENCH) + "\",";
-            values += "\"" + species.getName().getName(Languages.JAPANESE) + "\",";
-            values += "\"" + species.getName().getName(Languages.KOREAN) + "\",";
-            values += species.getGenderRatio().getMaleRatio() + ",";
-            values += species.getGenderRatio().getFemaleRatio() + ",";
-            values += "\"" + species.getType().getPrimaryTypeAsString().toUpperCase() + "\",";
-            values += "\"" + secondaryType + "\",";
-            values += species.getSpeciesDescription().getMetricHeight() + ",";
-            values += species.getSpeciesDescription().getMetricWeight() + ",";
-            values += species.getSpeciesDescription().getImperialHeight() + ",";
-            values += species.getSpeciesDescription().getImperialWeight() + ",";
-            values += "\"" + species.getSpeciesDescription().getClassification() + "\",";
-            values += species.getEffortValueYield().getHp() + ",";
-            values += species.getEffortValueYield().getAttack() + ",";
-            values += species.getEffortValueYield().getDefense() + ",";
-            values += species.getEffortValueYield().getSpecialAttack() + ",";
-            values += species.getEffortValueYield().getSpecialDefense() + ",";
-            values += species.getEffortValueYield().getSpeed() + ",";
-            values += "\"" + species.getAbility().getAbilityOne()[0] + "\",";
-            values += "\"" + species.getAbility().getAbilityOne()[1] + "\",";
-            if (species.getAbility().getAbilityTwo() != null) {
-                values += "\"" + species.getAbility().getAbilityTwo()[0] + "\",";
-                values += "\"" + species.getAbility().getAbilityTwo()[1] + "\",";
-            }
-            else {
-                values += "NULL,NULL,";
-            }
-            if (species.getAbility().getHiddenAbility() != null) {
-                values += "\"" + species.getAbility().getHiddenAbility()[0] + "\",";
-                values += "\"" + species.getAbility().getHiddenAbility()[1] + "\",";
-            }
-            else {
-                values += "NULL,NULL,";
-            }
-            values += species.getBaseStats().getHp() + ",";
-            values += species.getBaseStats().getAttack() + ",";
-            values += species.getBaseStats().getDefense() + ",";
-            values += species.getBaseStats().getSpecialAttack() + ",";
-            values += species.getBaseStats().getSpecialDefense() + ",";
-            values += species.getBaseStats().getSpeed() + ",";
-            values += "\"" + species.getEggGroups().getPrimaryEggGroup().name() + "\",";
+            String secondaryEggGroup;
             if (species.getEggGroups().getSecondaryEggGroup() != null) {
-                values += "\"" + species.getEggGroups().getSecondaryEggGroup().name() + "\",";
+                secondaryEggGroup = species.getEggGroups().getSecondaryEggGroup().name();
             }
             else {
-                values += "NULL,";
+                secondaryEggGroup = null;
             }
-            values += species.getRates().getCaptureRate() + ",";
-            values += species.getRates().getBaseEggSteps() + ",";
-            values += species.getRates().getBaseHappiness() + ",";
-            values += species.getRates().getExperienceGrowthPoints() + ",";
-            values += "\"" + species.getRates().getExperienceGrowthDescription() + "\");";
 
-            String sql = "INSERT INTO pokedex_data " + tableColumnHeaders + " " + values;
+            Object[] values = new Object[] {
+                    species.getPokedexNumber(),
+                    species.getName().getName(Languages.ENGLISH),
+                    species.getName().getName(Languages.GERMAN),
+                    species.getName().getName(Languages.FRENCH),
+                    species.getName().getName(Languages.JAPANESE),
+                    species.getName().getName(Languages.KOREAN),
+                    species.getGenderRatio().getMaleRatio(),
+                    species.getGenderRatio().getFemaleRatio(),
+                    species.getType().getPrimaryTypeAsString().toUpperCase(),
+                    secondaryType,
+                    species.getSpeciesDescription().getMetricHeight(),
+                    species.getSpeciesDescription().getMetricWeight(),
+                    species.getSpeciesDescription().getImperialHeight(),
+                    species.getSpeciesDescription().getImperialWeight(),
+                    species.getSpeciesDescription().getClassification(),
+                    species.getEffortValueYield().getHp(),
+                    species.getEffortValueYield().getAttack(),
+                    species.getEffortValueYield().getDefense(),
+                    species.getEffortValueYield().getSpecialAttack(),
+                    species.getEffortValueYield().getSpecialDefense(),
+                    species.getEffortValueYield().getSpeed(),
+                    species.getAbility().getAbilityOneName(),
+                    species.getAbility().getAbilityOneDescription(),
+                    species.getAbility().getAbilityTwoName(),
+                    species.getAbility().getAbilityTwoDescription(),
+                    species.getAbility().getHiddenAbilityName(),
+                    species.getAbility().getHiddenAbilityDescription(),
+                    species.getBaseStats().getHp(),
+                    species.getBaseStats().getAttack(),
+                    species.getBaseStats().getDefense(),
+                    species.getBaseStats().getSpecialAttack(),
+                    species.getBaseStats().getSpecialDefense(),
+                    species.getBaseStats().getSpeed(),
+                    species.getEggGroups().getPrimaryEggGroup().name(),
+                    secondaryEggGroup,
+                    species.getRates().getCaptureRate(),
+                    species.getRates().getBaseEggSteps(),
+                    species.getRates().getBaseHappiness(),
+                    species.getRates().getExperienceGrowthPoints(),
+                    species.getRates().getExperienceGrowthDescription()
 
-            this.database.executeSql(sql);
+            };
+
+            this.database.insert("pokedex_data", this.tableOrder, values);
             this.database.commitChanges();
         }
-        */
     }
 
     /**
@@ -295,18 +279,7 @@ public class PokedexDatabaseHandler {
      * @throws SQLException  If an SQL Error occurred
      */
     public void createPokedexTable() throws SQLException {
-
-        String sql = "CREATE TABLE if not exists pokedex_data (";
-        for (DatabaseColumn column: this.tableOrder) {
-            sql += column.getColumn(",");
-        }
-        sql = sql.substring(0, sql.length() - 1);
-        sql += ");";
-
-        /*
-        this.database.executeSql(sql);
+        this.database.createTable("pokedex_data", this.tableOrder);
         this.database.commitChanges();
-        */
-
     }
 }

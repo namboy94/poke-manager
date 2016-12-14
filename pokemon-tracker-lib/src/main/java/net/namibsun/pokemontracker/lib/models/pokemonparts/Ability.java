@@ -120,6 +120,20 @@ public class Ability {
     }
 
     /**
+     * @return the first regular ability's name
+     */
+    public String getAbilityOneName() {
+        return this.abilityOneName;
+    }
+
+    /**
+     * @return the first regular ability's description
+     */
+    public String getAbilityOneDescription() {
+        return this.abilityOneDescription;
+    }
+
+    /**
      * @return the second regular ability of the Pokemon, as an array of the name and the description,
      *         or null if the Pokemon has no second regular ability
      */
@@ -133,6 +147,20 @@ public class Ability {
     }
 
     /**
+     * @return the second regular ability's name
+     */
+    public String getAbilityTwoName() {
+        return this.abilityTwoName;
+    }
+
+    /**
+     * @return the second regular ability's description
+     */
+    public String getAbilityTwoDescription() {
+        return this.abilityTwoDescription;
+    }
+
+    /**
      * @return the hidden ability of the Pokemon, as an array of the name and the description,
      *         or null if the Pokemon has no hidden ability
      */
@@ -143,6 +171,20 @@ public class Ability {
         else {
             return new String[] { this.hiddenAbilityName, this.hiddenAbilityDescription};
         }
+    }
+
+    /**
+     * @return the hidden ability's name
+     */
+    public String getHiddenAbilityName() {
+        return this.hiddenAbilityName;
+    }
+
+    /**
+     * @return the hidden ability's description
+     */
+    public String getHiddenAbilityDescription() {
+        return this.hiddenAbilityDescription;
     }
 
     /**
@@ -186,8 +228,8 @@ public class Ability {
     public boolean equals(Ability otherAbility) {
 
         boolean abilityOneSame =
-                this.abilityOneName.equals(otherAbility.getAbilityOne()[0]) &&
-                this.abilityOneDescription.equals(otherAbility.getAbilityOne()[1]);
+                this.abilityOneName.equals(otherAbility.getAbilityOneName()) &&
+                this.abilityOneDescription.equals(otherAbility.getAbilityOneDescription());
         boolean abilityTwoSame;
         boolean hiddenAbilitySame;
 

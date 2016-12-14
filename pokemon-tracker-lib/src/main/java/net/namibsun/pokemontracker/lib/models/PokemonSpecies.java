@@ -199,6 +199,17 @@ public class PokemonSpecies {
      */
     public boolean equals(PokemonSpecies otherSpecies) {
 
+        System.out.println(this.pokedexNumber == otherSpecies.pokedexNumber);
+        System.out.println(this.name.equals(otherSpecies.getName()));
+        System.out.println(this.genderRatio.equals(otherSpecies.getGenderRatio()));
+        System.out.println(this.type.equals(otherSpecies.getType()));
+        System.out.println(this.description.equals(otherSpecies.getSpeciesDescription()));
+        System.out.println(this.rates.equals(otherSpecies.getRates()));
+        System.out.println(this.ability.equals(otherSpecies.getAbility()));
+        System.out.println(this.evYield.equals(otherSpecies.getEffortValueYield()));
+        System.out.println(this.baseStats.equals(otherSpecies.getBaseStats()));
+        System.out.println(this.eggGroups.equals(otherSpecies.getEggGroups()));
+
         return  this.pokedexNumber == otherSpecies.pokedexNumber &&
                 this.name.equals(otherSpecies.getName()) &&
                 this.genderRatio.equals(otherSpecies.getGenderRatio()) &&

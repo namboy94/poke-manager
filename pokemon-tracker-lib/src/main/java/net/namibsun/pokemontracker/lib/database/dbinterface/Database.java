@@ -31,7 +31,7 @@ public interface Database {
      *                      This reduces the risk of SQL injection
      * @throws SQLException if an SQL Error occurred
      */
-    void executeSql(String sqlStatement, String[] arguments) throws SQLException;
+    void executeSql(String sqlStatement, Object[] arguments) throws SQLException;
 
     /**
      * Creates a new table in the database
@@ -47,7 +47,7 @@ public interface Database {
      * @param data:      An array of data for the new database entry
      * @throws SQLException if an SQL Error occurred
      */
-    void insert(String tableName, String[] data) throws SQLException;
+    void insert(String tableName, Object[] data) throws SQLException;
 
     /**
      * Inserts an element into the database
@@ -56,7 +56,7 @@ public interface Database {
      * @param data:      An array of data for the new database entry
      * @throws SQLException if an SQL Error occurred
      */
-    void insert(String tableName, DatabaseColumn[] order, String[] data) throws SQLException;
+    void insert(String tableName, DatabaseColumn[] order, Object[] data) throws SQLException;
 
     /**
      * Executes an SQL query and returns the result as a QueryResult object
@@ -65,7 +65,7 @@ public interface Database {
      *                      This reduces the risk of SQL injection
      * @throws SQLException if an SQL Error occurred
      */
-    QueryResult query(String sqlStatement, String[] arguments) throws SQLException;
+    QueryResult query(String sqlStatement, Object[] arguments) throws SQLException;
 
     /**
      * Commits the changes to the database

@@ -37,7 +37,7 @@ public class GenderRatio {
     /**
      * Indicator for a Pokemon being genderless
      */
-    private boolean neutralGendered;
+    private boolean neutralGendered = true;
 
     /**
      * Constructor for a Pokemon that has genders
@@ -47,7 +47,10 @@ public class GenderRatio {
     public GenderRatio(double maleRatio, double femaleRatio) {
         this.maleRatio = maleRatio;
         this.femaleRatio = femaleRatio;
-        this.neutralGendered = false;
+
+        if (maleRatio != 0.0 && femaleRatio != 0.0) {
+            this.neutralGendered = false;
+        }
     }
 
     /**
@@ -56,7 +59,6 @@ public class GenderRatio {
     public GenderRatio() {
         this.maleRatio = 0.0;
         this.femaleRatio = 0.0;
-        this.neutralGendered = true;
     }
 
     /**

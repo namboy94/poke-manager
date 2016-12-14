@@ -61,9 +61,9 @@ public class SQLiteDatabaseTest {
 
         this.db.createTable("test", columns);
 
-        this.db.insert("test", columns, new String[] {"1", "A", "1.0", "1"});
+        this.db.insert("test", columns, new Object[] {1, "A", 1.0, 1});
         assertEquals(this.db.query("SELECT * FROM test", null).getQueryLength(), 1);
-        this.db.insert("test", columns, new String[] {"2", "B", "2.0", "0"});
+        this.db.insert("test", columns, new Object[] {2, "B", 2.0, 0});
         assertEquals(this.db.query("SELECT * FROM test", null).getQueryLength(), 2);
     }
 

@@ -41,11 +41,16 @@ public class SQLiteQueryResult extends QueryResult {
      * @param query:        The SQL query to execute
      * @throws SQLException If an SQL Error occurs
      */
-    public SQLiteQueryResult(Connection database, String query, String[] arguments) throws SQLException {
+    public SQLiteQueryResult(Connection database, String query, Object[] arguments) throws SQLException {
 
         this.statement = database.prepareStatement(query);
         for (int i = 0; i < arguments.length; i++) {
-            this.statement.setString(i + 1, arguments[i]);
+            if (arguments[i] != null) {
+                this.statement.setString(i + 1, "" + arguments[i]);
+            }
+            else {
+                this.statement.setString(i + 1, null);
+            }
         }
     }
 
