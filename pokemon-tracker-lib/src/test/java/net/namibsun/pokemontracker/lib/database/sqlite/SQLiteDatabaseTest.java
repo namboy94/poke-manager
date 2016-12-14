@@ -29,10 +29,20 @@ import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 public class SQLiteDatabaseTest {
 
     private SQLiteDatabase db;
+    private DatabaseColumn[] standardColumns;
 
     @Before
     public void setup() throws SQLException {
-        db = new SQLiteDatabase("test.db");
+        this.db = new SQLiteDatabase("test.db");
+
+        this.standardColumns = new DatabaseColumn[] {
+                new DatabaseColumn("one", "Integer"),
+                new DatabaseColumn("two", "Text"),
+                new DatabaseColumn("three", "Double"),
+                new DatabaseColumn("four", "Boolean")
+        };
+
+        this.db.createTable("test_table", standardColumns);
     }
 
     @After
@@ -52,26 +62,17 @@ public class SQLiteDatabaseTest {
     @Test
     public void testCreatingAndInsertingData() throws SQLException {
 
-        DatabaseColumn[] columns = new DatabaseColumn[] {
-                new DatabaseColumn("one", "Integer"),
-                new DatabaseColumn("two", "Text"),
-                new DatabaseColumn("three", "Double"),
-                new DatabaseColumn("four", "Boolean")
-        };
-
-        this.db.createTable("test", columns);
-
-        this.db.insert("test", columns, new Object[] {1, "A", 1.0, 1});
-        assertEquals(this.db.query("SELECT * FROM test", null).getQueryLength(), 1);
-        this.db.insert("test", columns, new Object[] {2, "B", 2.0, 0});
-        assertEquals(this.db.query("SELECT * FROM test", null).getQueryLength(), 2);
+        this.db.insert("test_table", this.standardColumns, new Object[] {1, "A", 1.0, 1});
+        assertEquals(this.db.query("SELECT * FROM test_table", null).getQueryLength(), 1);
+        this.db.insert("test_table", new Object[] {2, "B", 2.0, 0});
+        assertEquals(this.db.query("SELECT * FROM test_table", null).getQueryLength(), 2);
     }
 
     @Test
     public void testRetrievingData() throws SQLException {
         this.testCreatingAndInsertingData();
 
-        QueryResult result = this.db.query("SELECT * FROM test", null);
+        QueryResult result = this.db.query("SELECT * FROM test_table", null);
         assertEquals(result.getQueryLength(), 2);
 
         assertEquals(result.getInt("one", 0), 1);
@@ -84,4 +85,25 @@ public class SQLiteDatabaseTest {
         assertEquals(result.getBoolean(3, 1), false);
     }
 
+    @Test
+    public void testInconsistentColumnCountInsert() {
+        try {
+            this.db.insert("test_table",
+                    new DatabaseColumn[]{new DatabaseColumn("one", "Integer")},
+                    new Object[]{1, 2});
+        } catch (SQLException e) {
+            assertEquals(e.getMessage(), "Inconsistent amount of columns and arguments");
+        }
+    }
+
+    @Test
+    public void testInsertingAndRetrivingNullValues() throws SQLException {
+        this.db.insert("test_table", new Object[] {null, null, null, null});
+        QueryResult result = this.db.query("SELECT * FROM test_table WHERE two IS ?", new Object[] {null});
+
+        assertTrue(0 == result.getInt(0, 0));
+        assertTrue(null == result.getString(1, 0));
+        assertTrue(0.0 == result.getDouble(2, 0));
+        assertFalse(result.getBoolean(3, 0));
+    }
 }
