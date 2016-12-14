@@ -18,10 +18,10 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.database.pokedex;
 
 import java.sql.SQLException;
-import net.namibsun.pokemontracker.lib.models.pokemonparts.*;
-import net.namibsun.pokemontracker.lib.models.PokemonSpecies;
-import net.namibsun.pokemontracker.lib.models.enums.Languages;
-import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.species.pokemonparts.*;
+import net.namibsun.pokemontracker.lib.species.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.species.enums.Languages;
+import net.namibsun.pokemontracker.lib.species.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 import net.namibsun.pokemontracker.lib.database.dbinterface.DatabaseColumn;

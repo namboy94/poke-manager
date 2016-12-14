@@ -22,10 +22,10 @@ import java.util.HashMap;
 import java.io.IOException;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
-import net.namibsun.pokemontracker.lib.models.enums.Languages;
-import net.namibsun.pokemontracker.lib.models.enums.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.species.enums.Languages;
+import net.namibsun.pokemontracker.lib.species.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
-import net.namibsun.pokemontracker.lib.models.enums.PokemonStatTypes;
+import net.namibsun.pokemontracker.lib.species.enums.PokemonStatTypes;
 
 public class SerebiiParserTest {
     
