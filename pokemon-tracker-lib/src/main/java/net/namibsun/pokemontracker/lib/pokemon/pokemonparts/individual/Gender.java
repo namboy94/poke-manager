@@ -17,8 +17,59 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
+import net.namibsun.pokemontracker.lib.pokemon.enums.individual.GenderTypes;
+
 /**
- * Created by hermann on 12/14/16.
+ * Models the Gender of a Pokemon
  */
 public class Gender {
+
+    /**
+     * The gender of the Pokemon
+     */
+    private GenderTypes gender;
+
+    /**
+     * Creates a new Gender object
+     * @param gender: The gender of the Pokemon
+     */
+    public Gender(GenderTypes gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * @return The Gender type
+     */
+    public GenderTypes getGender() {
+        return this.gender;
+    }
+
+    /**
+     * @return The Gender type as a string
+     */
+    public String getGenderString() {
+        return this.gender.name();
+    }
+
+    /**
+     * @return The gender symbol, i.e. ♂ for males, ♀ for females and - for neutral
+     */
+    public String getGenderSymbol() {
+        switch (this.gender) {
+            case MALE:    return "♂";
+            case FEMALE:  return "♀";
+            case NEUTRAL: return "-";
+        }
+        return null; // Will never be reached
+    }
+
+    /**
+     * Checks for equality between two Gender objects
+     * @param otherGender: The other Gender object
+     * @return             true, if the objects are equal, false otherwise
+     */
+    public boolean equals(Gender otherGender) {
+        return this.gender == otherGender.getGender();
+    }
+
 }

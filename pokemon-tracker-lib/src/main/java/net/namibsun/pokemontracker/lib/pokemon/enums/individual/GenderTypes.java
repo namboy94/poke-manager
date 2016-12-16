@@ -15,13 +15,11 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.enums.species;
+package net.namibsun.pokemontracker.lib.pokemon.enums.individual;
 
 /**
- * Enum that stores the available languages for Pokemon names
+ * Enum that models all possible gender variations of a Pokemon
  */
-public enum Languages {
-
-    ENGLISH, FRENCH, GERMAN, JAPANESE, KOREAN
-
+public enum GenderTypes {
+    MALE, FEMALE, NEUTRAL
 }

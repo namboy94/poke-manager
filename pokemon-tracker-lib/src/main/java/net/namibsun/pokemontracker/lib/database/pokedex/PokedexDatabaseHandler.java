@@ -21,7 +21,7 @@ import java.sql.SQLException;
 
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species.*;
 import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.Languages;
+import net.namibsun.pokemontracker.lib.pokemon.enums.Languages;
 import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;

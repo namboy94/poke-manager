@@ -19,6 +19,7 @@ package net.namibsun.pokemontracker.lib.pokemon;
 
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Ability;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Gender;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;
 
 /**
@@ -42,6 +43,11 @@ public class Pokemon {
     private IndividualValueSpread ivSpread;
 
     /**
+     * The Pokemon's Gender
+     */
+    private Gender gender;
+
+    /**
      * The Pokemon's Ability
      */
     private Ability ability;
@@ -49,11 +55,13 @@ public class Pokemon {
     public Pokemon(PokemonSpecies species,
                    EffortValueSpread evSpread,
                    IndividualValueSpread ivSpread,
-                   Ability ability) {
+                   Ability ability,
+                   Gender gender) {
         this.species = species;
         this.evSpread = evSpread;
         this.ivSpread = ivSpread;
         this.ability = ability;
+        this.gender = gender;
     }
 
     /**
@@ -85,6 +93,13 @@ public class Pokemon {
     }
 
     /**
+     * @return The Pokemon's gender
+     */
+    public Gender getGender() {
+        return this.gender;
+    }
+
+    /**
      * Compares two Pokemon objects and checks for equality
      * @param otherPokemon: The Pokemon to compare against
      * @return              true if the two objects are equal, false otherwise
@@ -93,7 +108,8 @@ public class Pokemon {
         return  this.species.equals(otherPokemon.getSpecies()) &&
                 this.evSpread.equals(otherPokemon.getEffortValueSpread()) &&
                 this.ivSpread.equals(otherPokemon.getIndividualValueSpread()) &&
-                this.ability.equals(otherPokemon.getAbility());
+                this.ability.equals(otherPokemon.getAbility()) &&
+                this.gender.equals(otherPokemon.getGender());
     }
 
 }

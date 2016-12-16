@@ -34,6 +34,8 @@ public class AbilityTest {
     public void testEqualityCheckTrue() {
         assertTrue(new Ability("A", "B", true).equals(
                         new Ability("A", "B", true)));
+        assertTrue(new Ability("C", "C", false).equals(
+                new Ability("C", "C", false)));
     }
 
     @Test
@@ -41,6 +43,8 @@ public class AbilityTest {
         assertFalse(new Ability("A", "B", true).equals(new Ability("A", "B", false)));
         assertFalse(new Ability("A", "B", true).equals(new Ability("A", "C", true)));
         assertFalse(new Ability("A", "B", true).equals(new Ability("C", "B", true)));
+        assertFalse(new Ability("A", "B", true).equals(new Ability("U", "V", true)));
+        assertFalse(new Ability("A", "B", true).equals(new Ability("C", "B", false)));
     }
 
 

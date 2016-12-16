@@ -20,7 +20,7 @@ package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.Languages;
+import net.namibsun.pokemontracker.lib.pokemon.enums.Languages;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class NameTest{
