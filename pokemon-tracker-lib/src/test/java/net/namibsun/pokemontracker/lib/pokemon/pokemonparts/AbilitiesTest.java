@@ -73,7 +73,7 @@ public class AbilitiesTest {
 
         assertArrayEquals(abilities.getAbilityOne(),
                 new String[] {"Levitate", "Damage dealing Ground-type moves have no effect " +
-                        "on this Pokémon. Cannot be trapped by Arena Trap abilities. " +
+                        "on this Pokémon. Cannot be trapped by Arena Trap ability. " +
                         "Takes no damage from Spikes."});
     }
 

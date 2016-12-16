@@ -433,13 +433,13 @@ public class SerebiiParser implements PokemonScraper {
         if (abilities.length > 1) {
             String secondaryAbility = abilities[1].trim();
 
-            if (secondaryAbility.contains("(Hidden Abilities)") || secondaryAbility.contains("(Hidden)")) {
+            if (secondaryAbility.contains("(Hidden Ability)") || secondaryAbility.contains("(Hidden)")) {
                 primaryAbilityDescription = primaryAbilityDescription.split(" Hidden Ability")[0].trim();
             }
             else {
                 primaryAbilityDescription = primaryAbilityDescription.split(" " + secondaryAbility)[0].trim();
                 String secondaryAbilityDescription = abilityDescriptions.split(secondaryAbility + ":")[1].trim();
-                if (secondaryAbilityDescription.contains("Hidden Abilities")) {
+                if (secondaryAbilityDescription.contains("Hidden Ability")) {
                     secondaryAbilityDescription = secondaryAbilityDescription.split(" Hidden Ability")[0].trim();
                 }
                 return new String[] {
@@ -465,7 +465,7 @@ public class SerebiiParser implements PokemonScraper {
         String abilities = tableElements.get(0).text().split("Abilities: ")[1];
         String abilityDescriptions = tableElements.get(1).text();
 
-        if (abilities.contains("(Hidden Abilities)") || abilities.contains("(Hidden)")) {
+        if (abilities.contains("(Hidden Ability)") || abilities.contains("(Hidden)")) {
             String[] abilityNames = abilities.split(" \\(")[0].split(" - ");
             String abilityName = abilityNames[abilityNames.length - 1].trim();
             String abilityDescription;
