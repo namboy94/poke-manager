@@ -17,7 +17,9 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon;
 
-import net.namibsun.pokemontracker.lib.pokemon.species.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Ability;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;
 
 /**
  * Class that models a concrete Pokemon.
@@ -29,14 +31,69 @@ public class Pokemon {
      */
     private PokemonSpecies species;
 
-
+    /**
+     * The Pokemon's Effort Value Spread
+     */
+    private EffortValueSpread evSpread;
 
     /**
-     * Creates a new Pokemon
-     * @param species
+     * The Pokemon's Individual Value Spread
      */
-    public Pokemon(PokemonSpecies species) {
+    private IndividualValueSpread ivSpread;
+
+    /**
+     * The Pokemon's Ability
+     */
+    private Ability ability;
+
+    public Pokemon(PokemonSpecies species,
+                   EffortValueSpread evSpread,
+                   IndividualValueSpread ivSpread,
+                   Ability ability) {
         this.species = species;
+        this.evSpread = evSpread;
+        this.ivSpread = ivSpread;
+        this.ability = ability;
+    }
+
+    /**
+     * @return The Pokemon's species
+     */
+    public PokemonSpecies getSpecies() {
+        return this.species;
+    }
+
+    /**
+     * @return The Pokemon's EV spread
+     */
+    public EffortValueSpread getEffortValueSpread() {
+        return this.evSpread;
+    }
+
+    /**
+     * @return The Pokemon's IV spread
+     */
+    public IndividualValueSpread getIndividualValueSpread() {
+        return this.ivSpread;
+    }
+
+    /**
+     * @return The Pokemon's ability
+     */
+    public Ability getAbility() {
+        return this.ability;
+    }
+
+    /**
+     * Compares two Pokemon objects and checks for equality
+     * @param otherPokemon: The Pokemon to compare against
+     * @return              true if the two objects are equal, false otherwise
+     */
+    public boolean equals(Pokemon otherPokemon) {
+        return  this.species.equals(otherPokemon.getSpecies()) &&
+                this.evSpread.equals(otherPokemon.getEffortValueSpread()) &&
+                this.ivSpread.equals(otherPokemon.getIndividualValueSpread()) &&
+                this.ability.equals(otherPokemon.getAbility());
     }
 
 }

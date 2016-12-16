@@ -21,7 +21,7 @@ package net.namibsun.pokemontracker.lib;
 import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.pokedex.PokedexDatabaseHandler;
 import net.namibsun.pokemontracker.lib.database.sqlite.SQLiteDatabase;
-import net.namibsun.pokemontracker.lib.pokemon.species.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 import java.io.IOException;

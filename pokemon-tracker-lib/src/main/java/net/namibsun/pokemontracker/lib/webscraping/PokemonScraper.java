@@ -18,7 +18,7 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.webscraping;
 
 import java.util.HashMap;
-import net.namibsun.pokemontracker.lib.pokemon.species.enums.PokemonStatTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.species.PokemonStatTypes;
 
 /**
  * Defines an interface for a Pokemon Web Scraper
@@ -107,15 +107,15 @@ public interface PokemonScraper {
     /**
      * Parses the regular abilities of a Pokemon
      * @return an array of the form:
-     *         [Ability 1 name, Ability 1 description, Ability 2 name, Ability 2 description]
+     *         [Abilities 1 name, Abilities 1 description, Abilities 2 name, Abilities 2 description]
      *         or, if the Pokemon has no second regular abilty, like this:
-     *         [Ability 1 name, Ability 2 description]
+     *         [Abilities 1 name, Abilities 2 description]
      */
     String[] parseRegularAbilities();
 
     /**
      * Parses the hidden ability of a Pokemon
-     * @return an array of the form [Ability Name, Description] or null if the Pokemon has no hidden ability
+     * @return an array of the form [Abilities Name, Description] or null if the Pokemon has no hidden ability
      */
     String[] parseHiddenAbility();
 

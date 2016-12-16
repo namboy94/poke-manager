@@ -17,7 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.webscraping.serebii;
 
-import net.namibsun.pokemontracker.lib.pokemon.species.enums.Languages;
+import net.namibsun.pokemontracker.lib.pokemon.enums.species.Languages;
 import org.jsoup.Jsoup;
 import java.util.HashMap;
 import java.io.IOException;
@@ -28,7 +28,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
-import net.namibsun.pokemontracker.lib.pokemon.species.enums.PokemonStatTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.species.PokemonStatTypes;
 
 /**
  * A Pokemon Parser for serebii.net
@@ -39,8 +39,8 @@ public class SerebiiParser implements PokemonScraper {
     // These are:
     // Deoxys - EV Yield due to multiple Forms
     // Minior - Catch Rate, since Minior has different catch rates in each form
-    // Basculin - Abilities/Hidden Abilities, due to form differences and Hidden Ability marked as 'Dream World Ability'
-    // Shaymin - Regular Ability, because of its Sky Forme
+    // Basculin - Abilities/Hidden Abilities, due to form differences and Hidden Abilities marked as 'Dream World Abilities'
+    // Shaymin - Regular Abilities, because of its Sky Forme
     // Kyurem, Zygarde, Hoopa - Weight/Height due to their unique forms
     // Kyurem, Zygarde - Abilities, due to their forms
 
@@ -393,9 +393,9 @@ public class SerebiiParser implements PokemonScraper {
     /**
      * Parses the regular abilities of a Pokemon
      * @return an array of the form:
-     *         [Ability 1 name, Ability 1 description, Ability 2 name, Ability 2 description]
+     *         [Abilities 1 name, Abilities 1 description, Abilities 2 name, Abilities 2 description]
      *         or, if the Pokemon has no second regular abilty, like this:
-     *         [Ability 1 name, Ability 2 description]
+     *         [Abilities 1 name, Abilities 2 description]
      */
     public String[] parseRegularAbilities() {
 
@@ -433,13 +433,13 @@ public class SerebiiParser implements PokemonScraper {
         if (abilities.length > 1) {
             String secondaryAbility = abilities[1].trim();
 
-            if (secondaryAbility.contains("(Hidden Ability)") || secondaryAbility.contains("(Hidden)")) {
+            if (secondaryAbility.contains("(Hidden Abilities)") || secondaryAbility.contains("(Hidden)")) {
                 primaryAbilityDescription = primaryAbilityDescription.split(" Hidden Ability")[0].trim();
             }
             else {
                 primaryAbilityDescription = primaryAbilityDescription.split(" " + secondaryAbility)[0].trim();
                 String secondaryAbilityDescription = abilityDescriptions.split(secondaryAbility + ":")[1].trim();
-                if (secondaryAbilityDescription.contains("Hidden Ability")) {
+                if (secondaryAbilityDescription.contains("Hidden Abilities")) {
                     secondaryAbilityDescription = secondaryAbilityDescription.split(" Hidden Ability")[0].trim();
                 }
                 return new String[] {
@@ -452,7 +452,7 @@ public class SerebiiParser implements PokemonScraper {
 
     /**
      * Parses the hidden ability of a Pokemon
-     * @return an array of the form [Ability Name, Description] or null if the Pokemon has no hidden ability
+     * @return an array of the form [Abilities Name, Description] or null if the Pokemon has no hidden ability
      */
     public String[] parseHiddenAbility() {
 
@@ -465,7 +465,7 @@ public class SerebiiParser implements PokemonScraper {
         String abilities = tableElements.get(0).text().split("Abilities: ")[1];
         String abilityDescriptions = tableElements.get(1).text();
 
-        if (abilities.contains("(Hidden Ability)") || abilities.contains("(Hidden)")) {
+        if (abilities.contains("(Hidden Abilities)") || abilities.contains("(Hidden)")) {
             String[] abilityNames = abilities.split(" \\(")[0].split(" - ");
             String abilityName = abilityNames[abilityNames.length - 1].trim();
             String abilityDescription;

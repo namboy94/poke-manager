@@ -18,10 +18,11 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.database.pokedex;
 
 import java.sql.SQLException;
-import net.namibsun.pokemontracker.lib.pokemon.species.pokemonparts.*;
-import net.namibsun.pokemontracker.lib.pokemon.species.PokemonSpecies;
-import net.namibsun.pokemontracker.lib.pokemon.species.enums.Languages;
-import net.namibsun.pokemontracker.lib.pokemon.species.enums.EggGroupTypes;
+
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species.*;
+import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.pokemon.enums.species.Languages;
+import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 import net.namibsun.pokemontracker.lib.database.dbinterface.DatabaseColumn;
@@ -174,7 +175,7 @@ public class PokedexDatabaseHandler {
                             query.getInt(PokedexColumns.SP_DEFENSE_EV_YIELD.getName(), 0),
                             query.getInt(PokedexColumns.SPEED_EV_YIELD.getName(), 0)
                     ),
-                    new Ability(
+                    new Abilities(
                             query.getString(PokedexColumns.PRIMARY_ABILITY.getName(), 0),
                             query.getString(PokedexColumns.PRIMARY_ABILITY_DESCRIPTION.getName(), 0),
                             query.getString(PokedexColumns.SECONDARY_ABILITY.getName(), 0),
@@ -247,12 +248,12 @@ public class PokedexDatabaseHandler {
                     species.getEffortValueYield().getSpecialAttack(),
                     species.getEffortValueYield().getSpecialDefense(),
                     species.getEffortValueYield().getSpeed(),
-                    species.getAbility().getAbilityOneName(),
-                    species.getAbility().getAbilityOneDescription(),
-                    species.getAbility().getAbilityTwoName(),
-                    species.getAbility().getAbilityTwoDescription(),
-                    species.getAbility().getHiddenAbilityName(),
-                    species.getAbility().getHiddenAbilityDescription(),
+                    species.getAbilities().getAbilityOneName(),
+                    species.getAbilities().getAbilityOneDescription(),
+                    species.getAbilities().getAbilityTwoName(),
+                    species.getAbilities().getAbilityTwoDescription(),
+                    species.getAbilities().getHiddenAbilityName(),
+                    species.getAbilities().getHiddenAbilityDescription(),
                     species.getBaseStats().getHp(),
                     species.getBaseStats().getAttack(),
                     species.getBaseStats().getDefense(),

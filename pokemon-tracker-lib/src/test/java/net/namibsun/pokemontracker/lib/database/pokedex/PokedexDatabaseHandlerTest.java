@@ -24,7 +24,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import java.sql.SQLException;
 import static org.junit.Assert.*;
-import net.namibsun.pokemontracker.lib.pokemon.species.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
 import net.namibsun.pokemontracker.lib.database.sqlite.SQLiteDatabase;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 

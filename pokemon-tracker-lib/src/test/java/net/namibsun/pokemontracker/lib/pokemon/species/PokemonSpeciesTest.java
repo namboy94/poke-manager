@@ -17,12 +17,14 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.species;
 
+import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species.*;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
-import net.namibsun.pokemontracker.lib.pokemon.species.pokemonparts.*;
-import net.namibsun.pokemontracker.lib.pokemon.species.enums.PokemonTypes;
-import net.namibsun.pokemontracker.lib.pokemon.species.enums.EggGroupTypes;
+
+import net.namibsun.pokemontracker.lib.pokemon.enums.species.PokemonTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class PokemonSpeciesTest {
@@ -42,7 +44,7 @@ public class PokemonSpeciesTest {
                 new SpeciesDescription(6.9, 15.2, 0.7, 2.04, "Seed Pokémon"),
                 new Rates(45, 5120, 70, 1059860, "Medium Slow"),
                 new EffortValueYield(0, 0, 0, 1, 0, 0),
-                new Ability(
+                new Abilities(
                         "Overgrow", "When HP is below 1/3rd its maximum, " +
                         "power of Grass-type moves is increased by 50%.",
                         null, null,
@@ -100,14 +102,14 @@ public class PokemonSpeciesTest {
         assertArrayEquals(new String[] {
                 "Overgrow", "When HP is below 1/3rd its maximum, " +
                 "power of Grass-type moves is increased by 50%."},
-                bulbasaur.getAbility().getAbilityOne());
-        assertTrue(bulbasaur.getAbility().getAbilityTwo() == null);
+                bulbasaur.getAbilities().getAbilityOne());
+        assertTrue(bulbasaur.getAbilities().getAbilityTwo() == null);
         assertArrayEquals(new String[] {
                 "Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
                 "However, Speed will not double on the turn weather becomes Strong Sunlight."},
-                bulbasaur.getAbility().getHiddenAbility());
-        assertTrue(bulbasaur.getAbility().hasHiddenAbility());
-        assertFalse(bulbasaur.getAbility().hasSecondRegularAbility());
+                bulbasaur.getAbilities().getHiddenAbility());
+        assertTrue(bulbasaur.getAbilities().hasHiddenAbility());
+        assertFalse(bulbasaur.getAbilities().hasSecondRegularAbility());
 
         assertEquals(45, bulbasaur.getBaseStats().getHp());
         assertEquals(49, bulbasaur.getBaseStats().getAttack());
@@ -147,49 +149,49 @@ public class PokemonSpeciesTest {
         SpeciesDescription desc = new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "");
         Rates rates = new Rates(0, 0, 0, 0, "");
         EffortValueYield evYield = new EffortValueYield(0, 0, 0, 0, 0, 0);
-        Ability ability = new Ability("A", "B");
+        Abilities abilities = new Abilities("A", "B");
         BaseStats baseStats = new BaseStats(1, 1, 1, 1, 1, 1);
         EggGroups eggGroups = new EggGroups(EggGroupTypes.MONSTER,false);
 
         PokemonSpecies one =
-                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, ability, baseStats, eggGroups);
+                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, abilities, baseStats, eggGroups);
         assertFalse(one.equals(
-                new PokemonSpecies(1, name, ratio, type, desc, rates, evYield, ability, baseStats, eggGroups)
+                new PokemonSpecies(1, name, ratio, type, desc, rates, evYield, abilities, baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0,
-                        new Name("A", "B"), ratio, type, desc, rates, evYield, ability, baseStats, eggGroups)
+                        new Name("A", "B"), ratio, type, desc, rates, evYield, abilities, baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name,
-                        new GenderRatio(0.1, 0.2), type, desc, rates, evYield, ability, baseStats, eggGroups)
+                        new GenderRatio(0.1, 0.2), type, desc, rates, evYield, abilities, baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name, ratio,
-                        new Type("Fire"), desc, rates, evYield, ability, baseStats, eggGroups)
+                        new Type("Fire"), desc, rates, evYield, abilities, baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name, ratio, type,
-                        new SpeciesDescription(0.1, 0.1, 0.2, 0.1, "A"), rates, evYield, ability, baseStats, eggGroups)
+                        new SpeciesDescription(0.1, 0.1, 0.2, 0.1, "A"), rates, evYield, abilities, baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name, ratio, type, desc,
-                        new Rates(1, 1, 1, 1, "A"), evYield, ability, baseStats, eggGroups)
+                        new Rates(1, 1, 1, 1, "A"), evYield, abilities, baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name, ratio, type, desc, rates,
-                        new EffortValueYield(5, 5, 5, 5, 5, 5), ability, baseStats, eggGroups)
+                        new EffortValueYield(5, 5, 5, 5, 5, 5), abilities, baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name, ratio, type, desc, rates, evYield,
-                        new Ability("B", "A"), baseStats, eggGroups)
+                        new Abilities("B", "A"), baseStats, eggGroups)
         ));
         assertFalse(one.equals(
-                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, ability,
+                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, abilities,
                         new BaseStats(5, 5, 5, 5, 5, 5), eggGroups)
         ));
         assertFalse(one.equals(
-                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, ability, baseStats,
+                new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, abilities, baseStats,
                         new EggGroups(EggGroupTypes.AMORPHOUS, false))
         ));
 
