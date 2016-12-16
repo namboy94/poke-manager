@@ -15,7 +15,7 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.species;
+package net.namibsun.pokemontracker.lib.pokemon;
 
 import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species.*;
