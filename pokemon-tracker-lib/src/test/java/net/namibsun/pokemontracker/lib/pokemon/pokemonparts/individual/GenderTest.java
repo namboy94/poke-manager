@@ -19,7 +19,7 @@ package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import net.namibsun.pokemontracker.lib.pokemon.enums.individual.GenderTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.GenderTypes;
 
 public class GenderTest {
 

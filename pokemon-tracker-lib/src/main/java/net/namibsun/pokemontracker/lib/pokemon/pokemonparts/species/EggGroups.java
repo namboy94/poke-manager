@@ -17,7 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species;
 
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 
 /**

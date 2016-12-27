@@ -20,7 +20,7 @@ package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class EggGroupsTest {

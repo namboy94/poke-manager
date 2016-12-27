@@ -19,10 +19,11 @@ package net.namibsun.pokemontracker.lib.database.pokedex;
 
 import java.sql.SQLException;
 
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Ability;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species.*;
 import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
 import net.namibsun.pokemontracker.lib.pokemon.enums.Languages;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.database.dbinterface.Database;
 import net.namibsun.pokemontracker.lib.database.dbinterface.QueryResult;
 import net.namibsun.pokemontracker.lib.database.dbinterface.DatabaseColumn;
@@ -142,6 +143,30 @@ public class PokedexDatabaseHandler {
                 );
             }
 
+            Ability primaryAbility = new Ability(
+                    query.getString(PokedexColumns.PRIMARY_ABILITY.getName(), 0),
+                    query.getString(PokedexColumns.PRIMARY_ABILITY_DESCRIPTION.getName(), 0),
+                    false
+            );
+
+            Ability secondaryAbility = new Ability(
+                    query.getString(PokedexColumns.SECONDARY_ABILITY.getName(), 0),
+                    query.getString(PokedexColumns.SECONDARY_ABILITY_DESCRIPTION.getName(), 0),
+                    false
+            );
+            if (secondaryAbility.getName() == null) {
+                secondaryAbility = null;
+            }
+
+            Ability hiddenAbility = new Ability(
+                    query.getString(PokedexColumns.HIDDEN_ABILITY.getName(), 0),
+                    query.getString(PokedexColumns.HIDDEN_ABILITY_DESCRIPTION.getName(), 0),
+                    true
+            );
+            if (hiddenAbility.getName() == null) {
+                hiddenAbility = null;
+            }
+
             return new PokemonSpecies(
                     query.getInt(PokedexColumns.POKEDEX_NUMBER.getName(), 0),
                     new Name(
@@ -175,14 +200,7 @@ public class PokedexDatabaseHandler {
                             query.getInt(PokedexColumns.SP_DEFENSE_EV_YIELD.getName(), 0),
                             query.getInt(PokedexColumns.SPEED_EV_YIELD.getName(), 0)
                     ),
-                    new Abilities(
-                            query.getString(PokedexColumns.PRIMARY_ABILITY.getName(), 0),
-                            query.getString(PokedexColumns.PRIMARY_ABILITY_DESCRIPTION.getName(), 0),
-                            query.getString(PokedexColumns.SECONDARY_ABILITY.getName(), 0),
-                            query.getString(PokedexColumns.SECONDARY_ABILITY_DESCRIPTION.getName(), 0),
-                            query.getString(PokedexColumns.HIDDEN_ABILITY.getName(), 0),
-                            query.getString(PokedexColumns.HIDDEN_ABILITY_DESCRIPTION.getName(), 0)
-                    ),
+                    new Abilities(primaryAbility, secondaryAbility, hiddenAbility),
                     new BaseStats(
                             query.getInt(PokedexColumns.HP_BASE.getName(), 0),
                             query.getInt(PokedexColumns.ATTACK_BASE.getName(), 0),
@@ -226,6 +244,20 @@ public class PokedexDatabaseHandler {
                 secondaryEggGroup = null;
             }
 
+            String secondAbilityName = null;
+            String secondAbilityDescription = null;
+            String hiddenAbilityName = null;
+            String hiddenAbilityDescription = null;
+
+            if (species.getAbilities().getAbilityTwo() != null) {
+                secondAbilityName = species.getAbilities().getAbilityTwo().getName();
+                secondAbilityDescription = species.getAbilities().getAbilityTwo().getDescription();
+            }
+            if (species.getAbilities().getHiddenAbility() != null) {
+                hiddenAbilityName = species.getAbilities().getHiddenAbility().getName();
+                hiddenAbilityDescription = species.getAbilities().getHiddenAbility().getDescription();
+            }
+
             Object[] values = new Object[] {
                     species.getPokedexNumber(),
                     species.getName().getName(Languages.ENGLISH),
@@ -248,12 +280,12 @@ public class PokedexDatabaseHandler {
                     species.getEffortValueYield().getSpecialAttack(),
                     species.getEffortValueYield().getSpecialDefense(),
                     species.getEffortValueYield().getSpeed(),
-                    species.getAbilities().getAbilityOneName(),
-                    species.getAbilities().getAbilityOneDescription(),
-                    species.getAbilities().getAbilityTwoName(),
-                    species.getAbilities().getAbilityTwoDescription(),
-                    species.getAbilities().getHiddenAbilityName(),
-                    species.getAbilities().getHiddenAbilityDescription(),
+                    species.getAbilities().getAbilityOne().getName(),
+                    species.getAbilities().getAbilityOne().getDescription(),
+                    secondAbilityName,
+                    secondAbilityDescription,
+                    hiddenAbilityName,
+                    hiddenAbilityDescription,
                     species.getBaseStats().getHp(),
                     species.getBaseStats().getAttack(),
                     species.getBaseStats().getDefense(),

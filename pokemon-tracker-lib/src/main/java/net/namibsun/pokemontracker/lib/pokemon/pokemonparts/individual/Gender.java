@@ -17,7 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
-import net.namibsun.pokemontracker.lib.pokemon.enums.individual.GenderTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.GenderTypes;
 
 /**
  * Models the Gender of a Pokemon

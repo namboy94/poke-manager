@@ -17,7 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species;
 
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.PokemonTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.PokemonTypes;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 
 /**

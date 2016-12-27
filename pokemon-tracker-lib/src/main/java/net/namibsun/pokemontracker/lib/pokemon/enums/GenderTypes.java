@@ -15,7 +15,7 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.enums.individual;
+package net.namibsun.pokemontracker.lib.pokemon.enums;
 
 /**
  * Enum that models all possible gender variations of a Pokemon

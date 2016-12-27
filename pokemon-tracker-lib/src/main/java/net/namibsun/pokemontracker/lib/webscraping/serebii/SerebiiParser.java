@@ -28,7 +28,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.PokemonStatTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.PokemonStatTypes;
 
 /**
  * A Pokemon Parser for serebii.net

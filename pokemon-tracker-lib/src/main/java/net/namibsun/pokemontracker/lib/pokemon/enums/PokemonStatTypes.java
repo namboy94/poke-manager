@@ -15,7 +15,7 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.enums.species;
+package net.namibsun.pokemontracker.lib.pokemon.enums;
 
 /**
  * An Enum containing all base stats that a Pokemon has

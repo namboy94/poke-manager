@@ -17,7 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon;
 
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Ability;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Ability;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Gender;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;

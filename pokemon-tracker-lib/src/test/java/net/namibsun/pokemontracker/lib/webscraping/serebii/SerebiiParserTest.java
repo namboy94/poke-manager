@@ -23,9 +23,9 @@ import java.io.IOException;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import net.namibsun.pokemontracker.lib.pokemon.enums.Languages;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonConstants;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.PokemonStatTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.PokemonStatTypes;
 
 public class SerebiiParserTest {
     

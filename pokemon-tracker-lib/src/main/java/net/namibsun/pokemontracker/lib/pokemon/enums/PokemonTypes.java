@@ -15,14 +15,15 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.enums.species;
+package net.namibsun.pokemontracker.lib.pokemon.enums;
 
 /**
- * Enum that defines all Egg groups
+ * An enum that defines all Pokemon Types that exist.
  */
-public enum EggGroupTypes {
+public enum PokemonTypes {
 
-    MONSTER, HUMANLIKE, WATER1, WATER2, WATER3, BUG, MINERAL, FLYING, AMORPHOUS,
-    FIELD, FAIRY, DITTO, GRASS, DRAGON, UNDISCOVERED
+    NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE,
+    FIGHTING, POISON, GROUND, FLYING, PSYCHIC, BUG,
+    ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
 
 }

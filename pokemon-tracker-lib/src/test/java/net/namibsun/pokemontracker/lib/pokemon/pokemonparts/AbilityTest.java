@@ -15,7 +15,7 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
+package net.namibsun.pokemontracker.lib.pokemon.pokemonparts;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

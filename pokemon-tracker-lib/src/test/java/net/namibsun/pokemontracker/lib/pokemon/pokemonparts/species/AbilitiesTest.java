@@ -17,6 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species;
 
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Ability;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
@@ -31,14 +32,15 @@ public class AbilitiesTest {
 
         assertTrue(abilities.hasHiddenAbility());
         assertFalse(abilities.hasSecondRegularAbility());
-        assertArrayEquals(abilities.getAbilityTwo(), null);
+        assertEquals(abilities.getAbilityTwo(), null);
 
-        assertArrayEquals(abilities.getAbilityOne(),
-                new String[] {"Overgrow", "When HP is below 1/3rd its maximum, " +
-                        "power of Grass-type moves is increased by 50%."});
-        assertArrayEquals(abilities.getHiddenAbility(),
-                new String[] {"Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
-                        "However, Speed will not double on the turn weather becomes Strong Sunlight."});
+        assertEquals(abilities.getAbilityOne().getName(), "Overgrow");
+        assertEquals(abilities.getAbilityOne().getDescription(), "When HP is below 1/3rd its maximum, " +
+                "power of Grass-type moves is increased by 50%.");
+
+        assertEquals(abilities.getHiddenAbility().getName(), "Chlorophyll");
+        assertEquals(abilities.getHiddenAbility().getDescription(), "When sunny, the Pokémon’s Speed doubles. " +
+                "However, Speed will not double on the turn weather becomes Strong Sunlight.");
     }
 
     @Test
@@ -48,16 +50,22 @@ public class AbilitiesTest {
         assertTrue(abilities.hasHiddenAbility());
         assertTrue(abilities.hasSecondRegularAbility());
 
-        assertArrayEquals(abilities.getAbilityOne(),
-                new String[] {"Effect Spore", "The opponent has a 10% chance of being induced by " +
-                        "PARALYZE, POISON, or SLEEP when using an attack, " +
-                        "that requires physical contact, against this Pokémon."});
-        assertArrayEquals(abilities.getAbilityTwo(),
-                new String[] {"Dry Skin", "HP is restored when hit by Water-type moves " +
-                        "or when it is raining but also makes the Pokémon weak to " +
-                        "Fire-type moves and reduces HP during strong sunlight."});
-        assertArrayEquals(abilities.getHiddenAbility(),
-                new String[] {"Damp", "Explosion and Selfdestruct will not work while the Pokémon is on the field."});
+        assertEquals(abilities.getAbilityOne().getName(), "Effect Spore");
+        assertEquals(abilities.getAbilityOne().getDescription(),
+                "The opponent has a 10% chance of being induced by " +
+                "PARALYZE, POISON, or SLEEP when using an attack, " +
+                "that requires physical contact, against this Pokémon.");
+
+        assertEquals(abilities.getAbilityTwo().getName(), "Dry Skin");
+        assertEquals(abilities.getAbilityTwo().getDescription(),
+                "HP is restored when hit by Water-type moves " +
+                "or when it is raining but also makes the Pokémon weak to " +
+                "Fire-type moves and reduces HP during strong sunlight.");
+
+        assertEquals(abilities.getHiddenAbility().getName(), "Damp");
+        assertEquals(abilities.getHiddenAbility().getDescription(),
+                "Explosion and Selfdestruct will not work while the Pokémon is on the field.");
+
     }
 
     @Test
@@ -67,85 +75,112 @@ public class AbilitiesTest {
         assertFalse(abilities.hasHiddenAbility());
         assertFalse(abilities.hasSecondRegularAbility());
 
-        assertArrayEquals(abilities.getAbilityTwo(), null);
-        assertArrayEquals(abilities.getHiddenAbility(), null);
+        assertEquals(abilities.getAbilityTwo(), null);
+        assertEquals(abilities.getHiddenAbility(), null);
 
-        assertArrayEquals(abilities.getAbilityOne(),
-                new String[] {"Levitate", "Damage dealing Ground-type moves have no effect " +
-                        "on this Pokémon. Cannot be trapped by Arena Trap ability. " +
-                        "Takes no damage from Spikes."});
+        assertEquals(abilities.getAbilityOne().getName(), "Levitate");
+        assertEquals(abilities.getAbilityOne().getDescription(),
+                "Damage dealing Ground-type moves have no effect on this Pokémon. " +
+                        "Cannot be trapped by Arena Trap ability. Takes no damage from Spikes.");
     }
 
     @Test
     public void testSingleAbility() {
-        Abilities abilities = new Abilities("A", "B");
+        Abilities abilities = create("A", "B");
 
         assertFalse(abilities.hasSecondRegularAbility());
         assertFalse(abilities.hasHiddenAbility());
         assertTrue(abilities.getAbilityTwo() == null);
         assertTrue(abilities.getHiddenAbility() == null);
 
-        assertArrayEquals(abilities.getAbilityOne(), new String[] {"A", "B"});
+        assertEquals(abilities.getAbilityOne().getName(), "A");
+        assertEquals(abilities.getAbilityOne().getDescription(), "B");
     }
 
     @Test
     public void testTwoAbilities() {
-        Abilities abilities = new Abilities("A", "B", "C", "D");
+        Abilities abilities = create("A", "B", "C", "D");
 
         assertTrue(abilities.hasSecondRegularAbility());
         assertFalse(abilities.hasHiddenAbility());
         assertTrue(abilities.getHiddenAbility() == null);
 
-        assertArrayEquals(abilities.getAbilityOne(), new String[] {"A", "B"});
-        assertArrayEquals(abilities.getAbilityTwo(), new String[] {"C", "D"});
+        assertEquals(abilities.getAbilityOne().getName(), "A");
+        assertEquals(abilities.getAbilityOne().getDescription(), "B");
+        assertEquals(abilities.getAbilityTwo().getName(), "C");
+        assertEquals(abilities.getAbilityTwo().getDescription(), "D");
+
     }
 
     @Test
     public void testSingleAbilityWithHiddenAbility() {
-        Abilities abilities = new Abilities("A", "B", null, null, "C", "D");
+        Abilities abilities = new Abilities(new Ability("A", "B", false),
+                null, new Ability("C", "D", true));
 
         assertFalse(abilities.hasSecondRegularAbility());
         assertTrue(abilities.hasHiddenAbility());
         assertTrue(abilities.getAbilityTwo() == null);
 
-        assertArrayEquals(abilities.getAbilityOne(), new String[] {"A", "B"});
-        assertArrayEquals(abilities.getHiddenAbility(), new String[] {"C", "D"});
+        assertEquals(abilities.getAbilityOne().getName(), "A");
+        assertEquals(abilities.getAbilityOne().getDescription(), "B");
+        assertEquals(abilities.getHiddenAbility().getName(), "C");
+        assertEquals(abilities.getHiddenAbility().getDescription(), "D");
     }
 
     @Test
     public void testTwoAbilitiesWithHiddenAbility() {
-        Abilities abilities = new Abilities("A", "B", "C", "D", "E", "F");
+        Abilities abilities = create("A", "B", "C", "D", "E", "F");
 
         assertTrue(abilities.hasSecondRegularAbility());
         assertTrue(abilities.hasHiddenAbility());
 
-        assertArrayEquals(abilities.getAbilityOne(), new String[] {"A", "B"});
-        assertArrayEquals(abilities.getAbilityTwo(), new String[] {"C", "D"});
-        assertArrayEquals(abilities.getHiddenAbility(), new String[] {"E", "F"});
+        assertEquals(abilities.getAbilityOne().getName(), "A");
+        assertEquals(abilities.getAbilityOne().getDescription(), "B");
+        assertEquals(abilities.getAbilityTwo().getName(), "C");
+        assertEquals(abilities.getAbilityTwo().getDescription(), "D");
+        assertEquals(abilities.getHiddenAbility().getName(), "E");
+        assertEquals(abilities.getHiddenAbility().getDescription(), "F");
     }
 
     @Test
     public void testTrueEquality() {
-        assertTrue(new Abilities("A", "B").equals(new Abilities("A", "B")));
-        assertTrue(new Abilities("A", "B", "C", "D").equals(new Abilities("A", "B", "C", "D")));
-        assertTrue(new Abilities("A", "B", "C", "D", "E", "F").equals(new Abilities("A", "B", "C", "D", "E", "F")));
+        assertTrue(create("A", "B").equals(create("A", "B")));
+        assertTrue(create("A", "B", "C", "D").equals(create("A", "B", "C", "D")));
+        assertTrue(create("A", "B", "C", "D", "E", "F").equals(create("A", "B", "C", "D", "E", "F")));
     }
 
     @Test
     public void testFalseEquality() {
-        assertFalse(new Abilities("A", "B").equals(new Abilities("B", "A")));
-        assertFalse(new Abilities("A", "B").equals(new Abilities("A", "A")));
-        assertFalse(new Abilities("A", "B").equals(new Abilities("A", "B", "C", "D")));
-        assertFalse(new Abilities("A", "B").equals(new Abilities("A", "B", "C", "D", "E", "F")));
-        assertFalse(new Abilities("A", "B", "C", "D").equals(new Abilities("A", "B")));
-        assertFalse(new Abilities("A", "B", "C", "D").equals(new Abilities("A", "B")));
-        assertFalse(new Abilities("A", "B", "C", "D").equals(new Abilities("A", "B", "B", "A")));
-        assertFalse(new Abilities("A", "B", "C", "D").equals(new Abilities("A", "B", "C", "C")));
-        assertFalse(new Abilities("A", "B", "C", "D").equals(new Abilities("A", "B", "C", "D", "E", "F")));
-        assertFalse(new Abilities("A", "B", "C", "D", "E", "F").equals(new Abilities("A", "B")));
-        assertFalse(new Abilities("A", "B", "C", "D", "E", "F").equals(new Abilities("A", "B", "C", "D")));
-        assertFalse(new Abilities("A", "B", "C", "D", "E", "F").equals(new Abilities("A", "B", "C", "D", "E", "A")));
-        assertFalse(new Abilities("A", "B", "C", "D", "E", "F").equals(new Abilities("A", "B", "C", "D", "G", "F")));
+        assertFalse(create("A", "B").equals(create("B", "A")));
+        assertFalse(create("A", "B").equals(create("A", "A")));
+        assertFalse(create("A", "B").equals(create("A", "B", "C", "D")));
+        assertFalse(create("A", "B").equals(create("A", "B", "C", "D", "E", "F")));
+        assertFalse(create("A", "B", "C", "D").equals(create("A", "B")));
+        assertFalse(create("A", "B", "C", "D").equals(create("A", "B")));
+        assertFalse(create("A", "B", "C", "D").equals(create("A", "B", "B", "A")));
+        assertFalse(create("A", "B", "C", "D").equals(create("A", "B", "C", "C")));
+        assertFalse(create("A", "B", "C", "D").equals(create("A", "B", "C", "D", "E", "F")));
+        assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "B")));
+        assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "B", "C", "D")));
+        assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "B", "C", "D", "E", "A")));
+        assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "B", "C", "D", "G", "F")));
+    }
+
+    public Abilities create(String oneName, String oneDesc) {
+        return new Abilities(new Ability(oneName, oneDesc, false), null, null);
+    }
+
+    public Abilities create(String oneName, String oneDesc, String twoName, String twoDesc) {
+        return new Abilities(
+                new Ability(oneName, oneDesc, false),
+                new Ability(twoName, twoDesc, false), null);
+    }
+
+    public Abilities create(String oneName, String oneDesc, String twoName, String twoDesc, String hiddenName, String hiddenDesc) {
+        return new Abilities(
+                new Ability(oneName, oneDesc, false),
+                new Ability(twoName, twoDesc, false),
+                new Ability(hiddenName, hiddenDesc, true));
     }
 
 }

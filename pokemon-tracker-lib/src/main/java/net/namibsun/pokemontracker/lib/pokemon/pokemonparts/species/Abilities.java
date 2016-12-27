@@ -17,6 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species;
 
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Ability;
 import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 
 /**
@@ -25,75 +26,31 @@ import net.namibsun.pokemontracker.lib.webscraping.PokemonScraper;
 public class Abilities {
 
     /**
-     * The name of the first regular ability the Pokemon has
+     * The first regular ability the Pokemon has
      */
-    private String abilityOneName;
+    private Ability abilityOne;
 
     /**
-     * The description of the first regular ability the Pokemon has
+     * The second regular ability the Pokemon has
      */
-    private String abilityOneDescription;
+    private Ability abilityTwo;
 
     /**
-     * The name of the second regular ability the Pokemon has
+     * The Pokemon's hidden Ability
      */
-    private String abilityTwoName;
-
-    /**
-     * The description of the second regular ability the Pokemon has
-     */
-    private String abilityTwoDescription;
-
-    /**
-     * The name of the Pokemon's hidden Abilities
-     */
-    private String hiddenAbilityName;
-
-    /**
-     * The description of the Pokemon's hidden Abilities
-     */
-    private String hiddenAbilityDescription;
-
-    /**
-     * Constructor for a Pokemon that only has a single Abilities
-     * @param abilityOneName:        The Abilities Name
-     * @param abilityOneDescription: The Abilities Description
-     */
-    public Abilities(String abilityOneName, String abilityOneDescription) {
-        this(abilityOneName, abilityOneDescription, null, null, null, null);
-    }
-
-    /**
-     * Constructor for a Pokemon that has no Hidden Abilities
-     * @param abilityOneName:        The first ability's name
-     * @param abilityOneDescription: The first ability's description
-     * @param abilityTwoName:        The second ability's name
-     * @param abilityTwoDescription: The second ability's description
-     */
-    public Abilities(String abilityOneName, String abilityOneDescription,
-                     String abilityTwoName, String abilityTwoDescription) {
-        this(abilityOneName, abilityOneDescription, abilityTwoName, abilityTwoDescription, null, null);
-    }
+    private Ability hiddenAbility;
 
     /**
      * Constructor for a Pokemon that has any amount of abilities. If a Pokemon has only one regular
      * ability but also a Hidden Abilities, null values should be passed for the second regular Abilities
-     * @param abilityOneName:           The first ability's name
-     * @param abilityOneDescription:    The first ability's description
-     * @param abilityTwoName:           The second ability's name
-     * @param abilityTwoDescription:    The second ability's description
-     * @param hiddenAbilityName:        The hidden ability's name
-     * @param hiddenAbilityDescription: The hidden ability's description
+     * @param abilityOne:    The first ability
+     * @param abilityTwo:    The second ability
+     * @param hiddenAbility: The hidden ability
      */
-    public Abilities(String abilityOneName, String abilityOneDescription,
-                     String abilityTwoName, String abilityTwoDescription,
-                     String hiddenAbilityName, String hiddenAbilityDescription) {
-        this.abilityOneName = abilityOneName;
-        this.abilityOneDescription = abilityOneDescription;
-        this.abilityTwoName = abilityTwoName;
-        this.abilityTwoDescription = abilityTwoDescription;
-        this.hiddenAbilityName = hiddenAbilityName;
-        this.hiddenAbilityDescription = hiddenAbilityDescription;
+    public Abilities(Ability abilityOne, Ability abilityTwo, Ability hiddenAbility) {
+        this.abilityOne = abilityOne;
+        this.abilityTwo = abilityTwo;
+        this.hiddenAbility = hiddenAbility;
     }
 
     /**
@@ -101,7 +58,7 @@ public class Abilities {
      * @return true if a second ability was set, false otherwise
      */
     public boolean hasSecondRegularAbility() {
-        return this.abilityTwoName != null;
+        return this.abilityTwo != null;
     }
 
     /**
@@ -109,82 +66,28 @@ public class Abilities {
      * @return true if the Pokemon has a hidden ability, false otherwise
      */
     public boolean hasHiddenAbility() {
-        return this.hiddenAbilityName != null;
+        return this.hiddenAbility != null;
     }
 
     /**
-     * @return the first regular ability of the Pokemon, as an array of the name and the description
+     * @return the first regular ability of the Pokemon
      */
-    public String[] getAbilityOne() {
-        return new String[] { this.abilityOneName, this.abilityOneDescription };
+    public Ability getAbilityOne() {
+        return this.abilityOne;
     }
 
     /**
-     * @return the first regular ability's name
+     * @return the second regular ability of the Pokemon, or null if the Pokemon does not have a second regular ability
      */
-    public String getAbilityOneName() {
-        return this.abilityOneName;
+    public Ability getAbilityTwo() {
+        return this.abilityTwo;
     }
 
     /**
-     * @return the first regular ability's description
+     * @return the hidden ability of the Pokemon, or null if the Pokemon has no hidden ability
      */
-    public String getAbilityOneDescription() {
-        return this.abilityOneDescription;
-    }
-
-    /**
-     * @return the second regular ability of the Pokemon, as an array of the name and the description,
-     *         or null if the Pokemon has no second regular ability
-     */
-    public String[] getAbilityTwo() {
-        if (this.abilityTwoName == null) {
-            return null;
-        }
-        else {
-            return new String[] { this.abilityTwoName, this.abilityTwoDescription };
-        }
-    }
-
-    /**
-     * @return the second regular ability's name
-     */
-    public String getAbilityTwoName() {
-        return this.abilityTwoName;
-    }
-
-    /**
-     * @return the second regular ability's description
-     */
-    public String getAbilityTwoDescription() {
-        return this.abilityTwoDescription;
-    }
-
-    /**
-     * @return the hidden ability of the Pokemon, as an array of the name and the description,
-     *         or null if the Pokemon has no hidden ability
-     */
-    public String[] getHiddenAbility() {
-        if (this.hiddenAbilityName == null) {
-            return null;
-        }
-        else {
-            return new String[] { this.hiddenAbilityName, this.hiddenAbilityDescription};
-        }
-    }
-
-    /**
-     * @return the hidden ability's name
-     */
-    public String getHiddenAbilityName() {
-        return this.hiddenAbilityName;
-    }
-
-    /**
-     * @return the hidden ability's description
-     */
-    public String getHiddenAbilityDescription() {
-        return this.hiddenAbilityDescription;
+    public Ability getHiddenAbility() {
+        return this.hiddenAbility;
     }
 
     /**
@@ -196,70 +99,45 @@ public class Abilities {
         String[] regularAbilities = scraper.parseRegularAbilities();
         String[] hiddenAbilityParseResult = scraper.parseHiddenAbility();
 
-        String[] abilityOne = new String[]{ regularAbilities[0], regularAbilities[1] };
-        String[] abilityTwo;
-        String[] hiddenAbility;
+        Ability abilityOne = new Ability(regularAbilities[0], regularAbilities[1], false);
+        Ability abilityTwo = null;
+        Ability hiddenAbility = null;
 
         if (regularAbilities.length > 2) {
-            abilityTwo = new String[]{ regularAbilities[2], regularAbilities[3] };
-        }
-        else {
-            abilityTwo = new String[]{ null, null };
+            abilityTwo = new Ability(regularAbilities[2], regularAbilities[3], false);
         }
 
-        if (hiddenAbilityParseResult == null) {
-            hiddenAbility = new String[] { null, null };
-        }
-        else {
-            hiddenAbility = new String[] { hiddenAbilityParseResult[0], hiddenAbilityParseResult[1] };
+        if (hiddenAbilityParseResult != null) {
+            hiddenAbility = new Ability(hiddenAbilityParseResult[0], hiddenAbilityParseResult[1], true);
         }
 
-        return new Abilities(
-                abilityOne[0], abilityOne[1],
-                abilityTwo[0], abilityTwo[1],
-                hiddenAbility[0], hiddenAbility[1]);
+        return new Abilities(abilityOne, abilityTwo, hiddenAbility);
     }
 
     /**
      * Compares the Abilities object with another Abilities object
      * @param otherAbilities: The Abilities object to compare against
-     * @return              true if the objects are equal, false otherwise
+     * @return                true if the objects are equal, false otherwise
      */
     public boolean equals(Abilities otherAbilities) {
 
-        boolean abilityOneSame =
-                this.abilityOneName.equals(otherAbilities.getAbilityOneName()) &&
-                this.abilityOneDescription.equals(otherAbilities.getAbilityOneDescription());
-        boolean abilityTwoSame;
-        boolean hiddenAbilitySame;
+        boolean equal = otherAbilities.getAbilityOne().equals(this.abilityOne);
 
-        if (otherAbilities.getAbilityTwo() == null) {
-            abilityTwoSame = null == this.abilityTwoName;
-        }
-        else //noinspection SimplifiableIfStatement
-            if (this.abilityTwoName == null) {
-            abilityTwoSame = false;
-        }
-        else {
-            abilityTwoSame =
-                    this.abilityTwoName.equals(otherAbilities.getAbilityTwo()[0]) &&
-                    this.abilityTwoDescription.equals(otherAbilities.getAbilityTwo()[1]);
+        try {
+            equal = equal && otherAbilities.getAbilityTwo().equals(this.abilityTwo);
+        } catch (NullPointerException e) {
+            //noinspection ConstantConditions
+            equal = equal && otherAbilities.getAbilityTwo() == null && this.abilityTwo == null;
         }
 
-        if (otherAbilities.getHiddenAbility() == null) {
-            hiddenAbilitySame = null == this.hiddenAbilityName;
-        }
-        else //noinspection SimplifiableIfStatement
-            if (this.hiddenAbilityName == null) {
-            hiddenAbilitySame = false;
-        }
-        else {
-            hiddenAbilitySame =
-                    this.hiddenAbilityName.equals(otherAbilities.getHiddenAbility()[0]) &&
-                    this.hiddenAbilityDescription.equals(otherAbilities.getHiddenAbility()[1]);
+        try {
+            equal = equal && otherAbilities.getHiddenAbility().equals(this.hiddenAbility);
+        } catch (NullPointerException e) {
+            //noinspection ConstantConditions
+            equal = equal && otherAbilities.getHiddenAbility() == null && this.hiddenAbility == null;
         }
 
-        return abilityOneSame && abilityTwoSame && hiddenAbilitySame;
+        return equal;
     }
 
 }

@@ -17,8 +17,7 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon;
 
-import net.namibsun.pokemontracker.lib.pokemon.enums.individual.GenderTypes;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Ability;
+import net.namibsun.pokemontracker.lib.pokemon.enums.GenderTypes;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Gender;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;
@@ -36,7 +35,7 @@ public class PokemonTest {
                 species,
                 new EffortValueSpread(12,2,1,4,1,2),
                 new IndividualValueSpread(1,2,1,3,1,3),
-                new Ability(species.getAbilities().getAbilityOneName(), species.getAbilities().getAbilityOneDescription(), false),
+                species.getAbilities().getAbilityOne(),
                 new Gender(GenderTypes.MALE)
         );
 

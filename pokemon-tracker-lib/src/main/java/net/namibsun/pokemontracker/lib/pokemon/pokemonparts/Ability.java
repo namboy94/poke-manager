@@ -15,7 +15,7 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
+package net.namibsun.pokemontracker.lib.pokemon.pokemonparts;
 
 /**
  * Models a Pokemon's ability
@@ -78,7 +78,7 @@ public class Ability {
     public boolean equals(Ability otherAbility) {
         return  this.name.equals(otherAbility.getName()) &&
                 this.description.equals(otherAbility.getDescription()) &&
-                this.hidden && otherAbility.isHiddenAbility();
+                this.hidden == otherAbility.isHiddenAbility();
     }
 
 }

@@ -17,14 +17,14 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon;
 
-import net.namibsun.pokemontracker.lib.pokemon.PokemonSpecies;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Ability;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.species.*;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
 
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.PokemonTypes;
-import net.namibsun.pokemontracker.lib.pokemon.enums.species.EggGroupTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.PokemonTypes;
+import net.namibsun.pokemontracker.lib.pokemon.enums.EggGroupTypes;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
 
 public class PokemonSpeciesTest {
@@ -45,11 +45,14 @@ public class PokemonSpeciesTest {
                 new Rates(45, 5120, 70, 1059860, "Medium Slow"),
                 new EffortValueYield(0, 0, 0, 1, 0, 0),
                 new Abilities(
-                        "Overgrow", "When HP is below 1/3rd its maximum, " +
-                        "power of Grass-type moves is increased by 50%.",
-                        null, null,
-                        "Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
-                        "However, Speed will not double on the turn weather becomes Strong Sunlight."),
+                        new Ability(
+                                "Overgrow", "When HP is below 1/3rd its maximum, " +
+                                "power of Grass-type moves is increased by 50%.", false),
+                        null,
+                        new Ability(
+                                "Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
+                                "However, Speed will not double on the turn weather becomes Strong Sunlight.",
+                                true)),
                 new BaseStats(45, 49, 49, 65, 65, 45),
                 new EggGroups(EggGroupTypes.MONSTER, EggGroupTypes.GRASS, false)
         );
@@ -99,15 +102,16 @@ public class PokemonSpeciesTest {
         assertEquals(0, bulbasaur.getEffortValueYield().getSpecialDefense());
         assertEquals(0, bulbasaur.getEffortValueYield().getSpeed());
 
-        assertArrayEquals(new String[] {
-                "Overgrow", "When HP is below 1/3rd its maximum, " +
-                "power of Grass-type moves is increased by 50%."},
-                bulbasaur.getAbilities().getAbilityOne());
+        assertTrue(bulbasaur.getAbilities().getAbilityOne().equals(
+                new Ability("Overgrow", "When HP is below 1/3rd its maximum, " +
+                        "power of Grass-type moves is increased by 50%.", false)
+        ));
+        assertTrue(bulbasaur.getAbilities().getHiddenAbility().equals(
+                new Ability("Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
+                        "However, Speed will not double on the turn weather becomes Strong Sunlight.", true)
+        ));
         assertTrue(bulbasaur.getAbilities().getAbilityTwo() == null);
-        assertArrayEquals(new String[] {
-                "Chlorophyll", "When sunny, the Pokémon’s Speed doubles. " +
-                "However, Speed will not double on the turn weather becomes Strong Sunlight."},
-                bulbasaur.getAbilities().getHiddenAbility());
+
         assertTrue(bulbasaur.getAbilities().hasHiddenAbility());
         assertFalse(bulbasaur.getAbilities().hasSecondRegularAbility());
 
@@ -149,7 +153,7 @@ public class PokemonSpeciesTest {
         SpeciesDescription desc = new SpeciesDescription(0.0, 0.0, 0.0, 0.0, "");
         Rates rates = new Rates(0, 0, 0, 0, "");
         EffortValueYield evYield = new EffortValueYield(0, 0, 0, 0, 0, 0);
-        Abilities abilities = new Abilities("A", "B");
+        Abilities abilities = new Abilities(new Ability("A", "B", false), null, null);
         BaseStats baseStats = new BaseStats(1, 1, 1, 1, 1, 1);
         EggGroups eggGroups = new EggGroups(EggGroupTypes.MONSTER,false);
 
@@ -184,7 +188,7 @@ public class PokemonSpeciesTest {
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name, ratio, type, desc, rates, evYield,
-                        new Abilities("B", "A"), baseStats, eggGroups)
+                        new Abilities(new Ability("B", "A", false), null, null), baseStats, eggGroups)
         ));
         assertFalse(one.equals(
                 new PokemonSpecies(0, name, ratio, type, desc, rates, evYield, abilities,
