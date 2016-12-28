@@ -17,14 +17,15 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon;
 
-import net.namibsun.pokemontracker.lib.pokemon.enums.GenderTypes;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Gender;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
+import net.namibsun.pokemontracker.lib.pokemon.enums.GenderTypes;
 import net.namibsun.pokemontracker.lib.webscraping.serebii.SerebiiParser;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Gender;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.HeldItem;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;
 
 public class PokemonTest {
 
@@ -36,7 +37,8 @@ public class PokemonTest {
                 new EffortValueSpread(12,2,1,4,1,2),
                 new IndividualValueSpread(1,2,1,3,1,3),
                 species.getAbilities().getAbilityOne(),
-                new Gender(GenderTypes.MALE)
+                new Gender(GenderTypes.MALE),
+                new HeldItem("Testitem", "An item for testing")
         );
 
         assertTrue(species.equals(bulbasaur.getSpecies()));

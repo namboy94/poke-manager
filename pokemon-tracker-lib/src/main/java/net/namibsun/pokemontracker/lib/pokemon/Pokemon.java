@@ -20,6 +20,7 @@ package net.namibsun.pokemontracker.lib.pokemon;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Ability;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Gender;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.HeldItem;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;
 
 /**
@@ -52,16 +53,23 @@ public class Pokemon {
      */
     private Ability ability;
 
+    /**
+     * The Pokemon's Held Item
+     */
+    private HeldItem heldItem;
+
     public Pokemon(PokemonSpecies species,
                    EffortValueSpread evSpread,
                    IndividualValueSpread ivSpread,
                    Ability ability,
-                   Gender gender) {
+                   Gender gender,
+                   HeldItem heldItem) {
         this.species = species;
         this.evSpread = evSpread;
         this.ivSpread = ivSpread;
         this.ability = ability;
         this.gender = gender;
+        this.heldItem = heldItem;
     }
 
     /**
@@ -100,6 +108,13 @@ public class Pokemon {
     }
 
     /**
+     * @return The Pokemon's held item
+     */
+    public HeldItem getHeldItem() {
+        return this.heldItem;
+    }
+
+    /**
      * Compares two Pokemon objects and checks for equality
      * @param otherPokemon: The Pokemon to compare against
      * @return              true if the two objects are equal, false otherwise
@@ -109,7 +124,8 @@ public class Pokemon {
                 this.evSpread.equals(otherPokemon.getEffortValueSpread()) &&
                 this.ivSpread.equals(otherPokemon.getIndividualValueSpread()) &&
                 this.ability.equals(otherPokemon.getAbility()) &&
-                this.gender.equals(otherPokemon.getGender());
+                this.gender.equals(otherPokemon.getGender()) &&
+                this.heldItem.equals(otherPokemon.getHeldItem());
     }
 
 }
