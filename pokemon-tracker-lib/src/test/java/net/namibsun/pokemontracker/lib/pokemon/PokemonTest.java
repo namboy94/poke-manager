@@ -17,6 +17,9 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon;
 
+import net.namibsun.pokemontracker.lib.pokemon.enums.DamageCategories;
+import net.namibsun.pokemontracker.lib.pokemon.enums.PokemonTypes;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Move;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.*;
 import org.junit.Test;
 import java.io.IOException;
@@ -36,7 +39,8 @@ public class PokemonTest {
                 species.getAbilities().getAbilityOne(),
                 new Gender(GenderTypes.MALE),
                 new HeldItem("Testitem", "An item for testing"),
-                new Level(1)
+                new Level(1),
+                new MoveSet(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG))
         );
 
         assertTrue(species.equals(bulbasaur.getSpecies()));

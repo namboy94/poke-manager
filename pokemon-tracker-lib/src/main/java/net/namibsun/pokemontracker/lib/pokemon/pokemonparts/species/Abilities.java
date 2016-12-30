@@ -121,23 +121,23 @@ public class Abilities {
      */
     public boolean equals(Abilities otherAbilities) {
 
-        boolean equal = otherAbilities.getAbilityOne().equals(this.abilityOne);
+        boolean firstEqual = otherAbilities.getAbilityOne().equals(this.abilityOne);
+        boolean secondEqual;
+        boolean hiddenEqual;
 
         try {
-            equal = equal && otherAbilities.getAbilityTwo().equals(this.abilityTwo);
+            secondEqual = otherAbilities.getAbilityTwo().equals(this.abilityTwo);
         } catch (NullPointerException e) {
-            //noinspection ConstantConditions
-            equal = equal && otherAbilities.getAbilityTwo() == null && this.abilityTwo == null;
+            secondEqual = otherAbilities.getAbilityTwo() == null && this.abilityTwo == null;
         }
 
         try {
-            equal = equal && otherAbilities.getHiddenAbility().equals(this.hiddenAbility);
+            hiddenEqual = otherAbilities.getHiddenAbility().equals(this.hiddenAbility);
         } catch (NullPointerException e) {
-            //noinspection ConstantConditions
-            equal = equal && otherAbilities.getHiddenAbility() == null && this.hiddenAbility == null;
+            hiddenEqual = otherAbilities.getHiddenAbility() == null && this.hiddenAbility == null;
         }
 
-        return equal;
+        return firstEqual && secondEqual && hiddenEqual;
     }
 
 }

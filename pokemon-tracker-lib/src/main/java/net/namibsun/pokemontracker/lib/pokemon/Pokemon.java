@@ -60,13 +60,19 @@ public class Pokemon {
      */
     private Level level;
 
+    /**
+     * The Pokemon's Moveset
+     */
+    private MoveSet moveSet;
+
     public Pokemon(PokemonSpecies species,
                    EffortValueSpread evSpread,
                    IndividualValueSpread ivSpread,
                    Ability ability,
                    Gender gender,
                    HeldItem heldItem,
-                   Level level) {
+                   Level level,
+                   MoveSet moveSet) {
         this.species = species;
         this.evSpread = evSpread;
         this.ivSpread = ivSpread;
@@ -74,6 +80,7 @@ public class Pokemon {
         this.gender = gender;
         this.heldItem = heldItem;
         this.level = level;
+        this.moveSet = moveSet;
     }
 
     /**
@@ -126,6 +133,13 @@ public class Pokemon {
     }
 
     /**
+     * @return The Pokemon's MoveSet
+     */
+    public MoveSet getMoveSet() {
+        return this.moveSet;
+    }
+
+    /**
      * Compares two Pokemon objects and checks for equality
      * @param otherPokemon: The Pokemon to compare against
      * @return              true if the two objects are equal, false otherwise
@@ -137,7 +151,8 @@ public class Pokemon {
                 this.ability.equals(otherPokemon.getAbility()) &&
                 this.gender.equals(otherPokemon.getGender()) &&
                 this.heldItem.equals(otherPokemon.getHeldItem()) &&
-                this.level.equals(otherPokemon.getLevel());
+                this.level.equals(otherPokemon.getLevel()) &&
+                this.moveSet.equals(otherPokemon.getMoveSet());
     }
 
 }
