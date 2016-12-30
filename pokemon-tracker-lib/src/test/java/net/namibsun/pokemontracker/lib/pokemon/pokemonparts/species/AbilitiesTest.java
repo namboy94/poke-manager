@@ -159,7 +159,9 @@ public class AbilitiesTest {
         assertFalse(create("A", "B", "C", "D").equals(create("A", "B")));
         assertFalse(create("A", "B", "C", "D").equals(create("A", "B", "B", "A")));
         assertFalse(create("A", "B", "C", "D").equals(create("A", "B", "C", "C")));
+        assertFalse(create("A", "B", "C", "D").equals(create("A", "A", "C", "D")));
         assertFalse(create("A", "B", "C", "D").equals(create("A", "B", "C", "D", "E", "F")));
+        assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "A", "C", "D", "E", "F")));
         assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "B")));
         assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "B", "C", "D")));
         assertFalse(create("A", "B", "C", "D", "E", "F").equals(create("A", "B", "C", "D", "E", "A")));

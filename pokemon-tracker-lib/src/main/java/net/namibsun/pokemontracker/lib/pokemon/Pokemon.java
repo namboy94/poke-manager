@@ -18,10 +18,7 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.pokemon;
 
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Ability;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.EffortValueSpread;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.Gender;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.HeldItem;
-import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.IndividualValueSpread;
+import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.*;
 
 /**
  * Class that models a concrete Pokemon.
@@ -58,18 +55,25 @@ public class Pokemon {
      */
     private HeldItem heldItem;
 
+    /**
+     * The Pokemon's Level
+     */
+    private Level level;
+
     public Pokemon(PokemonSpecies species,
                    EffortValueSpread evSpread,
                    IndividualValueSpread ivSpread,
                    Ability ability,
                    Gender gender,
-                   HeldItem heldItem) {
+                   HeldItem heldItem,
+                   Level level) {
         this.species = species;
         this.evSpread = evSpread;
         this.ivSpread = ivSpread;
         this.ability = ability;
         this.gender = gender;
         this.heldItem = heldItem;
+        this.level = level;
     }
 
     /**
@@ -115,6 +119,13 @@ public class Pokemon {
     }
 
     /**
+     * @return The Pokemon's level
+     */
+    public Level getLevel() {
+        return this.level;
+    }
+
+    /**
      * Compares two Pokemon objects and checks for equality
      * @param otherPokemon: The Pokemon to compare against
      * @return              true if the two objects are equal, false otherwise
@@ -125,7 +136,8 @@ public class Pokemon {
                 this.ivSpread.equals(otherPokemon.getIndividualValueSpread()) &&
                 this.ability.equals(otherPokemon.getAbility()) &&
                 this.gender.equals(otherPokemon.getGender()) &&
-                this.heldItem.equals(otherPokemon.getHeldItem());
+                this.heldItem.equals(otherPokemon.getHeldItem()) &&
+                this.level.equals(otherPokemon.getLevel());
     }
 
 }

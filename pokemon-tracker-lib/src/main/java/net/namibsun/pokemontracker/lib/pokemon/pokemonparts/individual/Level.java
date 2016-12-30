@@ -18,7 +18,41 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
 /**
- * Created by hermann on 12/14/16.
+ * Class that models the level of a Pokemon
  */
 public class Level {
+
+    /**
+     * The level of the Pokemon. It is always a value between 1 and 100
+     */
+    private int level;
+
+    /**
+     * Creates a new Level object. It is checked if the given level is between 1 and 100
+     * @param level:                     The current level of the Pokemon. Must be at least 1 and at most 100
+     * @throws IllegalArgumentException: If the passed level is not between 1 and 100
+     */
+    public Level(int level) {
+        if (level < 1 || level > 100) {
+            throw new IllegalArgumentException("Level must be between 1 and 100");
+        }
+        this.level = level;
+    }
+
+    /**
+     * @return The Pokemon's current level
+     */
+    public int getLevel() {
+        return this.level;
+    }
+
+    /**
+     * Compares a Level object with another level object
+     * @param otherLevel: The other level object
+     * @return            true if both objects are equal, false otherwise
+     */
+    public boolean equals(Level otherLevel) {
+        return this.level == otherLevel.getLevel();
+    }
+
 }

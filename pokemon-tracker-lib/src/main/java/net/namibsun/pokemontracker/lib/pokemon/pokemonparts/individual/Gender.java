@@ -55,12 +55,16 @@ public class Gender {
      * @return The gender symbol, i.e. ♂ for males, ♀ for females and - for neutral
      */
     public String getGenderSymbol() {
-        switch (this.gender) {
-            case MALE:    return "♂";
-            case FEMALE:  return "♀";
-            case NEUTRAL: return "-";
+
+        if (this.gender == GenderTypes.MALE) {
+            return "♂";
         }
-        return null; // Will never be reached
+        else if (this.gender == GenderTypes.FEMALE) {
+            return "♀";
+        }
+        else {  // if this.gender == GenderTypes.NEUTRAL
+            return "-";
+        }
     }
 
     /**
