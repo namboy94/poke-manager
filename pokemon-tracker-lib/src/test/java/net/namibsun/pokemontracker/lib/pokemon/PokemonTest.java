@@ -18,6 +18,7 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.pokemon;
 
 import net.namibsun.pokemontracker.lib.pokemon.enums.DamageCategories;
+import net.namibsun.pokemontracker.lib.pokemon.enums.Natures;
 import net.namibsun.pokemontracker.lib.pokemon.enums.PokemonTypes;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.Move;
 import net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual.*;
@@ -40,7 +41,8 @@ public class PokemonTest {
                 new Gender(GenderTypes.MALE),
                 new HeldItem("Testitem", "An item for testing"),
                 new Level(1),
-                new MoveSet(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG))
+                new MoveSet(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG)),
+                new Nature(Natures.ADAMANT)
         );
 
         assertTrue(species.equals(bulbasaur.getSpecies()));
