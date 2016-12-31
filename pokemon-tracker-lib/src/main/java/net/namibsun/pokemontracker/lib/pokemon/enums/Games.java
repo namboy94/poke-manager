@@ -15,27 +15,19 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
+package net.namibsun.pokemontracker.lib.pokemon.enums;
 
-import net.namibsun.pokemontracker.lib.pokemon.enums.Games;
-import net.namibsun.pokemontracker.lib.pokemon.enums.Generations;
-
-
-public class Origin {
-
-    /**
-     * The Origin Game of the Pokemon
-     */
-    private Games originGame;
-
-    /**
-     * The Origin Generation of the Pokemon
-     */
-    private Generations originGeneration;
-
-    private Origin() {
-
-    }
-
-
+/**
+ * Enum that provides identifiers for all main Pokemon games (+ the Gamecube story-driven games)
+ */
+public enum Games {
+    RED, BLUE, GREEN, YELLOW,
+    GOLD, SILVER, CRYSTAL,
+    RUBY, SAPPHIRE, EMERALD, LEAFGREEN, FIRERED,
+    COLOSSEUM, XD,
+    DIAMOND, PEARL, PLATINUM, HEARTGOLD, SOULSILVER,
+    BLACK, WHITE, BLACK2, WHITE2,
+    X, Y, OMEGARUBY, ALPHASAPPHIRE,
+    SUN, MOON,
+    UNKNOWN
 }
