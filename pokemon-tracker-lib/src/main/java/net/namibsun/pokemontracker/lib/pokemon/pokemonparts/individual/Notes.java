@@ -17,8 +17,54 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
+import java.util.ArrayList;
+
 /**
- * Created by hermann on 12/14/16.
+ * Class that models user-defines notes for a Pokemon
  */
 public class Notes {
+
+    /**
+     * List of notes for the Pokemon
+     */
+    private ArrayList<String> notes;
+
+    /**
+     * Creates a new Notes object
+     * @param noteStrings: Variable amount of String parameters, each representing a new note
+     */
+    public Notes(String... noteStrings) {
+        this.notes = new ArrayList<>();
+        for (String note: noteStrings) {
+            this.notes.add(note.replace(";", ","));
+        }
+    }
+
+    /**
+     * @return The notes as an array list
+     */
+    public ArrayList<String> getNotes() {
+        return this.notes;
+    }
+
+    /**
+     * @return The notes as a comma separated string
+     */
+    public String getCommaSeparatedNotes() {
+        String commaNotes = "";
+        for (String note: this.notes) {
+            commaNotes += note + ",";
+        }
+        return commaNotes.substring(0, commaNotes.length() - 1); // Remove last Comma
+    }
+
+    /**
+     * Compares two Notes objects.
+     * @param otherNotes: The other Notes objects
+     * @return            true if equal, else false
+     */
+    public boolean equals(Notes otherNotes) {
+        return this.getCommaSeparatedNotes().equals(otherNotes.getCommaSeparatedNotes());
+    }
+
 }

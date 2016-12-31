@@ -70,6 +70,11 @@ public class Pokemon {
      */
     private Nature nature;
 
+    /**
+     * Notes describing this Pokemon
+     */
+    private Notes notes;
+
     public Pokemon(PokemonSpecies species,
                    EffortValueSpread evSpread,
                    IndividualValueSpread ivSpread,
@@ -78,7 +83,8 @@ public class Pokemon {
                    HeldItem heldItem,
                    Level level,
                    MoveSet moveSet,
-                   Nature nature) {
+                   Nature nature,
+                   Notes notes) {
         this.species = species;
         this.evSpread = evSpread;
         this.ivSpread = ivSpread;
@@ -88,6 +94,7 @@ public class Pokemon {
         this.level = level;
         this.moveSet = moveSet;
         this.nature = nature;
+        this.notes = notes;
     }
 
     /**
@@ -154,6 +161,13 @@ public class Pokemon {
     }
 
     /**
+     * @return The Notes pertaining to this Pokemon
+     */
+    public Notes getNotes() {
+        return this.notes;
+    }
+
+    /**
      * Compares two Pokemon objects and checks for equality
      * @param otherPokemon: The Pokemon to compare against
      * @return              true if the two objects are equal, false otherwise
@@ -167,7 +181,8 @@ public class Pokemon {
                 this.heldItem.equals(otherPokemon.getHeldItem()) &&
                 this.level.equals(otherPokemon.getLevel()) &&
                 this.moveSet.equals(otherPokemon.getMoveSet()) &&
-                this.nature.equals(otherPokemon.getNature());
+                this.nature.equals(otherPokemon.getNature()) &&
+                this.notes.equals(otherPokemon.getNotes());
     }
 
 }
