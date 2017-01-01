@@ -33,9 +33,96 @@ public class Origin {
      */
     private Generations originGeneration;
 
-    private Origin() {
-
+    /**
+     * Creates a new Origin object, where the game and generation are both unknown
+     */
+    public Origin() {
+        this(Games.UNKNOWN, Generations.UNKNOWN);
     }
 
+    /**
+     * Creates a new Origin object where the Game is known. The generation is inferred by the game.
+     * @param game: The origin game of the Pokemon
+     */
+    public Origin(Games game) {
+        this.originGame = game;
+        this.originGeneration = this.getGenerationFromGame(game);
+    }
+
+    /**
+     * Creates a new Origin object where only the Generation is known
+     * @param generation: The origin generation of the Pokemon
+     */
+    public Origin(Generations generation) {
+        this(Games.UNKNOWN, generation);
+    }
+
+    /**
+     * Creates a new Origin object
+     * @param game:       The origin game
+     * @param generation: The origin generation
+     */
+    public Origin(Games game, Generations generation) {
+        this.originGame = game;
+        this.originGeneration = generation;
+    }
+
+    /**
+     * Maps a game to a Generation
+     * @param game: The game to map
+     * @return      The resulting generation
+     */
+    private Generations getGenerationFromGame(Games game) {
+        if (game == Games.RED || game == Games.GREEN || game == Games.BLUE || game == Games.YELLOW) {
+            return Generations.I;
+        }
+        else if (game == Games.SILVER || game == Games.GOLD || game == Games.CRYSTAL) {
+            return Generations.II;
+        }
+        else if (game == Games.RUBY || game == Games.SAPPHIRE || game == Games.EMERALD || game == Games.FIRERED ||
+                 game == Games.LEAFGREEN || game == Games.XD || game == Games.COLOSSEUM) {
+            return Generations.III;
+        }
+        else if (game == Games.PEARL || game == Games.DIAMOND || game == Games.PLATINUM ||
+                 game == Games.HEARTGOLD || game == Games.SOULSILVER) {
+            return Generations.IV;
+        }
+        else if (game == Games.BLACK || game == Games.WHITE || game == Games.BLACK2 || game == Games.WHITE2) {
+            return Generations.V;
+        }
+        else if (game == Games.X || game == Games.Y || game == Games.OMEGARUBY || game == Games.ALPHASAPPHIRE) {
+            return Generations.VI;
+        }
+        else if (game == Games.SUN || game == Games.MOON) {
+            return Generations.VII;
+        }
+        else {
+            return Generations.UNKNOWN;
+        }
+    }
+
+    /**
+     * @return The Origin Game
+     */
+    public Games getOriginGame() {
+        return this.originGame;
+    }
+
+    /**
+     * @return The Origin Generation
+     */
+    public Generations getOriginGeneration() {
+        return this.originGeneration;
+    }
+
+    /**
+     * Checks two Origin objects for equality
+     * @param otherOrigin: The other Origin object
+     * @return             true if equal, else false
+     */
+    public boolean equals(Origin otherOrigin) {
+        return  this.originGame == otherOrigin.getOriginGame() &&
+                this.originGeneration == otherOrigin.getOriginGeneration();
+    }
 
 }

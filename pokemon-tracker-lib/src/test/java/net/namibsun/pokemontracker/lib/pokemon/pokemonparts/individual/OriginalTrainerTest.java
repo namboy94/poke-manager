@@ -15,11 +15,19 @@ This file is part of pokemon-tracker.
     along with pokemon-tracker.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.namibsun.pokemontracker.lib.pokemon.enums;
+package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
-/**
- * Enum that keeps track of the amount of Pokemon generations that currently exist
- */
-public enum Generations {
-    I, II, III, IV, V, VI, VII, UNKNOWN
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class OriginalTrainerTest {
+
+    @Test
+    public void testEquality() {
+        OriginalTrainer trainer = new OriginalTrainer("ABC", "123");
+        assertTrue(trainer.equals(new OriginalTrainer("ABC", "123")));
+        assertFalse(trainer.equals(new OriginalTrainer("ABC", "125")));
+        assertFalse(trainer.equals(new OriginalTrainer("ABCABC", "123")));
+    }
+
 }

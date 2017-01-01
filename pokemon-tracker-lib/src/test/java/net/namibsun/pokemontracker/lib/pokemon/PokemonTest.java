@@ -43,7 +43,9 @@ public class PokemonTest {
                 new Level(1),
                 new MoveSet(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG)),
                 new Nature(Natures.ADAMANT),
-                new Notes("Test", "Notes", "Test")
+                new Notes("Test", "Notes", "Test"),
+                new Origin(),
+                new OriginalTrainer("ABC", "123")
         );
 
         assertTrue(species.equals(bulbasaur.getSpecies()));

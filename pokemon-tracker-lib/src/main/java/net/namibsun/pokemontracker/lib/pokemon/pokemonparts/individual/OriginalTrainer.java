@@ -18,7 +18,51 @@ This file is part of pokemon-tracker.
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
 /**
- * Created by hermann on 12/14/16.
+ * Class that models the Original Trainer of a Pokemon
  */
 public class OriginalTrainer {
+
+    /**
+     * The name of the Trainer
+     */
+    private String name;
+
+    /**
+     * The trainer's ID
+     */
+    private String id;
+
+    /**
+     * Creates a new OriginalTrainer object
+     * @param name: The name of the trainer
+     * @param id:   The trainer's ID number
+     */
+    public OriginalTrainer(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    /**
+     * @return The trainer's name
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * @return The trainer's ID number
+     */
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Checks two OriginalTrainer objects for equality
+     * @param otherOriginalTrainer: the other Trainer
+     * @return                      true if equal, else false
+     */
+    public boolean equals(OriginalTrainer otherOriginalTrainer) {
+        return this.name.equals(otherOriginalTrainer.getName()) && this.id.equals(otherOriginalTrainer.getId());
+    }
+
 }

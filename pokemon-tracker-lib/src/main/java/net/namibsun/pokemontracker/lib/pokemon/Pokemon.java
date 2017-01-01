@@ -75,6 +75,17 @@ public class Pokemon {
      */
     private Notes notes;
 
+    /**
+     * The Pokemon's origin
+     */
+    private Origin origin;
+
+    /**
+     * The Pokemon's original trainer
+     */
+    private OriginalTrainer originalTrainer;
+
+
     public Pokemon(PokemonSpecies species,
                    EffortValueSpread evSpread,
                    IndividualValueSpread ivSpread,
@@ -84,7 +95,9 @@ public class Pokemon {
                    Level level,
                    MoveSet moveSet,
                    Nature nature,
-                   Notes notes) {
+                   Notes notes,
+                   Origin origin,
+                   OriginalTrainer originalTrainer) {
         this.species = species;
         this.evSpread = evSpread;
         this.ivSpread = ivSpread;
@@ -95,6 +108,8 @@ public class Pokemon {
         this.moveSet = moveSet;
         this.nature = nature;
         this.notes = notes;
+        this.origin = origin;
+        this.originalTrainer = originalTrainer;
     }
 
     /**
@@ -168,6 +183,20 @@ public class Pokemon {
     }
 
     /**
+     * @return The Pokemon's Origin
+     */
+    public Origin getOrigin() {
+        return this.origin;
+    }
+
+    /**
+     * @return The pokemon's original trainer
+     */
+    public OriginalTrainer getOriginalTrainer() {
+        return this.originalTrainer;
+    }
+
+    /**
      * Compares two Pokemon objects and checks for equality
      * @param otherPokemon: The Pokemon to compare against
      * @return              true if the two objects are equal, false otherwise
@@ -182,7 +211,9 @@ public class Pokemon {
                 this.level.equals(otherPokemon.getLevel()) &&
                 this.moveSet.equals(otherPokemon.getMoveSet()) &&
                 this.nature.equals(otherPokemon.getNature()) &&
-                this.notes.equals(otherPokemon.getNotes());
+                this.notes.equals(otherPokemon.getNotes()) &&
+                this.origin.equals(otherPokemon.getOrigin()) &&
+                this.originalTrainer.equals(otherPokemon.getOriginalTrainer());
     }
 
 }
