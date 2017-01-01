@@ -27,11 +27,33 @@ public class OriginTest {
     @Test
     public void testInferringGeneration() {
         assertEquals(Generations.I, new Origin(Games.RED).getOriginGeneration());
+        assertEquals(Generations.I, new Origin(Games.BLUE).getOriginGeneration());
+        assertEquals(Generations.I, new Origin(Games.GREEN).getOriginGeneration());
+        assertEquals(Generations.I, new Origin(Games.YELLOW).getOriginGeneration());
         assertEquals(Generations.II, new Origin(Games.SILVER).getOriginGeneration());
+        assertEquals(Generations.II, new Origin(Games.GOLD).getOriginGeneration());
+        assertEquals(Generations.II, new Origin(Games.CRYSTAL).getOriginGeneration());
         assertEquals(Generations.III, new Origin(Games.XD).getOriginGeneration());
+        assertEquals(Generations.III, new Origin(Games.COLOSSEUM).getOriginGeneration());
+        assertEquals(Generations.III, new Origin(Games.RUBY).getOriginGeneration());
+        assertEquals(Generations.III, new Origin(Games.SAPPHIRE).getOriginGeneration());
+        assertEquals(Generations.III, new Origin(Games.EMERALD).getOriginGeneration());
+        assertEquals(Generations.III, new Origin(Games.LEAFGREEN).getOriginGeneration());
+        assertEquals(Generations.III, new Origin(Games.FIRERED).getOriginGeneration());
         assertEquals(Generations.IV, new Origin(Games.DIAMOND).getOriginGeneration());
+        assertEquals(Generations.IV, new Origin(Games.PEARL).getOriginGeneration());
+        assertEquals(Generations.IV, new Origin(Games.PLATINUM).getOriginGeneration());
+        assertEquals(Generations.IV, new Origin(Games.HEARTGOLD).getOriginGeneration());
+        assertEquals(Generations.IV, new Origin(Games.SOULSILVER).getOriginGeneration());
+        assertEquals(Generations.V, new Origin(Games.BLACK).getOriginGeneration());
         assertEquals(Generations.V, new Origin(Games.BLACK2).getOriginGeneration());
+        assertEquals(Generations.V, new Origin(Games.WHITE).getOriginGeneration());
+        assertEquals(Generations.V, new Origin(Games.WHITE2).getOriginGeneration());
         assertEquals(Generations.VI, new Origin(Games.OMEGARUBY).getOriginGeneration());
+        assertEquals(Generations.VI, new Origin(Games.ALPHASAPPHIRE).getOriginGeneration());
+        assertEquals(Generations.VI, new Origin(Games.X).getOriginGeneration());
+        assertEquals(Generations.VI, new Origin(Games.Y).getOriginGeneration());
+        assertEquals(Generations.VII, new Origin(Games.SUN).getOriginGeneration());
         assertEquals(Generations.VII, new Origin(Games.MOON).getOriginGeneration());
         assertEquals(Generations.UNKNOWN, new Origin(Games.UNKNOWN).getOriginGeneration());
     }
@@ -49,6 +71,10 @@ public class OriginTest {
         Origin origin = new Origin();
         assertEquals(origin.getOriginGame(), Games.UNKNOWN);
         assertEquals(origin.getOriginGeneration(), Generations.UNKNOWN);
+
+        origin = new Origin(Generations.V);
+        assertEquals(origin.getOriginGame(), Games.UNKNOWN);
+        assertEquals(origin.getOriginGeneration(), Generations.V);
     }
 
 }
