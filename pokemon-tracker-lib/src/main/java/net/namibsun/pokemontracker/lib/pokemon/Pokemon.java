@@ -85,7 +85,33 @@ public class Pokemon {
      */
     private OriginalTrainer originalTrainer;
 
+    /**
+     * The Pokeball the Pokemon was caught in.
+     */
+    private Pokeball pokeball;
 
+    /**
+     * The Pokerus (Pokemon Virus) state of the Pokemon
+     */
+    private Pokerus pokerus;
+
+    /**
+     * Creates a new Pokemon object
+     * @param species:         The Pokemon's Species
+     * @param evSpread:        The Pokemon's EV Spread
+     * @param ivSpread:        The Pokemon's IV Spread
+     * @param ability:         The Pokemon's Ability
+     * @param gender:          The Pokemon's Gender
+     * @param heldItem:        The Pokemon's Held Item
+     * @param level:           The Pokemon's level
+     * @param moveSet:         The Pokemon's MoveSet
+     * @param nature:          The Pokemon's Nature
+     * @param notes:           Notes about the Pokemon
+     * @param origin:          The Pokemon's Origin
+     * @param originalTrainer: The Pokemon's original trainer
+     * @param pokeball:        The Pokeball in which the Pokemon was caught in
+     * @param pokerus:         The Pokemon's Pokerus state
+     */
     public Pokemon(PokemonSpecies species,
                    EffortValueSpread evSpread,
                    IndividualValueSpread ivSpread,
@@ -97,7 +123,9 @@ public class Pokemon {
                    Nature nature,
                    Notes notes,
                    Origin origin,
-                   OriginalTrainer originalTrainer) {
+                   OriginalTrainer originalTrainer,
+                   Pokeball pokeball,
+                   Pokerus pokerus) {
         this.species = species;
         this.evSpread = evSpread;
         this.ivSpread = ivSpread;
@@ -197,6 +225,20 @@ public class Pokemon {
     }
 
     /**
+     * @return The Pokeball in which this Pokemon was caught in
+     */
+    public Pokeball getPokeball() {
+        return this.pokeball;
+    }
+
+    /**
+     * @return The Pokemon's Pokerus State
+     */
+    public Pokerus getPokerus() {
+        return this.pokerus;
+    }
+
+    /**
      * Compares two Pokemon objects and checks for equality
      * @param otherPokemon: The Pokemon to compare against
      * @return              true if the two objects are equal, false otherwise
@@ -213,7 +255,9 @@ public class Pokemon {
                 this.nature.equals(otherPokemon.getNature()) &&
                 this.notes.equals(otherPokemon.getNotes()) &&
                 this.origin.equals(otherPokemon.getOrigin()) &&
-                this.originalTrainer.equals(otherPokemon.getOriginalTrainer());
+                this.originalTrainer.equals(otherPokemon.getOriginalTrainer()) &&
+                this.pokeball.equals(otherPokemon.getPokeball()) &&
+                this.pokerus.equals(otherPokemon.getPokerus());
     }
 
 }

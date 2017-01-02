@@ -17,8 +17,44 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
+import net.namibsun.pokemontracker.lib.pokemon.enums.Pokeballs;
+
 /**
- * Created by hermann on 12/14/16.
+ * Class that models the Pokeball a Pokemon is caught in
  */
 public class Pokeball {
+
+    /**
+     * The Pokeball Type
+     */
+    private Pokeballs ballType;
+
+    public Pokeball() {
+        this.ballType = Pokeballs.POKEBALL;
+    }
+
+    public Pokeball(Pokeballs ballType) {
+        this.ballType = ballType;
+    }
+
+    public boolean isInheritable() {
+        return !(this.ballType == Pokeballs.MASTERBALL || this.ballType == Pokeballs.CHERISHBALL);
+    }
+
+    public boolean isApricornBall() {
+        return false; // TODO Check which balls are apricorn balls
+    }
+
+    public Pokeballs getBallType() {
+        return this.ballType;
+    }
+
+    public String getBallTypeAsString() {
+        return this.ballType.name();
+    }
+
+    public boolean equals(Pokeball otherPokeball) {
+        return this.ballType == otherPokeball.getBallType();
+    }
+
 }

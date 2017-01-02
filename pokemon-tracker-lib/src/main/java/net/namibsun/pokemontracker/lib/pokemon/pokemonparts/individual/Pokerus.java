@@ -17,8 +17,35 @@ This file is part of pokemon-tracker.
 
 package net.namibsun.pokemontracker.lib.pokemon.pokemonparts.individual;
 
-/**
- * Created by hermann on 12/14/16.
- */
+import net.namibsun.pokemontracker.lib.pokemon.enums.PokerusStates;
+
+
 public class Pokerus {
+
+    private PokerusStates state;
+
+    public Pokerus() {
+        this.state = PokerusStates.HEALTHY;
+    }
+
+    public Pokerus(PokerusStates state) {
+        this.state = state;
+    }
+
+    public PokerusStates getState() {
+        return this.state;
+    }
+
+    public boolean hasGrowthBenefit() {
+        return this.state == PokerusStates.INFECTED;
+    }
+
+    public boolean canBeInfected() {
+        return this.state == PokerusStates.HEALTHY;
+    }
+
+    public boolean equals(Pokerus otherPokerus) {
+        return this.state == otherPokerus.getState();
+    }
+
 }
