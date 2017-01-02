@@ -45,7 +45,9 @@ public class PokemonTest {
                 new Nature(Natures.ADAMANT),
                 new Notes("Test", "Notes", "Test"),
                 new Origin(),
-                new OriginalTrainer("ABC", "123")
+                new OriginalTrainer("ABC", "123"),
+                new Pokeball(),
+                new Pokerus()
         );
 
         assertTrue(species.equals(bulbasaur.getSpecies()));

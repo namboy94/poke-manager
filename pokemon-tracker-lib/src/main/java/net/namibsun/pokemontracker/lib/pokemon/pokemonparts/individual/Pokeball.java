@@ -29,30 +29,61 @@ public class Pokeball {
      */
     private Pokeballs ballType;
 
+    /**
+     * Creates a default Pokeball Object
+     */
     public Pokeball() {
         this.ballType = Pokeballs.POKEBALL;
     }
 
+    /**
+     * Creates a Pokeball Object
+     * @param ballType: The Pokeball type
+     */
     public Pokeball(Pokeballs ballType) {
         this.ballType = ballType;
     }
 
+    /**
+     * Checks if the Pokeball is inheritable
+     * @return true if the ball is inheritable, false otherwise
+     */
     public boolean isInheritable() {
         return !(this.ballType == Pokeballs.MASTERBALL || this.ballType == Pokeballs.CHERISHBALL);
     }
 
+    /**
+     * Checks if the Pokeball is an Apricorn Ball, famously created by the legendary Pokeball creator Kurt.
+     * @return true if the ball is an Apricorn Ball, false otherwise
+     */
     public boolean isApricornBall() {
-        return false; // TODO Check which balls are apricorn balls
+
+        return this.ballType == Pokeballs.FASTBALL || this.ballType == Pokeballs.FRIENDBALL ||
+                this.ballType == Pokeballs.HEAVYBALL || this.ballType == Pokeballs.LEVELBALL ||
+                this.ballType == Pokeballs.LOVEBALL || this.ballType == Pokeballs.LUREBALL ||
+                this.ballType == Pokeballs.MOONBALL;
+
     }
 
+    /**
+     * @return The Pokeball Type
+     */
     public Pokeballs getBallType() {
         return this.ballType;
     }
 
+    /**
+     * @return The Pokeball Type as String
+     */
     public String getBallTypeAsString() {
         return this.ballType.name();
     }
 
+    /**
+     * Compares two Pokeball objects for equality
+     * @param otherPokeball: the other Pokeball object
+     * @return               true if equal, else false
+     */
     public boolean equals(Pokeball otherPokeball) {
         return this.ballType == otherPokeball.getBallType();
     }
