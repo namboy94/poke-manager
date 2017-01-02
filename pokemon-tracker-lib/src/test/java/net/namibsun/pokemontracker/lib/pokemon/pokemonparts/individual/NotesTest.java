@@ -50,4 +50,9 @@ public class NotesTest {
         assertEquals(list.get(4), "E");
     }
 
+    @Test
+    public void testEmptyNotesCsv() {
+        assertEquals(new Notes().getCommaSeparatedNotes(), "");
+    }
+
 }

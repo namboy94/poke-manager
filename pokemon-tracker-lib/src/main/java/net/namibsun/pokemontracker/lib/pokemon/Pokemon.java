@@ -138,6 +138,8 @@ public class Pokemon {
         this.notes = notes;
         this.origin = origin;
         this.originalTrainer = originalTrainer;
+        this.pokeball = pokeball;
+        this.pokerus = pokerus;
     }
 
     /**

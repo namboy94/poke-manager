@@ -23,15 +23,51 @@ import static org.junit.Assert.*;
 public class EnumTest {
 
     @Test
+    public void testDamageCategoriesEnum() {
+        assertEquals(DamageCategories.valueOf("SPECIAL"), DamageCategories.SPECIAL);
+        assertEquals(DamageCategories.values().length, 3);
+    }
+
+    @Test
     public void testEggGroupTypesEnum() {
         assertEquals(EggGroupTypes.valueOf("AMORPHOUS"), EggGroupTypes.AMORPHOUS);
         assertEquals(EggGroupTypes.values().length, 15);
     }
 
     @Test
+    public void testGamesEnum() {
+        assertEquals(Games.valueOf("RED"), Games.RED);
+        assertEquals(Games.values().length, 30);
+    }
+
+    @Test
+    public void testGenerationsEnum() {
+        assertEquals(Generations.valueOf("I"), Generations.I);
+        assertEquals(Generations.values().length, 8);
+    }
+
+    @Test
     public void testLanguagesEnum() {
         assertEquals(Languages.valueOf("ENGLISH"), Languages.ENGLISH);
         assertEquals(Languages.values().length, 5);
+    }
+
+    @Test
+    public void testNaturesEnum() {
+        assertEquals(Natures.valueOf("ADAMANT"), Natures.ADAMANT);
+        assertEquals(Natures.values().length, 25);
+    }
+
+    @Test
+    public void testPokeballsEnum() {
+        assertEquals(Pokeballs.valueOf("POKEBALL"), Pokeballs.POKEBALL);
+        assertEquals(Pokeballs.values().length, 23);
+    }
+
+    @Test
+    public void testPokerusEnum() {
+        assertEquals(PokerusStates.valueOf("HEALTHY"), PokerusStates.HEALTHY);
+        assertEquals(PokerusStates.values().length, 3);
     }
 
     @Test

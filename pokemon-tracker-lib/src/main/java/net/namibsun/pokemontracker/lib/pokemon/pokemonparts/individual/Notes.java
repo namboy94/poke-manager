@@ -55,7 +55,10 @@ public class Notes {
         for (String note: this.notes) {
             commaNotes += note + ",";
         }
-        return commaNotes.substring(0, commaNotes.length() - 1); // Remove last Comma
+        if (commaNotes.endsWith(",")) {
+            commaNotes = commaNotes.substring(0, commaNotes.length() - 1); // Remove last Comma
+        }
+        return commaNotes;
     }
 
     /**
