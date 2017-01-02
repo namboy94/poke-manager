@@ -23,6 +23,12 @@ import static org.junit.Assert.*;
 public class EnumTest {
 
     @Test
+    public void testGenderTypesEnum() {
+        assertEquals(GenderTypes.valueOf("MALE"), GenderTypes.MALE);
+        assertEquals(GenderTypes.values().length, 3);
+    }
+
+    @Test
     public void testDamageCategoriesEnum() {
         assertEquals(DamageCategories.valueOf("SPECIAL"), DamageCategories.SPECIAL);
         assertEquals(DamageCategories.values().length, 3);
