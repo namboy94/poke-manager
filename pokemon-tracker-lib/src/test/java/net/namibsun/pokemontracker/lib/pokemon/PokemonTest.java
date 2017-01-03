@@ -38,7 +38,8 @@ public class PokemonTest {
         Gender gender = new Gender(GenderTypes.MALE);
         HeldItem heldItem = new HeldItem("Item", "Desc");
         Level level = new Level(1);
-        MoveSet moveSet = new MoveSet(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG));
+        MoveSet moveSet = new MoveSet(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 100, 20));
         Nature nature = new Nature(Natures.ADAMANT);
         Origin origin = new Origin();
         OriginalTrainer trainer = new OriginalTrainer("A", "123");
@@ -85,7 +86,8 @@ public class PokemonTest {
 
         assertFalse(pokemon.equals(
                 new Pokemon(species, evSpread, ivSpread, ability, gender, heldItem, level,
-                        new MoveSet(new Move("A", "B", DamageCategories.SPECIAL, PokemonTypes.GRASS)),
+                        new MoveSet(new Move("A", "B", DamageCategories.SPECIAL, PokemonTypes.GRASS,
+                                100, 80,  30)),
                         nature, notes, origin, trainer, pokeball, pokerus)));
 
         assertFalse(pokemon.equals(

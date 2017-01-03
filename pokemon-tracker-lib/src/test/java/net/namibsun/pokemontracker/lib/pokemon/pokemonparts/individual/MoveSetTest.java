@@ -33,10 +33,14 @@ public class MoveSetTest {
 
     @Before
     public void setup() {
-        this.one = new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG);
-        this.two = new Move("C", "D", DamageCategories.PHYSICAL, PokemonTypes.FAIRY);
-        this.three = new Move("E", "F", DamageCategories.SPECIAL, PokemonTypes.DARK);
-        this.four = new Move("G", "H", DamageCategories.STATUS, PokemonTypes.DRAGON);
+        this.one = new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 10, 1);
+        this.two = new Move("C", "D", DamageCategories.PHYSICAL, PokemonTypes.FAIRY,
+                100, 100, 10);
+        this.three = new Move("E", "F", DamageCategories.SPECIAL, PokemonTypes.DARK,
+                50, 100, 15);
+        this.four = new Move("G", "H", DamageCategories.STATUS, PokemonTypes.DRAGON,
+                150, 45, 5);
     }
 
     @Test

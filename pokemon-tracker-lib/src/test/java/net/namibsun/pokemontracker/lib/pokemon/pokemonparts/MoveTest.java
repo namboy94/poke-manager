@@ -26,31 +26,48 @@ public class MoveTest {
 
     @Test
     public void testGetters() {
-        Move tester = new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG);
+        Move tester = new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 50, 10);
         assertEquals(tester.getName(), "A");
         assertEquals(tester.getDescription(), "B");
         assertEquals(tester.getDamageCategory(), DamageCategories.PHYSICAL);
         assertEquals(tester.getDamageCategoryAsString(), "PHYSICAL");
         assertEquals(tester.getType(), PokemonTypes.BUG);
         assertEquals(tester.getTypeAsString(), "BUG");
+        assertEquals(tester.getBaseDamage(), 100);
+        assertEquals(tester.getAccuracy(), 50);
+        assertEquals(tester.getPowerPoints(), 10);
     }
 
     @Test
-    public void testEquality() {
+    public void testTrueEquality() {
         assertTrue(
-                new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG).equals(
-                        new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG)
+                new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                        100, 100, 10).equals(
+                        new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                                100, 100, 10)
                 )
         );
     }
 
     @Test
     public void testFalseEquality() {
-        Move tester = new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG);
-        assertFalse(tester.equals(new Move("A", "A", DamageCategories.PHYSICAL, PokemonTypes.BUG)));
-        assertFalse(tester.equals(new Move("B", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG)));
-        assertFalse(tester.equals(new Move("A", "B", DamageCategories.SPECIAL, PokemonTypes.BUG)));
-        assertFalse(tester.equals(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.ICE)));
+        Move tester = new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 100, 10);
+        assertFalse(tester.equals(new Move("A", "A", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 100, 10)));
+        assertFalse(tester.equals(new Move("B", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 100, 10)));
+        assertFalse(tester.equals(new Move("A", "B", DamageCategories.SPECIAL, PokemonTypes.BUG,
+                100, 100, 10)));
+        assertFalse(tester.equals(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.ICE,
+                100, 100, 10)));
+        assertFalse(tester.equals(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                10, 100, 10)));
+        assertFalse(tester.equals(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 10, 10)));
+        assertFalse(tester.equals(new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 100, 1)));
     }
 
 }

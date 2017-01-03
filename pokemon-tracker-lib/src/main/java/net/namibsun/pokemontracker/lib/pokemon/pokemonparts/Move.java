@@ -41,6 +41,21 @@ public class Move {
     private DamageCategories damageCategory;
 
     /**
+     * The Base Damage of the Move
+     */
+    private int baseDamage;
+
+    /**
+     * The Accuracy of the Move
+     */
+    private int accuracy;
+
+    /**
+     * The Move's amount of Power Points
+     */
+    private int powerPoints;
+
+    /**
      * The move's type
      */
     private PokemonTypes type;
@@ -51,12 +66,19 @@ public class Move {
      * @param description:    The description of the Move
      * @param damageCategory: The damage category of the move
      * @param type:           The move's type
+     * @param baseDamage:     The move's base damage
+     * @param accuracy:       The move's accuracy
+     * @param powerPoints:    The move's amount of PP
      */
-    public Move(String name, String description, DamageCategories damageCategory, PokemonTypes type) {
+    public Move(String name, String description, DamageCategories damageCategory,
+                PokemonTypes type, int baseDamage, int accuracy, int powerPoints) {
         this.name = name;
         this.description = description;
         this.damageCategory = damageCategory;
         this.type = type;
+        this.baseDamage = baseDamage;
+        this.accuracy = accuracy;
+        this.powerPoints = powerPoints;
     }
 
     /**
@@ -102,6 +124,35 @@ public class Move {
     }
 
     /**
+     * @return The move's base damage
+     */
+    public int getBaseDamage() {
+        return this.baseDamage;
+    }
+
+    /**
+     * @return The move's accuracy
+     */
+    public int getAccuracy() {
+        return this.accuracy;
+    }
+
+    /**
+     * @return The move's Power Points
+     */
+    public int getPowerPoints() {
+        return this.powerPoints;
+    }
+
+    /**
+     * Adds an amount of Power Points to the move
+     * @param additional: The amount of power points to add
+     */
+    public void addPowerPoints(int additional) {
+        this.powerPoints += additional;
+    }
+
+    /**
      * Compares two Move objects
      * @param otherMove: The other Move
      * @return           true if equal, false if otherwise
@@ -110,7 +161,10 @@ public class Move {
         return  this.name.equals(otherMove.getName()) &&
                 this.description.equals(otherMove.getDescription()) &&
                 this.damageCategory == otherMove.getDamageCategory() &&
-                this.type == otherMove.getType();
+                this.type == otherMove.getType() &&
+                this.baseDamage == otherMove.getBaseDamage() &&
+                this.accuracy == otherMove.getAccuracy() &&
+                this.powerPoints == otherMove.getPowerPoints();
     }
 
 }
