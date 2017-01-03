@@ -70,4 +70,13 @@ public class MoveTest {
                 100, 100, 1)));
     }
 
+    @Test
+    public void testAddingPowerPoints() {
+        Move tester = new Move("A", "B", DamageCategories.PHYSICAL, PokemonTypes.BUG,
+                100, 100, 10);
+        assertEquals(10, tester.getPowerPoints());
+        tester.addPowerPoints(10);
+        assertEquals(20, tester.getPowerPoints());
+    }
+
 }
