@@ -1,14 +1,68 @@
 stages:
-  - mirror
+  - test
+  - stats
+  - release
 
-github_mirror:
-  stage: mirror
+lint:
+  stage: test
   tags:
-    - github_namboy94_push
+    - openjdk-8
+    - python3
   script:
-    - git checkout master
-    - git pull
-    - git push git@github.com:namboy94/poke-manager.git master -f
-    - git checkout develop
-    - git pull
-    - git push git@github.com:namboy94/poke-manager.git develop -f
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-ktlint
+
+unittest:
+  stage: test
+  tags:
+    - openjdk-8
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-jacoco lib
+
+gitstats:
+  stage: stats
+  tags:
+    - python3
+    - gitstats
+    - progstats
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gitstats-gen
+
+docgen:
+  stage: stats
+  tags:
+    - openjdk-8
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-dokka lib
+
+build_jar:
+  stage: test
+  only:
+    - master
+    - develop
+  tags:
+    - openjdk-8
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - gradle-build-jar lib
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - artifacts/
+
+release_upload:
+  stage: release
+  only:
+    - master
+  tags:
+    - python3
+  script:
+    - python3 -m venv virtual && source virtual/bin/activate && pip install ci-scripts
+    - github-release-upload $(cat version) "$(changelog-reader)"
+    - gitlab-release-upload $(cat version) "$(changelog-reader)"

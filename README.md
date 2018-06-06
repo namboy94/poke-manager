@@ -1,4 +1,9 @@
-# Poké-Manager [![pipeline status](https://gitlab.namibsun.net/namboy94/poke-manager/badges/master/pipeline.svg)](https://gitlab.namibsun.net/namboy94/poke-manager/commits/master)
+# Poké-Manager
+
+|master|develop|
+|:----:|:-----:|
+|[![build status](https://gitlab.namibsun.net/namibsun/kotlin/poke-manager/badges/master/build.svg)](https://gitlab.namibsun.net/namibsun/kotlin/poke-manager/commits/master)|[![build status](https://gitlab.namibsun.net/namibsun/kotlin/poke-manager/badges/develop/build.svg)](https://gitlab.namibsun.net/namibsun/kotlin/poke-manager/commits/develop)|
+
 
 ![Logo](resources/logo/logo-readme.png)
 
@@ -7,9 +12,9 @@ breeding or training Pokemon.
 
 ## Further Information
 
-* [Changelog](https://gitlab.namibsun.net/namboy94/poke-manager/raw/master/CHANGELOG)
-* [License (GPLv3)](https://gitlab.namibsun.net/namboy94/poke-manager/raw/master/LICENSE)
-* [Gitlab](https://gitlab.namibsun.net/namboy94/poke-manager)
+* [Changelog](CHANGELOG)
+* [Changelog (German)](CHANGELOG-de-DE)
+* [License (GPLv3)](LICENSE)
+* [Gitlab](https://gitlab.namibsun.net/namibsun/kotlin/poke-manager)
 * [Github](https://github.com/namboy94/poke-manager)
-* [Git Statistics (gitstats)](https://gitstats.namibsun.net/gitstats/poke-manager/index.html)
-* [Git Statistics (git_stats)](https://gitstats.namibsun.net/git_stats/poke-manager/index.html)
+* [Progstats](https://progstats.namibsun.net/projects/poke-manager)
