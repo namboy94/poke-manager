@@ -1,0 +1,54 @@
+/*
+Copyright 2016 Hermann Krumrey <hermann@krumreyh.com>
+
+This file is part of poke-manager.
+
+poke-manager is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+poke-manager is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with poke-manager.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+ext {
+    version = new File("$rootDir/version").text
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
+    }
+}
+
+subprojects {
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    apply plugin: "kotlin"
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.41"
+    }
+
+    apply from: "$rootDir/gradle-config/jacoco.gradle"
+    apply from: "$rootDir/gradle-config/dokka.gradle"
+    apply from: "$rootDir/gradle-config/ktlint.gradle"
+
+}
+
+apply from: "$rootDir/gradle-config/version.gradle"
